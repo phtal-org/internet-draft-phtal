@@ -18,28 +18,26 @@ author:
   email: jmontoya@ms3-inc.com
 
 normative:
+  RFC7303: # XML Media Types
+  RFC8259: # JSON
+  RFC3986: # URI
+  RFC6570: # URI Template
+  RFC6838: # Media Type Specifications and Registration Procedures
   RAML:
     title: RAML Specification
     target: https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md
     author:
       org: The RAML Workgroup
-  RFC6901: # JSON Pointer
-  RFC6906: # Profile link relation
-  github.md:
-    target: https://github.github.com/gfm/
-    title: GitHub Flavored Markdown Spec
-    author:
-      name: John McFarlane
+  # I-D.draft-montoya-xrel-00:
 
 informative:
-  RFC6838: # Media Type Specifications and Registration Procedures
-  RFC3986: # URI
-  RFC7303: # XML Media Types
-  RFC8259: # JSON
+  RFC6901: # JSON Pointer
+  RFC6906: # Profile link relation
   RFC8288: # Web Linking
   RFC7231: # HTTP
   I-D.draft-kelly-json-hal-08:
   I-D.draft-handrews-json-schema-hyperschema-01:
+  I-D.draft-pbryan-zyp-json-ref-03:
   OpenAPI:
     title: OpenAPI Specification
     target: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
@@ -77,13 +75,13 @@ informative:
 
 --- abstract
 
-This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML.
+This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without any graphical components.
 
 --- middle
 
 # Introduction
 
-This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML.
+This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without any graphical components.
 
 This document registers two media-type identifiers with the IANA: `application/phtal+json` and `application/phtal+xml`. This registration is for community review and will be submitted to the IESG for review, approval, and registration with IANA.
 
@@ -113,184 +111,38 @@ A **resource** is the intended conceptual target of a hypertext reference.
 
 A trailing question mark, for example **description?**, indicates an optional property.
 
-Throughout this specification, **markdown** means [GitHub-Flavored Markdown](#github.md). Tooling MAY choose to ignore some Markdown features to address security concerns.
-
 ## Motivation
 
 The essential trade-off that REST makes when compared to an architectural style like RPC is dynamic modifiability over efficiency. Dynamic modifiability is the degree to which an application's architecture can be changed without stopping and restarting the entire system. This is what REST promises through the Uniform Interface, and optionally Code-On-Demand, constraints.
 
-PHTAL introduces the necessary elements defined by these constraints to enable application authors to create evolvable and extensible applications.
+Guided by these constraints PHTAL introduces the necessary elements defined to enable application authors to create evolvable and extensible applications.
 
-# PHTAL Document
+# PHTAL Representations
 
 ## Hypermedia as the engine of application state
 
 The Uniform Interface constraint dictates that hypermedia be the engine of application state. This means that the state of the application and its potential transitions are dictated by the presence of hypermedia relationships in-band and the navigation of those relationships by an user (human or automated). In order for users to traverse a selected relationship they depend on the server to provide instructions for communicating with the target resource. The mechanism to obtain these instructions is usually defined by the processing model of the representation's media type.
 
-PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL. This frees authors to spend most of their descriptive efforts in defining application-specific representation and possibly on extended link relations to drive application state.
-
 When servers provide control information at run-time instead of at deploy-time, they retain control of their implementation space and enable dynamic evolvability. Dynamic evolvability means that the system doesn’t have to be restarted or redeployed in order to adapt to change. Applications servers are free to change their URI structure, they are free rearrange resources into different servers, they are free introduce new links that provide new features in existing representations, nothing will break already deployed components as long as links are not broken.
 
-### The Link element
+PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL. This frees authors to spend most of their descriptive efforts in defining application-specific representation and possibly on extended link relations to drive application state.
 
-The link element is based on the HAL specification, requiring a relation type and a corresponding URI. In addition, phtal defines `instructions` and `partial` elements.
+### Document Root
 
-**JSON Representation Example**
+The in-band elements defined by PHTAL are influenced by other hypermedia types like HAL, Collection+JSON, and Hydra. Specifically adding instructions for interacting with a given resource. This allows agents to evaluate the alternatives provided and submit the appropriate data or select the appropriate link to get the agent to the next application state.
 
-~~~ json
-{
-  "name": [
-    {
-      "use": "official",
-      "family": "Chalmers",
-      "given": [
-        "Peter",
-        "James"
-      ]
-    }
-  ],
-  "_links": {
-    "http://registry.phtal.org/fhir/rel/encounter": {
-      "href": "http://fhir.myclinic.com/Encounter/1234",
-      "instructions": {
-        "http": {
-          "method": "GET",
-          "produces": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/encounter\",application/phtal+xml;profile=\"http://registry.phtal.org/fhir/profile/encounter\""
-        }
-      }
-    }
-  }
-}
-~~~
+#### Properties
 
-**XML Representation Example**
+Name | Type | Description
+---|:---:|---
+links? | Map[`string`, [[Link ](#link)]] | The links element is a map where the keys are the name or identifier of a hypermedia relationship and the values are single or multiple Link elements. The relationship name MUST be a IANA registered relation type or an URI that when dereferenced resolves to an XREL document.
+operations? | [[Operation ](#operation)] | Informs an agent of what operations are allowed to be invoked on the context resource.
 
-~~~ xml
-<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
-  <id value="example"/>
-  <name>
-    <use value="official"/>
-    <family value="Chalmers"/>
-    <given value="Peter"/>
-    <given value="James"/>
-  </name>
-  <phtal:link rel="http://registry.phtal.org/fhir/rel/encounter">
-    <phtal:href>http://fhir.myclinic.com/Encounter/1234</phtal:href>
-    <phtal:instructions protocol="http">
-      <phtal:method>GET</phtal:method>
-      <phtal:produces>application/phtal+json;profile="http://registry.phtal.org/fhir/profile/encounter",application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/encounter"</phtal:produces>
-    </phtal:instructions>
-  </phtal:link>
-</Patient>
-~~~
+The operations element could be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
 
-Mappings to XML and JSON are provided through the appropriate schemas in Section \#5 of this document.
+Detailed mappings to XML and JSON are provided through the appropriate schemas in Section \#5 of this document.
 
-#### The rel property
-The rel property MUST be a IANA registered relation type or an URI that when dereferenced resolves to a extension relation type document as defined in Section \#2.2 of this document. In the case of XML the rel is an attribute of the link element, in JSON it is the key to link object values under the `_link` property.
-
-#### The href property
-The href property is the URI for the linked resource.
-
-#### The instructions element
-The most important element that phtal representations provide is the instructions element. This element instructs the agent on how to follow a link through a particular communication protocol. This allows the server to control its own URI space and the clients to be undisrupted when URI changes are made or new media types or protocols support is added.
-
-Identifying protocol specific instructions allows authors to separate communication protocols from URIs which are orthogonal concerns. This is consistent with {{RFC3986}} and allows phtal to potentially support other protocols.
-
-For example in order to follow a link using any given protocol the agent needs to know what protocol specific method to use. So similarly to HTML forms phtal instructions define a method property. Moreover in order to invoke the given method the agent needs to know what data format to send as content, what response format is supported as part of a successful interaction, what security requirement are imposed by that resource, what metadata is available for conditional requests, etc. Some of this data will be protocol independent some of it will not be.
-
-**JSON Representation Example**
-
-~~~ json
-{
-  "name": [],
-  "_links": {
-    "http://registry.phtal.org/fhir/rel/bookAppointmentService": {
-      "href": "http://fhir.myclinic.com/Appointment/",
-      "instructions": {
-        "http": {
-          "method": "POST",
-          "consumes": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/appointment\"",
-          "produces": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/operationOutcome\"",
-          "isContentRequired": true,
-          "security": {
-            "type": "apiKey",
-            "name": "auth-api-key",
-            "in": "header"
-          },
-          "parameters": [{
-            "name": "_pretty",
-            "in": "query",
-            "description": "Ask for a pretty printed response for human convenience",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "$ref": "http://openapi.myclinic.com/fhir/parameter/operation#_elements"
-          }]
-        }
-      }
-    }
-  }
-}
-~~~
-
-**XML Representation Example**
-
-~~~ xml
-<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
-  <id value="example"/>
-  <name>
-    <use value="official"/>
-    <family value="Chalmers"/>
-    <given value="Peter"/>
-    <given value="James"/>
-  </name>
-  <phtal:link rel="http://registry.phtal.org/fhir/rel/bookAppointmentService">
-    <phtal:href>http://fhir.myclinic.com/Appointment/</phtal:href>
-    <phtal:instructions protocol="http">
-      <phtal:method>POST</phtal:method>
-      <phtal:produces>application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/appointment"</phtal:produces>
-      <phtal:consumes>application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/appointment"</phtal:consumes>
-      <phtal:isContentRequired>true</phtal:isContentRequired>
-      <phtal:security type="apiKey" name="auth-api-key" in="header"/>
-      <phtal:parameter $ref="http://openapi.myclinic.com/fhir/parameter/operation#_pretty"/>
-      <phtal:parameter $ref="http://openapi.myclinic.com/fhir/parameter/operation#_elements"/>
-    </phtal:instructions>
-  </phtal:link>
-</Patient>
-~~~
-
-In the case of XML the protocol is an attribute of the instructions element, in JSON it is the key to the instructions object value under the `rel` property.
-
-#### The method property
-The method property instructs the agent what protocol specific method to use when interacting with the identified resource.
-
-#### The produces property
-The produces property indicates to the client what media types the server supports as response content to following the current link. It is expressed as a media range and parameters according to Section \#5.3.1 of {{RFC7231}}
-
-The quality weight parameters MAY be used by the server to indicate to the client which media types are preferred, possibly allowing the client to know when a known media type has been superseded and a new one is preferred.
-
-#### The consumes property
-The consumes property indicates to the client what media types the server supports as request content to following the current link. It is expressed as a media range and parameters according to Section \#5.3.1 of {{RFC7231}}
-
-The quality weight parameters MAY be used by the server to indicate to the client which media types are preferred, possibly allowing the client to know when a known media type has been superseded and a new one is preferred.
-
-#### The isContentRequired property
-A boolean value that indicates to the client whether a request content is required or not for the following the current link. The default value is `false`.
-
-#### HTTP Instructions
-The HTTP Instructions element is an extension of the instructions element. The language used by the HTTP instructions content makes direct use of the OpenAPI specification.
-
-#### The security element
-The security element is an OpenAPI's security requirement object. In JSON, because OpenAPI documents can be expressed as JSON, it can be expressed entirely within the representation or referenced to an independent resource following the JSON Reference specification {{I-D.draft-pbryan-zyp-json-ref-03}}. However in XML it can only be an external reference, though this may change in the future.
-
-#### The parameters element
-The parameters element is an OpenAPI's parameter object. In JSON, because OpenAPI documents can be expressed as JSON, it can be expressed entirely within the representation or referenced to an independent resource following the JSON Reference specification {{I-D.draft-pbryan-zyp-json-ref-03}}. However in XML it can only be an external reference, though this may change in the future.
-
-#### The partial element
-The partial element is inspired by the embedded element defined by HAL. These should not be considered full representations even if their contents happen to be complete. It is RECOMMENDED partial representations provide just enough information for agents to be able to discern which link they want to follow and SHOULD NOT be used as mechanism to batch interactions.
+#### PHTAL examples
 
 **JSON Representation Example**
 
@@ -307,25 +159,24 @@ The partial element is inspired by the embedded element defined by HAL. These sh
     }
   ],
   "_links": {
-    "http://phtal.org/rels/fhir/encounter": {
+    "https://api-docs.myclinic.com/fhir/rel/encounter": [{
       "href": "http://fhir.myclinic.com/Encounter/1234",
-      "instructions": {
-        "http": {
+      "operation": {
+        "HTTP": {
           "method": "GET",
-          "produces": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/encounter\"",
-        }
-      },
-      "partial": {
-        "type": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/encounter\"",
-        "data": {
-          "status": "in-progress",
-          "class": {
-            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-            "code": "IMP",
-            "display": "inpatient encounter"
-          }
+          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
         }
       }
+    }]
+  },
+  "_operations": {
+    "HTTP": {
+      "method": "PUT",
+      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }
   }
 }
@@ -342,56 +193,57 @@ The partial element is inspired by the embedded element defined by HAL. These sh
     <given value="Peter"/>
     <given value="James"/>
   </name>
-  <phtal:link rel="http://registry.phtal.org/fhir/rel/encounter">
+  <phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter">
     <phtal:href>http://fhir.myclinic.com/Encounter/1234</phtal:href>
-    <phtal:instructions protocol="http">
+    <phtal:operation protocol="HTTP">
       <phtal:method>GET</phtal:method>
-      <phtal:produces>application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/encounter"</phtal:produces>
-    </phtal:instructions>
-    <phtal:partial type="application/phtal+xml;profile=\"http://registry.phtal.org/fhir/profile/encounter\"">
-      <Encounter xmlns="http://hl7.org/fhir">
-        <status value="in-progress"/>
-          <class>
-              <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
-              <code value="IMP"/>
-              <display value="inpatient encounter"/>
-          </class>
-      </Encounter>
-    </phtal:partial>
+      <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+      </phtal:produces>
+    </phtal:operation>
   </phtal:link>
+  <phtal:operation protocol="HTTP">
+    <phtal:method>PUT</phtal:method>
+    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    </phtal:consumes>
+    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
+                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    </phtal:produces>
+  </phtal:operation>
 </Patient>
 ~~~
 
-#### The type property
-The type property identifies the media type that describes the partial representation.
+### Link
 
-#### The content property
-The actual partial representation content. In the case of XML it is the content of the `partial` element, in JSON it is the value of a `data` property.
+#### Properties
 
-#### The Method element
-Another important element that phtal representations may provide is the methods element. It serves a similar purpose as the HTTP Allows header, which is to inform an agent of what methods are allowed to be invoked, but with the ability to include more data since it's within the representation body. Specifically this element informs the agent what communication protocol specific methods are allowed and instructs the agent on how to invoke them.
+Name | Type | Description
+---|:---:|---
+href | `string` | The link's target resource. The href property MUST be a [URI](#RFC3986) or a [URI Template](#RFC6570).
+uriParameters? | Map[`string`, `string`] | A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to RAML 1.0 Data Type declarations explaining the format and semantics of the variables.
+operation? | Map[`string`, [Operation ](#operation)] | The protocol specific operation for traversing this link. There SHOULD NOT be two operations for the same protocol.
+partial? | [Partial ](#partial) | A partial representation of the target resource.
 
-The methods element could be included as part of an HTTP GET response body for example, or as the response body to an HTTP OPTIONS.
+When the operation element is not present the client SHOULD assume that the required operation is an HTTP GET.
 
-The method instructions object value is the same as the link's minus the `method` property. In the case of XML the protocol and method name is an attribute to the method element, in JSON the method is a key to the method instructions object value under a protocol key under the `_methods` property.
+#### Link Examples
 
 **JSON Representation Example**
 
 ~~~ json
 {
-  "name": [],
-  "_methods": {
-    "http": {
-      "PUT": {
-        "consumes": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/patient\"",
-        "produces": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/operationOutcome\"",
-        "isContentRequired": true,
-        "security": {
-          "type": "apiKey",
-          "name": "auth-api-key",
-          "in": "header"
-        }
-      }
+  "href": "http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}",
+  "uriParameters": {
+    "id": "https://api-docs.myclinic.com/fhir/patientId.raml",
+    "_pretty": "https://api-docs.myclinic.com/fhir/parameters/_pretty.raml",
+    "_elements": "https://api-docs.myclinic.com/fhir/parameters/_elements.raml"
+  },
+  "operation": {
+    "HTTP": {
+      "method": "GET",
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
     }
   }
 }
@@ -400,26 +252,176 @@ The method instructions object value is the same as the link's minus the `method
 **XML Representation Example**
 
 ~~~ xml
-<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
-  <id value="example"/>
-  <name>
-    <use value="official"/>
-    <family value="Chalmers"/>
-    <given value="Peter"/>
-    <given value="James"/>
-  </name>
-  <phtal:method protocol="http" name="PUT">
-      <phtal:consumes>application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/patient"</phtal:consumes>
-      <phtal:produces>application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/operationOutcome"</phtal:produces>
-      <phtal:isContentRequired>true</phtal:isContentRequired>
-      <phtal:security type="apiKey" name="auth-api-key" in="header"/>
-  </phtal:method>
-</Patient>
+<phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter">
+  <phtal:href>http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}</phtal:href>
+  <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/patientId.raml">id</phtal:uriParameter>
+  <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml">_pretty</phtal:uriParameter>
+  <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_elements.raml">_elements</phtal:uriParameter>
+  <phtal:operation protocol="HTTP">
+    <phtal:method>GET</phtal:method>
+    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    </phtal:produces>
+  </phtal:instructions>
+</phtal:link>
+~~~
+
+### Operation
+
+The most important element that PHTAL representations provide is the operation element. This element instructs the agent on how to interact with a resource through a particular communication protocol. This allows the server to control its own URI space and the clients to be undisrupted when URI changes are made or new representation or protocol support is added.
+
+Identifying protocol specific instructions allows servers to separate communication protocols from resource identification. This is consistent with the [URI specification](#RFC3986) and allows PHTAL to support arbitrary protocols.
+
+#### Properties
+
+Name | Type | Description
+---|:---:|---
+method | `string` | Instructs the agent what protocol method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.
+produces | `string` | Indicates to the client what media types the server supports as response content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
+consumes | `string` | Indicates to the client what media types the server supports as request content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
+requestContent | `boolean` | Indicates to the client whether a request content is required or not for the following the current link. The default value is `false`.
+onInvoke | EventAttribute | Script function which is to be executed when the given event occurs.
+
+The quality weight parameters MAY be used in the `consumes` and `produces` properties to indicate to the client which media types are preferred, possibly allowing the client to know when a known media type has been superseded and a new one is preferred.
+
+#### Operation Examples
+
+**JSON Representation Example**
+
+~~~ json
+{
+  "method": "POST",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "requestContent": true,
+  "onInvoke": "lorem ipsum"
+}
+~~~
+
+**XML Representation Example**
+
+~~~ xml
+<phtal:operation protocol="HTTP" onInvoke="">
+    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    </phtal:consumes>
+    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    </phtal:produces>
+    <phtal:requestContent>true</phtal:requestContent>
+</phtal:operation>
+~~~
+
+### HTTP Operation
+
+The HTTP Operation element is an extension of the Operation element specifically for interactions using the HTTP protocol.
+
+#### Added Properties
+
+Name | Type | Description
+---|:---:|---
+securedBy | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operatio can be authenticated by any of the specified security schemes.
+headers | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to RAML 1.0 Data Type declarations explaining the format and semantics of the variables.
+
+#### HTTP Operation Examples
+
+**JSON Representation Example**
+
+~~~ json
+{
+  "method": "POST",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "requestContent": true,
+  "securedBy": [
+    {
+      "scheme": "https://api-docs.myclinic.com/fhir/security/basicAuth"
+    },
+    {
+      "scheme": "https://api-docs.myclinic.com/fhir/security/oauth2.0",
+      "requiredScopes": [
+        "appointment:write"
+      ]
+    }
+  ],
+  "headers": {
+    "trace-id": "https://api-docs.myclinic.com/fhir/traceId.raml"
+  }
+}
+~~~
+
+**XML Representation Example**
+
+~~~ xml
+<phtal:operation protocol="HTTP">
+    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    </phtal:consumes>
+    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    </phtal:produces>
+    <phtal:requestContent>true</phtal:requestContent>
+    <phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
+      <phtal:scope>appointment:write</phtal:scope>
+    </phtal:securedBy>
+    <phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/>
+</phtal:operation>
+~~~
+
+### SecurityRequirement
+
+#### Properties
+
+Name | Type | Description
+---|:---:|---
+scheme | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
+scopes | [`string`] | A list of scope
+
+### Partial
+
+The partial element is inspired by the embedded element defined by HAL. These SHOULD NOT be considered full representations even if their contents happen to be complete. It is RECOMMENDED partial representations provide just enough information for agents to be able to discern which link they want to follow and SHOULD NOT be used as mechanism to batch interactions.
+
+#### Properties
+
+Name | Type | Description
+---|:---:|---
+type | `string` | Identifies the media type that describes the partial representation.
+data | Any | The actual partial representation content.
+
+In the case of XML it is the content of the `partial` element, in JSON it is the value of a `data` property.
+
+#### Partial Examples
+
+**JSON Representation Example**
+
+~~~ json
+{
+  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
+  "data": {
+    "status": "in-progress",
+    "class": {
+      "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+      "code": "IMP",
+      "display": "inpatient encounter"
+    }
+  }
+}
+~~~
+
+**XML Representation Example**
+
+~~~ xml
+<phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+  <Encounter xmlns="http://hl7.org/fhir">
+    <status value="in-progress"/>
+      <class>
+          <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+          <code value="IMP"/>
+          <display value="inpatient encounter"/>
+      </class>
+  </Encounter>
+</phtal:partial>
 ~~~
 
 ## Self-descriptive messages
 
-The Uniform Interface constraint also dictates that messages be self-descriptive. This is achieved by content type metadata. However, the purpose of content type metadata in web interactions is not only to indicate representation format or schema, but the sender's preferred interpretation of that format, an application-specific format.
+The Uniform Interface constraint also dictates that messages be self-descriptive. This is achieved by message metadata, of which content type metadata is an important part. However, the purpose of content type metadata in web interactions is not only to indicate representation format or schema, but the sender's preferred interpretation of that format, an application-specific format.
 
 By making use of media type parameters, PHTAL representations allow participants to retain the ability to signal their preferred interpretation of a message through metadata. Message authors only have to identify the document that defines the application-specific format of their representation and attach it to an otherwise generic PHTAL representation.
 
@@ -427,60 +429,37 @@ When web participants identify an application-specific format in metadata they p
 
 ### Linking to a profile
 
-To indicate that a phtal profile describes the semantics and format of some representation document, the representation document SHOULD link to the phtal profile. If the media type of the representation document defines a parameter for linking the document to a profile, the parameter MUST be used to connect the representation document to the phtal profile. The 'profile' link relation {{RFC6906}} MAY be used when the appropriate parameter is not supported. If the media type of the representation document has no native ability to link to other resources, or no ability to express link relations, the HTTP header 'Link' {{RFC5988}} MAY be used to connect the representation and the phtal profile.
+For example consider the following interactions
 
-A single representation document may be described by more than one phtal profiles. If two phtal profiles give conflicting semantics for the same element, the document linked to earlier in the representation SHOULD take precedence. A profile linked to using the 'Link' header takes precedence over a profile linked to within the representation document itself. A profile linked to using a media type parameter takes precedence over a profile linked to using the 'Link' header and a profile linked to within the representation document itself.
+~~~~
+POST http://www.example.com/someIdentifier
+Content-Type: application/json
+Accept: application/json
+~~~~
 
-Reference resolution is accomplished as defined by the JSON Pointer {{RFC6901}} specification.
+~~~~
+200 OK
+Content-Type: application/json
+~~~~
 
-### The Script element
+This interaction can only be accurately interpreted to mean that the client requested resource `http://www.example.com/someIdentifier` to process an `application/json` request and it successfully responded with an `application/json` response. `application/json` offers intermediaries no semantic information about the content of the message besides how it's (de)serialized.
 
-Hypermedia allows application controls to be supplied on demand, but in order to maximize evolvability we need to be able to adapt the clients' understanding of representations (media types and their expected processing) and resource communication mechanisms. That is what code-on-demand provides.
+To indicate the format and semantics of a PHTAL representation, the sender SHOULD identify a document that explains additional semantics using a "profile" media type parameter.
 
-phtal defines a format for providing code-on-demand in representations, which allows the author to extend an agent's functionality after deployment. The format is inspired by the HTML script element.
+~~~~
+POST http://www.example.com/someIdentifier
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
+Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
+~~~~
 
-**JSON Representation Example**
+~~~~
+200 OK
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
+~~~~
 
-~~~ json
-{
-  "name": [],
-  "_links": {
-    "http://registry.phtal.org/fhir/rel/bookAppointmentService": {
-      "href": "http://fhir.myclinic.com/Appointment/",
-      "instructions": {
-        "http": {
-          "method": "POST",
-          "consumes": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/appointment\"",
-          "produces": "application/phtal+json;profile=\"http://registry.phtal.org/fhir/profile/operationOutcome\""
-        }
-      }
-    }
-  },
-  "_scripts": [{
-    "type": "text/javascript",
-    "source": "http://fhir.myclinic.com/scripts/patientScript"
-    }]
-}
-~~~
+In contrast, the second interaction is perfectly clear. The client asked `http://www.example.com/someIdentifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or redirecting the message to different resources based on some other information, or maybe adding or removing links from the response.
 
-**XML Representation Example**
-
-~~~ xml
-<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
-  <id value="example"/>
-  <name>
-  </name>
-  <phtal:link rel="http://registry.phtal.org/fhir/rel/bookAppointmentService">
-    <phtal:href>http://fhir.myclinic.com/Appointment/</phtal:href>
-    <phtal:instructions protocol="http">
-      <phtal:method>POST</phtal:method>
-      <phtal:produces>application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/appointment"</phtal:produces>
-      <phtal:consumes>application/phtal+xml;profile="http://registry.phtal.org/fhir/profile/appointment"</phtal:consumes>
-    </phtal:instructions>
-  </phtal:link>
-  <phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
-</Patient>
-~~~
+The profile parameter SHOULD be a dereferenceable URI that resolves to a RAML 1.0 Spec Data Type declaration. RAML data types are used because of their ability to describe representations independent of their runtime media type as well as supporting XSD and JSON Schema documents.
 
 ## Code-On-Demand
 
@@ -490,11 +469,47 @@ Very similar to HTML's script element PHTAL provides ways to embed code into its
 
 Ultimately, application servers may prefer if legacy clients could adapt to new representations or communication protocols instead of having to support overloaded versions of a feature. At the cost of visibility, code-on-demand allows application servers to re-program a deployed component to support new features, thus freeing the server from the responsibility of maintaining backwards compatibility. It's worthy to mention other advantages of code-on-demand outside of modifiability. Scalability of the server is improved, since it can off-load work to the client. User-perceived performance and efficiency are enhanced when the code can adapt its actions to the client’s environment and interact with the user locally rather than through remote interactions.
 
-# In-band elements
+### Script
 
-The in-band elements defined by phtal are influenced by other hypermedia types like HAL, Collection+JSON, and Hydra. Specifically providing instructions for interacting with a given resource. This allows agents to evaluate the alternatives provided and submit the appropriate data or select the appropriate link to get the agent to the next application state.
+A script element is equivalent to the script element in HTML and thus is the place for scripts (e.g., ECMAScript). Any functions defined within any script element have a "global" scope across the entire current document.
 
-A representation that includes data as defined by phtal's in-band elements allows authors to install hypermedia as the engine of application state and optionally provide code-on-demand.
+#### Properties
+
+Name | Type | Description
+---|:---:|---
+type | `string` | Identifies the media type that describes the script content.
+source | `string` | An URI that references the script's content.
+data | Any | The actual contents of the script. It is mutually exclusive with the source property.
+
+**JSON Representation Example**
+
+~~~ json
+{
+  "_scripts": [{
+    "type": "text/javascript",
+    "source": "http://fhir.myclinic.com/scripts/patientScript"
+    },
+    {
+    "type": "text/javascript",
+    "data": "..."
+    }]
+}
+~~~
+
+**XML Representation Example**
+
+~~~ xml
+<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
+  <phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
+  <phtal:script type="text/javascript">
+    <![CDATA[
+      function foo(evt) {
+        ...
+      }
+    ]\]>
+  </phtal:script>
+</Patient>
+~~~
 
 # IANA Considerations
 This specification establishes two media types: 'application/phtal+xml' and 'application/phtal+json'
@@ -508,21 +523,21 @@ This specification establishes two media types: 'application/phtal+xml' and 'app
 
 **Optional parameters:**
 
-  > **charset:** This parameter has identical semantics to the charset parameter of the 'application/xml' media type as specified in {{RFC3023}}.
+  > **charset:** This parameter has identical semantics to the charset parameter of the 'application/xml' media type as specified in {{RFC7303}}.
 
-  > **profile:** A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a phtal document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section \#5.1 of this document.
+  > **profile:** A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a PHTAL document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section \#5.1 of this document.
 
 **Encoding considerations:**
 
-  > **binary:** Same as encoding considerations of application/xml as specified in {{RFC3023}}.
+  > **binary:** Same as encoding considerations of application/xml as specified in {{RFC7303}}.
 
 **Security considerations:**
 
   > This format shares security issues common to all XML content types. The security issues of {{RFC7303}}, section 10, should be considered.
 
-  > Several phtal elements may cause arbitrary URIs to be referenced. In this case, the security issues of {{RFC3986}}, section 7, should be considered.
+  > Several PHTAL elements may cause arbitrary URIs to be referenced. In this case, the security issues of {{RFC3986}}, section 7, should be considered.
 
-  > In common with HTML, phtal documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.
+  > In common with HTML, PHTAL documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.
 
 **Interoperability considerations:** An xsd document detailing the format of application/phtal+xml is located at <http://www.phtal.org/schema/phtal+xml.xsd>
 
@@ -561,17 +576,17 @@ This specification establishes two media types: 'application/phtal+xml' and 'app
 
 **Optional parameters:**
 
-  > **profile:** A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a phtal document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section \#5.1 of this document.
+  > **profile:** A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a PHTAL document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section \#5.1 of this document.
 
 **Encoding considerations:** binary
 
 **Security considerations:**
 
-  > This media type shares security issues common to all JSON content types. The security issues of {{RFC4627}}, section 6, should be considered.
+  > This media type shares security issues common to all JSON content types. The security issues of {{RFC8259}}, section 6, should be considered.
 
-  > Several phtal elements may cause arbitrary URIs to be referenced. In this case, the security issues of {{RFC3986}}, section 7, should be considered.
+  > Several PHTAL elements may cause arbitrary URIs to be referenced. In this case, the security issues of {{RFC3986}}, section 7, should be considered.
 
-  > In common with HTML, phtal documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.
+  > In common with HTML, PHTAL documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.
 
 **Interoperability considerations:** A json-schema document detailing the format of application/phtal+json is located at <http://www.phtal.org/schema/phtal+json.yaml>
 
