@@ -2,9 +2,9 @@
 
 This is the working area for the individual Internet-Draft, "Profiled Hypertext Application Language".
 
-* [Editor's Copy](https://phtal-org.github.io/internet-draft-phtal/#go.draft-montoya-phtal-latest.html)
-* [Individual Draft](https://tools.ietf.org/html/draft-montoya-phtal-latest)
-* [Compare Editor's Copy to Individual Draft](https://phtal-org.github.io/internet-draft-phtal/#go.draft-montoya-phtal-latest.diff)
+* [Editor's Copy](https://phtal-org.github.io/internet-draft-phtal/#go.draft-montoya-phtal.html)
+* [Individual Draft](https://tools.ietf.org/html/draft-montoya-phtal)
+* [Compare Editor's Copy to Individual Draft](https://phtal-org.github.io/internet-draft-phtal/#go.draft-montoya-phtal.diff)
 
 ## Building the Draft
 
