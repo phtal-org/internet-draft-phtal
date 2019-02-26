@@ -1215,9 +1215,9 @@ Internet-Draft                    phtal                    February 2019
 
    [2] http://www.phtal.org/schema/phtal+json.yaml
 
-   [3] https://github.com/phtal-org/spec/issues
+   [3] https://github.com/phtal-org/internet-draft-phtal/issues
 
-   [4] https://phtal-org.github.io/internet-draft-phtal.org/
+   [4] https://phtal-org.github.io/internet-draft-phtal/
 
 Appendix A.  Acknowledgments
 
@@ -1239,8 +1239,9 @@ Appendix B.  Frequently Asked Questions
 B.1.  How can I submit comments or feedback to the editors?
 
    The issues list for this draft can be found at https://github.com/
-   phtal-org/spec/issues [3].  For additional information, see
-   https://phtal-org.github.io/internet-draft-phtal.org/ [4].
+   phtal-org/internet-draft-phtal/issues [3].  For additional
+   information, see https://phtal-org.github.io/internet-draft-phtal/
+   [4].
 
    To provide feedback, use this issue tracker, the communication
    methods listed on the homepage, or email the document editors.
@@ -1251,7 +1252,6 @@ Author's Address
    Mountain State Software Solutions
 
    Email: jmontoya@ms3-inc.com
-
 
 
 
