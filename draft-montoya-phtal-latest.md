@@ -633,6 +633,6 @@ Thanks to Mike Kelly, Henry Andrews, Marcus Lanthaler, Mike Amundsen, Stu Charlt
 # Frequently Asked Questions
 
 ## How can I submit comments or feedback to the editors?
-The issues list for this draft can be found at <https://github.com/phtal-org/spec/issues>. For additional information, see <https://phtal-org.github.io/internet-draft-phtal.org/>.
+The issues list for this draft can be found at <https://github.com/phtal-org/internet-draft-phtal/issues>. For additional information, see <https://phtal-org.github.io/internet-draft-phtal/>.
 
 To provide feedback, use this issue tracker, the communication methods listed on the homepage, or email the document editors.
