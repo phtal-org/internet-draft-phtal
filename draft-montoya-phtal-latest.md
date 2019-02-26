@@ -135,6 +135,8 @@ Name | Type | Description
 links? | Map[`string`, [[Link ](#link)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an XREL document.
 operations? | [[Operation ](#operation)] | Informs an agent of what operations are allowed to be invoked on the context resource.
 
+TODO: Link to actual XREL draft when published.
+
 The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
 
 Detailed mappings to XML and JSON are provided through the appropriate schemas in Section \#5 of this document.
@@ -460,6 +462,8 @@ In contrast, this second interaction is perfectly clear. The client asked `http:
 
 The profile parameter SHOULD be a dereferenceable URI that resolves to a [RAML 1.0 Spec](#RAML) Data Type declaration. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.
 
+TODO: Consider restricting profile parameter to a single value, forego the link rel definition.
+
 ## Code-On-Demand
 
 In order to further promote modifiability of a system REST defines code-on-demand as an optional constraint. An optional constraint would observe desired behavior where supported, but with the understanding that it may not be the general case. Code-on-demand is a style of code mobility in which the processing logic is moved from the server into the client, thus providing dynamic extensibility; functionality can be added to a deployed component without impacting the rest of the system.
@@ -473,6 +477,8 @@ It's worthy to mention other advantages of code-on-demand outside of modifiabili
 ### Script
 
 A script element is equivalent to the script element in HTML and thus is the place for scripts (e.g., ECMAScript). Any functions defined within any script element have a "global" scope across the entire current document.
+
+TODO: Consider what to include about DOM and Events.
 
 #### Properties
 
@@ -514,6 +520,8 @@ data? | Any | The actual contents of the script. It is mutually exclusive with t
 
 # IANA Considerations
 This specification establishes two media types: 'application/phtal+xml' and 'application/phtal+json'
+
+TODO: Update schemas linked.
 
 ## application/phtal+xml
 **Type name:** application
