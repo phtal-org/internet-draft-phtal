@@ -484,7 +484,7 @@ ul.toc li {
 <tr>
 <td class="left">links?</td>
 <td class="center">Map[<samp>string</samp>, [<a href="#link" class="xref">Link</a>]]</td>
-<td class="left">The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an XREL document.</td>
+<td class="left">The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an <a href="#I-D.draft-montoya-xrel-00" class="xref">XREL</a> document.</td>
 </tr>
 <tr>
 <td class="left">operations?</td>
@@ -493,9 +493,8 @@ ul.toc li {
 </tr>
 </tbody>
 </table>
-<p id="rfc.section.2.1.1.1.p.1">TODO: Link to actual XREL draft when published.</p>
-<p id="rfc.section.2.1.1.1.p.2">The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.</p>
-<p id="rfc.section.2.1.1.1.p.3">Detailed mappings to XML and JSON are provided through the appropriate schemas in Section #5 of this document.</p>
+<p id="rfc.section.2.1.1.1.p.1">The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.</p>
+<p id="rfc.section.2.1.1.1.p.2">Detailed mappings to XML and JSON are provided through the appropriate schemas in Section #5 of this document.</p>
 <h1 id="rfc.section.2.1.1.2">
 <a href="#rfc.section.2.1.1.2">2.1.1.2.</a> <a href="#phtal-examples" id="phtal-examples">PHTAL examples</a>
 </h1>
@@ -1076,6 +1075,11 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
 <h1 id="rfc.references.1">
 <a href="#rfc.references.1">4.1.</a> Normative References</h1>
 <table><tbody>
+<tr>
+<td class="reference"><b id="I-D.draft-montoya-xrel-00">[I-D.draft-montoya-xrel-00]</b></td>
+<td class="top">
+<a>Montoya, J.</a>, "<a href="https://tools.ietf.org/html/draft-montoya-xrel-00">Extended Link Relationships</a>", Internet-Draft draft-montoya-xrel-00, February 2019.</td>
+</tr>
 <tr>
 <td class="reference"><b id="RAML">[RAML]</b></td>
 <td class="top">
