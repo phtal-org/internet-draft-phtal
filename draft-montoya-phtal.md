@@ -1,7 +1,7 @@
 ---
 title: Profiled Hypertext Application Language
 abbrev: phtal
-docname: draft-montoya-phtal-json-latest
+docname: draft-montoya-phtal-latest
 
 keyword: Internet-Draft
 category: info
@@ -519,11 +519,13 @@ data? | Any | The actual contents of the script. It is mutually exclusive with t
 ~~~
 
 # IANA Considerations
+
 This specification establishes two media types: 'application/phtal+xml' and 'application/phtal+json'
 
 TODO: Update schemas linked.
 
 ## application/phtal+xml
+
 **Type name:** application
 
 **Subtype name:** phtal+xml
@@ -577,6 +579,7 @@ TODO: Update schemas linked.
 **Author/change controller:** Jose Montoya
 
 ## application/phtal+json
+
 **Type name:** application
 
 **Subtype name:** phtal+json
@@ -628,11 +631,13 @@ TODO: Update schemas linked.
 --- back
 
 # Acknowledgments
+
 Thanks to Mike Kelly, Henry Andrews, Marcus Lanthaler, Mike Amundsen, Stu Charlton, and Jeff Michaud for their contributions in this space even if not directly related to PHTAL.
 
 # Frequently Asked Questions
 
 ## How can I submit comments or feedback to the editors?
+
 The issues list for this draft can be found at <https://github.com/phtal-org/internet-draft-phtal/issues>. For additional information, see <https://phtal-org.github.io/internet-draft-phtal/>.
 
 To provide feedback, use this issue tracker, the communication methods listed on the homepage, or email the document editors.
