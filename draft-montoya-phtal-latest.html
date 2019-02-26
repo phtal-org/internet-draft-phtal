@@ -1,0 +1,1196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Profiled Hypertext Application Language</title>
+
+  
+<style type="text/css">/*<![CDATA[*/
+
+body {
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  color: #333;
+  font-size-adjust: 0.5;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
+}
+
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  font-size-adjust: 0.5;
+  font-weight: bold;
+  color: #333;
+  line-height: 100%;
+  margin: 1.2em 0 0.3em;
+}
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
+h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
+  color: #333;
+}
+
+table {
+  margin-left: 0em;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(2n+1) > td,
+tr:nth-child(2n+1) > th {
+  background-color: #f9f9f9;
+}
+td.reference {
+  max-width: 200px;
+  border-top: none;
+  padding-right: 1em;
+}
+.right {
+  text-align: right;
+}
+
+
+table.header, table#rfc\.headerblock {
+  width: 100%;
+}
+table.header td, table#rfc\.headerblock td {
+  border: none;
+  background-color: transparent;
+  color: black;
+  padding: 0;
+}
+.filename {
+  display: block;
+  color: rgb(119, 119, 119);
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+samp, tt, code, pre, span.tt {
+  font: 13.5px Consolas, monospace;
+  font-size-adjust: none;
+}
+pre {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+  padding: 5px;
+  margin: 5px;
+}
+.figure, caption {
+  font-style: italic;
+  margin: 0 1.5em;
+  text-align: left;
+}
+
+address {
+  margin: 16px 2px;
+  line-height: 20px;
+}
+.vcard {
+  font-style: normal;
+}
+.vcardline {
+  display: block;
+}
+.vcardline .fn, address b {
+  font-weight: normal;
+}
+.vcardline .hidden {
+  display: none;
+}
+
+dl {
+  margin-left: 1em;
+}
+dl.dl-horizontal: {
+  margin-left: 0;
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.nohang > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .5em;
+}
+dl.compact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+ul.empty {
+  list-style-type: none;
+}
+ul.empty li {
+  margin-top: .5em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+hr.noprint {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #2a6496;
+}
+a[href]:hover {
+  background-color: #eee;
+}
+
+p, ol, ul, li {
+  padding: 0;
+}
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
+}
+address {
+  font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
+}
+
+.github-fork-ribbon-wrapper {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  /* "Fork me on GitHub" CSS ribbon based on
+   * https://github.com/simonwhitaker/github-fork-ribbon-css
+   */
+  .github-fork-ribbon {
+    position: absolute;
+    padding: 2px 0;
+    background-color: #a00;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+    font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    pointer-events: auto;
+
+    top: 38px;
+    right: -45px;
+
+    transform: rotate(45deg);
+  }
+
+  .github-fork-ribbon a[href],
+  .github-fork-ribbon a[href]:hover {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    width: 190px;
+    line-height: 18px;
+
+    display: inline-block;
+    padding: 2px 0;
+
+    border: 1.5px dotted #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .github-fork-ribbon-wrapper {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    overflow: hidden;
+    top: 0; right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .github-fork-ribbon-wrapper {
+    position: fixed;
+  }
+  /*]]>*/</style>
+  <meta name="viewport" content="initial-scale=1.0">
+
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Definitions and Terminology">
+<link href="#rfc.section.1.1.1" rel="Chapter" title="1.1.1 Terminology and Conformance Language">
+<link href="#rfc.section.1.1.2" rel="Chapter" title="1.1.2 General">
+<link href="#rfc.section.1.1.3" rel="Chapter" title="1.1.3 Documents description">
+<link href="#rfc.section.1.2" rel="Chapter" title="1.2 Motivation">
+<link href="#rfc.section.2" rel="Chapter" title="2 PHTAL Representations">
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Hypermedia as the engine of application state">
+<link href="#rfc.section.2.1.1" rel="Chapter" title="2.1.1 Document Root">
+<link href="#rfc.section.2.1.2" rel="Chapter" title="2.1.2 Link">
+<link href="#rfc.section.2.1.3" rel="Chapter" title="2.1.3 Operation">
+<link href="#rfc.section.2.1.4" rel="Chapter" title="2.1.4 HTTP Operation">
+<link href="#rfc.section.2.1.5" rel="Chapter" title="2.1.5 SecurityRequirement">
+<link href="#rfc.section.2.1.6" rel="Chapter" title="2.1.6 Partial">
+<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Self-descriptive messages">
+<link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 Linking to a profile">
+<link href="#rfc.section.2.3" rel="Chapter" title="2.3 Code-On-Demand">
+<link href="#rfc.section.2.3.1" rel="Chapter" title="2.3.1 Script">
+<link href="#rfc.section.3" rel="Chapter" title="3 IANA Considerations">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 application/phtal+xml">
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 application/phtal+json">
+<link href="#rfc.references" rel="Chapter" title="4 References">
+<link href="#rfc.references.1" rel="Chapter" title="4.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="4.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgments">
+<link href="#rfc.appendix.B" rel="Chapter" title="B Frequently Asked Questions">
+<link href="#rfc.appendix.B.1" rel="Chapter" title="B.1 How can I submit comments or feedback to the editors?">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.17.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Montoya, J." />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-montoya-phtal-json-latest" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-02-25" />
+  <meta name="dct.abstract" content="This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements." />
+  <meta name="description" content="This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">Network Working Group</td>
+<td class="right">J. Montoya</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">Mountain State Software Solutions</td>
+</tr>
+<tr>
+<td class="left">Intended status: Informational</td>
+<td class="right">February 25, 2019</td>
+</tr>
+<tr>
+<td class="left">Expires: August 29, 2019</td>
+<td class="right"></td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Profiled Hypertext Application Language<br />
+  <span class="filename">draft-montoya-phtal-json-latest</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on August 29, 2019.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Definitions and Terminology</a>
+</li>
+<ul><li>1.1.1.   <a href="#rfc.section.1.1.1">Terminology and Conformance Language</a>
+</li>
+<li>1.1.2.   <a href="#rfc.section.1.1.2">General</a>
+</li>
+<li>1.1.3.   <a href="#rfc.section.1.1.3">Documents description</a>
+</li>
+</ul><li>1.2.   <a href="#rfc.section.1.2">Motivation</a>
+</li>
+</ul><li>2.   <a href="#rfc.section.2">PHTAL Representations</a>
+</li>
+<ul><li>2.1.   <a href="#rfc.section.2.1">Hypermedia as the engine of application state</a>
+</li>
+<ul><li>2.1.1.   <a href="#rfc.section.2.1.1">Document Root</a>
+</li>
+<li>2.1.2.   <a href="#rfc.section.2.1.2">Link</a>
+</li>
+<li>2.1.3.   <a href="#rfc.section.2.1.3">Operation</a>
+</li>
+<li>2.1.4.   <a href="#rfc.section.2.1.4">HTTP Operation</a>
+</li>
+<li>2.1.5.   <a href="#rfc.section.2.1.5">SecurityRequirement</a>
+</li>
+<li>2.1.6.   <a href="#rfc.section.2.1.6">Partial</a>
+</li>
+</ul><li>2.2.   <a href="#rfc.section.2.2">Self-descriptive messages</a>
+</li>
+<ul><li>2.2.1.   <a href="#rfc.section.2.2.1">Linking to a profile</a>
+</li>
+</ul><li>2.3.   <a href="#rfc.section.2.3">Code-On-Demand</a>
+</li>
+<ul><li>2.3.1.   <a href="#rfc.section.2.3.1">Script</a>
+</li>
+</ul></ul><li>3.   <a href="#rfc.section.3">IANA Considerations</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">application/phtal+xml</a>
+</li>
+<li>3.2.   <a href="#rfc.section.3.2">application/phtal+json</a>
+</li>
+</ul><li>4.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>4.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>4.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgments</a>
+</li>
+<li>Appendix B.   <a href="#rfc.appendix.B">Frequently Asked Questions</a>
+</li>
+<ul><li>B.1.   <a href="#rfc.appendix.B.1">How can I submit comments or feedback to the editors?</a>
+</li>
+</ul><li><a href="#rfc.authors">Author's Address</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements.</p>
+<p id="rfc.section.1.p.2">This document registers two media-type identifiers with the IANA: <samp>application/phtal+json</samp> and <samp>application/phtal+xml</samp>. This registration is for community review and will be submitted to the IESG for review, approval, and registration with IANA.</p>
+<h1 id="rfc.section.1.1">
+<a href="#rfc.section.1.1">1.1.</a> <a href="#definitions-and-terminology" id="definitions-and-terminology">Definitions and Terminology</a>
+</h1>
+<h1 id="rfc.section.1.1.1">
+<a href="#rfc.section.1.1.1">1.1.1.</a> <a href="#terminology-and-conformance-language" id="terminology-and-conformance-language">Terminology and Conformance Language</a>
+</h1>
+<p id="rfc.section.1.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in BCP&#160;14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.</p>
+<h1 id="rfc.section.1.1.2">
+<a href="#rfc.section.1.1.2">1.1.2.</a> <a href="#general" id="general">General</a>
+</h1>
+<p id="rfc.section.1.1.2.p.1">Representational State Transfer, or <strong>REST</strong>, is an architectural style for distributed hypermedia systems. Introduced and first defined in 2000 in Chapter 5, REST, of the doctoral dissertation &#8220;Architectural Styles and the Design of Network-based Software Architecture&#8221; by Roy Fielding.</p>
+<p><strong>Hypermedia</strong>, or hypertext, is defined by the presence of application control information embedded within, or as a layer above, the presentation of information. Hypermedia allows for a virtually unbound network of resources while also guiding users through an application as they navigate said relationships.</p>
+<p id="rfc.section.1.1.2.p.3">A <strong>hypermedia relationship</strong>, also known as a link relation, describes the semantics behind a virtual uni-directional association between two resources.</p>
+<p id="rfc.section.1.1.2.p.4">A <strong>hypermedia relationship name</strong> is an identifier for a hypermedia relationship.</p>
+<p id="rfc.section.1.1.2.p.5">A <strong>resource</strong> is the intended conceptual target of a hypertext reference.</p>
+<p><strong>Representational state</strong> indicates the current state of the requested resource, the desired state for the requested resource, or the value of some other resource, such as a representation of the input data within a client&#8217;s query form, or a representation of some error condition for a response.</p>
+<p><strong>Application state</strong> is the state of the user&#8217;s application of computing to a given task, controlled and stored by the user agent and can be composed of representations from multiple servers.</p>
+<h1 id="rfc.section.1.1.3">
+<a href="#rfc.section.1.1.3">1.1.3.</a> <a href="#documents-description" id="documents-description">Documents description</a>
+</h1>
+<p id="rfc.section.1.1.3.p.1">A trailing question mark, for example <strong>description?</strong>, indicates an optional property.</p>
+<h1 id="rfc.section.1.2">
+<a href="#rfc.section.1.2">1.2.</a> <a href="#motivation" id="motivation">Motivation</a>
+</h1>
+<p id="rfc.section.1.2.p.1">The essential trade-off that REST makes when compared to an architectural style like RPC is dynamic modifiability over efficiency. Dynamic modifiability is the degree to which an application can be changed without stopping and restarting the entire system. This is what REST promises through the Uniform Interface, and optionally Code-On-Demand, constraints.</p>
+<p id="rfc.section.1.2.p.2">Guided by these constraints PHTAL introduces the necessary elements to enable application authors to create evolvable and extensible applications.</p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#phtal-representations" id="phtal-representations">PHTAL Representations</a>
+</h1>
+<h1 id="rfc.section.2.1">
+<a href="#rfc.section.2.1">2.1.</a> <a href="#hypermedia-as-the-engine-of-application-state" id="hypermedia-as-the-engine-of-application-state">Hypermedia as the engine of application state</a>
+</h1>
+<p id="rfc.section.2.1.p.1">The Uniform Interface constraint dictates that hypermedia be the engine of application state. This means that the state of the application and its potential transitions are dictated by the presence of hypermedia relationships in-band and by the navigation of those relationships by an user (human or automated). In order for users to traverse a selected relationship they depend on the server to provide instructions for communicating with the target resource.</p>
+<p id="rfc.section.2.1.p.2">When servers provide control information at run-time instead of at deploy-time, they retain control of their implementation space and enable dynamic evolvability; they can change their implementation without having to restart or deploy clients. Applications servers are free to change their URI structure, they are free rearrange resources into different servers, they are free introduce new links that provide new features in existing representations, nothing will break already deployed components as long as links are not broken.</p>
+<p id="rfc.section.2.1.p.3">PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL&#8217;s markup. This frees authors to spend most of their descriptive efforts in defining application-specific representation and possibly on extended link relations to drive application state.</p>
+<h1 id="rfc.section.2.1.1">
+<a href="#rfc.section.2.1.1">2.1.1.</a> <a href="#document-root" id="document-root">Document Root</a>
+</h1>
+<p id="rfc.section.2.1.1.p.1">The in-band elements defined by PHTAL aim to provide just what&#8217;s necessary for agents to evaluate the hypertext relationship alternatives provided and invoke the appropriate operation to get the agent to the next application state.</p>
+<h1 id="rfc.section.2.1.1.1">
+<a href="#rfc.section.2.1.1.1">2.1.1.1.</a> <a href="#properties" id="properties">Properties</a>
+</h1>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="center">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">links?</td>
+<td class="center">Map[<samp>string</samp>, [<a href="#link" class="xref">Link</a>]]</td>
+<td class="left">The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an XREL document.</td>
+</tr>
+<tr>
+<td class="left">operations?</td>
+<td class="center">[<a href="#operation" class="xref">Operation</a>]</td>
+<td class="left">Informs an agent of what operations are allowed to be invoked on the context resource.</td>
+</tr>
+</tbody>
+</table>
+<p id="rfc.section.2.1.1.1.p.1">The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.</p>
+<p id="rfc.section.2.1.1.1.p.2">Detailed mappings to XML and JSON are provided through the appropriate schemas in Section #5 of this document.</p>
+<h1 id="rfc.section.2.1.1.2">
+<a href="#rfc.section.2.1.1.2">2.1.1.2.</a> <a href="#phtal-examples" id="phtal-examples">PHTAL examples</a>
+</h1>
+<p><strong>JSON Representation Example</strong></p>
+<pre>
+{
+  "name": [
+    {
+      "use": "official",
+      "family": "Chalmers",
+      "given": [
+        "Peter",
+        "James"
+      ]
+    }
+  ],
+  "_links": {
+    "https://api-docs.myclinic.com/fhir/rel/encounter": [{
+      "href": "http://fhir.myclinic.com/Encounter/1234",
+      "operation": {
+        "HTTP": {
+          "method": "GET",
+          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+        }
+      }
+    }]
+  },
+  "_operations": {
+    "HTTP": {
+      "method": "PUT",
+      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
+    }
+  }
+}
+</pre>
+<p><strong>XML Representation Example</strong></p>
+<pre>
+&lt;Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd"&gt;
+  &lt;id value="example"/&gt;
+  &lt;name&gt;
+    &lt;use value="official"/&gt;
+    &lt;family value="Chalmers"/&gt;
+    &lt;given value="Peter"/&gt;
+    &lt;given value="James"/&gt;
+  &lt;/name&gt;
+  &lt;phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter"&gt;
+    &lt;phtal:href&gt;http://fhir.myclinic.com/Encounter/1234&lt;/phtal:href&gt;
+    &lt;phtal:operation protocol="HTTP"&gt;
+      &lt;phtal:method&gt;GET&lt;/phtal:method&gt;
+      &lt;phtal:produces&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+      &lt;/phtal:produces&gt;
+    &lt;/phtal:operation&gt;
+  &lt;/phtal:link&gt;
+  &lt;phtal:operation protocol="HTTP"&gt;
+    &lt;phtal:method&gt;PUT&lt;/phtal:method&gt;
+    &lt;phtal:consumes&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    &lt;/phtal:consumes&gt;
+    &lt;phtal:produces&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
+                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    &lt;/phtal:produces&gt;
+  &lt;/phtal:operation&gt;
+&lt;/Patient&gt;
+</pre>
+<h1 id="rfc.section.2.1.2">
+<a href="#rfc.section.2.1.2">2.1.2.</a> <a href="#link" id="link">Link</a>
+</h1>
+<h1 id="rfc.section.2.1.2.1">
+<a href="#rfc.section.2.1.2.1">2.1.2.1.</a> <a href="#properties-1" id="properties-1">Properties</a>
+</h1>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="center">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">href</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">The link&#8217;s target resource. The href property MUST be a <a href="#RFC3986" class="xref">URI</a> or a <a href="#RFC6570" class="xref">URI Template</a>.</td>
+</tr>
+<tr>
+<td class="left">uriParameters?</td>
+<td class="center">Map[<samp>string</samp>, <samp>string</samp>]</td>
+<td class="left">A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to <a href="#RAML" class="xref">RAML 1.0 Spec</a> Data Type declarations explaining the format and semantics of the variables.</td>
+</tr>
+<tr>
+<td class="left">operation?</td>
+<td class="center">Map[<samp>string</samp>, <a href="#operation" class="xref">Operation</a>]</td>
+<td class="left">The protocol specific operation for traversing this link. There SHOULD NOT be two operations for the same protocol.</td>
+</tr>
+<tr>
+<td class="left">partial?</td>
+<td class="center"><a href="#partial" class="xref">Partial</a></td>
+<td class="left">A partial representation of the target resource.</td>
+</tr>
+</tbody>
+</table>
+<p id="rfc.section.2.1.2.1.p.1">When the operation element is not present the client SHOULD assume that the required operation is an HTTP GET.</p>
+<h1 id="rfc.section.2.1.2.2">
+<a href="#rfc.section.2.1.2.2">2.1.2.2.</a> <a href="#link-examples" id="link-examples">Link Examples</a>
+</h1>
+<p><strong>JSON Representation Example</strong></p>
+<pre>
+{
+  "href": "http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}",
+  "uriParameters": {
+    "id": "https://api-docs.myclinic.com/fhir/patientId.raml",
+    "_pretty": "https://api-docs.myclinic.com/fhir/parameters/_pretty.raml",
+    "_elements": "https://api-docs.myclinic.com/fhir/parameters/_elements.raml"
+  },
+  "operation": {
+    "HTTP": {
+      "method": "GET",
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+    }
+  }
+}
+</pre>
+<p><strong>XML Representation Example</strong></p>
+<pre>
+&lt;phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter"&gt;
+  &lt;phtal:href&gt;http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}&lt;/phtal:href&gt;
+  &lt;phtal:uriParameter type="https://api-docs.myclinic.com/fhir/patientId.raml"&gt;id&lt;/phtal:uriParameter&gt;
+  &lt;phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml"&gt;_pretty&lt;/phtal:uriParameter&gt;
+  &lt;phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_elements.raml"&gt;_elements&lt;/phtal:uriParameter&gt;
+  &lt;phtal:operation protocol="HTTP"&gt;
+    &lt;phtal:method&gt;GET&lt;/phtal:method&gt;
+    &lt;phtal:produces&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    &lt;/phtal:produces&gt;
+  &lt;/phtal:instructions&gt;
+&lt;/phtal:link&gt;
+</pre>
+<h1 id="rfc.section.2.1.3">
+<a href="#rfc.section.2.1.3">2.1.3.</a> <a href="#operation" id="operation">Operation</a>
+</h1>
+<p id="rfc.section.2.1.3.p.1">The most important element that PHTAL representations provide is the operation element. This element instructs the agent on how to interact with a resource through a particular communication protocol. This allows the server to control its own URI space and the clients to be undisrupted when URI changes are made or new representation or protocol support is added.</p>
+<p id="rfc.section.2.1.3.p.2">Identifying protocol specific instructions allows servers to separate communication protocols from resource identification. This is consistent with the <a href="#RFC3986" class="xref">URI specification</a> and allows PHTAL to support arbitrary protocols.</p>
+<h1 id="rfc.section.2.1.3.1">
+<a href="#rfc.section.2.1.3.1">2.1.3.1.</a> <a href="#properties-2" id="properties-2">Properties</a>
+</h1>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="center">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">method?</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">Instructs the agent what protocol method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.</td>
+</tr>
+<tr>
+<td class="left">produces?</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">Indicates to the client what media types the server supports as response content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 &#8216;Accept&#8217; of the <a href="#RFC7231" class="xref">HTTP Specification</a>.</td>
+</tr>
+<tr>
+<td class="left">consumes?</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">Indicates to the client what media types the server supports as request content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 &#8216;Accept&#8217; of the <a href="#RFC7231" class="xref">HTTP Specification</a>.</td>
+</tr>
+<tr>
+<td class="left">requestContent?</td>
+<td class="center"><samp>boolean</samp></td>
+<td class="left">Indicates to the client whether a request content is required or not for the following the current link. The default value is <samp>false</samp>.</td>
+</tr>
+<tr>
+<td class="left">onInvoke?</td>
+<td class="center">EventAttribute</td>
+<td class="left">Script function which is to be executed when this operation is invoked.</td>
+</tr>
+</tbody>
+</table>
+<p id="rfc.section.2.1.3.1.p.1">The quality weight parameters MAY be used in the <samp>consumes</samp> and <samp>produces</samp> properties to indicate to the client which media types are preferred, possibly allowing the client to know when a known media type has been superseded and a new one is preferred.</p>
+<h1 id="rfc.section.2.1.3.2">
+<a href="#rfc.section.2.1.3.2">2.1.3.2.</a> <a href="#operation-examples" id="operation-examples">Operation Examples</a>
+</h1>
+<p><strong>JSON Representation Example</strong></p>
+<pre>
+{
+  "method": "POST",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "requestContent": true,
+  "onInvoke": "..."
+}
+</pre>
+<p><strong>XML Representation Example</strong></p>
+<pre>
+&lt;phtal:operation protocol="HTTP" onInvoke="..."&gt;
+    &lt;phtal:consumes&gt;application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    &lt;/phtal:consumes&gt;
+    &lt;phtal:produces&gt;application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    &lt;/phtal:produces&gt;
+    &lt;phtal:requestContent&gt;true&lt;/phtal:requestContent&gt;
+&lt;/phtal:operation&gt;
+</pre>
+<h1 id="rfc.section.2.1.4">
+<a href="#rfc.section.2.1.4">2.1.4.</a> <a href="#http-operation" id="http-operation">HTTP Operation</a>
+</h1>
+<p id="rfc.section.2.1.4.p.1">The HTTP Operation element is an extension of the Operation element specifically for interactions using the HTTP protocol.</p>
+<h1 id="rfc.section.2.1.4.1">
+<a href="#rfc.section.2.1.4.1">2.1.4.1.</a> <a href="#added-properties" id="added-properties">Added Properties</a>
+</h1>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="center">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">securedBy?</td>
+<td class="center">[<a href="#securityrequirement" class="xref">SecurityRequirement</a>]</td>
+<td class="left">An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.</td>
+</tr>
+<tr>
+<td class="left">headers?</td>
+<td class="center">Map[<samp>string</samp>, <samp>string</samp>]</td>
+<td class="left">A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to <a href="#RAML" class="xref">RAML 1.0 Spec</a> Data Type declarations explaining the format and semantics of the variables.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.2.1.4.2">
+<a href="#rfc.section.2.1.4.2">2.1.4.2.</a> <a href="#http-operation-examples" id="http-operation-examples">HTTP Operation Examples</a>
+</h1>
+<p><strong>JSON Representation Example</strong></p>
+<pre>
+{
+  "method": "POST",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "requestContent": true,
+  "securedBy": [
+    {
+      "scheme": "https://api-docs.myclinic.com/fhir/security/basicAuth"
+    },
+    {
+      "scheme": "https://api-docs.myclinic.com/fhir/security/oauth2.0",
+      "scopes": [
+        "appointment:write"
+      ]
+    }
+  ],
+  "headers": {
+    "trace-id": "https://api-docs.myclinic.com/fhir/traceId.raml"
+  }
+}
+</pre>
+<p><strong>XML Representation Example</strong></p>
+<pre>
+&lt;phtal:operation protocol="HTTP"&gt;
+    &lt;phtal:consumes&gt;application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    &lt;/phtal:consumes&gt;
+    &lt;phtal:produces&gt;application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    &lt;/phtal:produces&gt;
+    &lt;phtal:requestContent&gt;true&lt;/phtal:requestContent&gt;
+    &lt;phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/basicAuth"&gt;
+      &lt;phtal:scope&gt;appointment:write&lt;/phtal:scope&gt;
+    &lt;/phtal:securedBy&gt;
+    &lt;phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/&gt;
+&lt;/phtal:operation&gt;
+</pre>
+<h1 id="rfc.section.2.1.5">
+<a href="#rfc.section.2.1.5">2.1.5.</a> <a href="#securityrequirement" id="securityrequirement">SecurityRequirement</a>
+</h1>
+<h1 id="rfc.section.2.1.5.1">
+<a href="#rfc.section.2.1.5.1">2.1.5.1.</a> <a href="#properties-3" id="properties-3">Properties</a>
+</h1>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="center">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">scheme</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">An URI that MUST resolve to <a href="#RAML" class="xref">RAML 1.0 Spec</a> Security Scheme declarations.</td>
+</tr>
+<tr>
+<td class="left">scopes?</td>
+<td class="center">[<samp>string</samp>]</td>
+<td class="left">A list of the scopes required for authorization. Scopes are required when the security scheme is of type OAuth 2.0.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.2.1.6">
+<a href="#rfc.section.2.1.6">2.1.6.</a> <a href="#partial" id="partial">Partial</a>
+</h1>
+<p id="rfc.section.2.1.6.p.1">Partial representation of the linked resource.</p>
+<h1 id="rfc.section.2.1.6.1">
+<a href="#rfc.section.2.1.6.1">2.1.6.1.</a> <a href="#properties-4" id="properties-4">Properties</a>
+</h1>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="center">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">type</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">Identifies the media type that describes the partial representation.</td>
+</tr>
+<tr>
+<td class="left">data</td>
+<td class="center">Any</td>
+<td class="left">The actual partial representation content.</td>
+</tr>
+</tbody>
+</table>
+<p id="rfc.section.2.1.6.1.p.1">Partial content SHOULD NOT be considered full representations even if their contents happen to be complete. It is RECOMMENDED partial representations provide just enough information for agents to be able to discern which link they want to follow and SHOULD NOT be used as mechanism to batch interactions.</p>
+<p id="rfc.section.2.1.6.1.p.2">In the case of XML it is the content of the <samp>partial</samp> element, in JSON it is the value of a <samp>data</samp> property.</p>
+<h1 id="rfc.section.2.1.6.2">
+<a href="#rfc.section.2.1.6.2">2.1.6.2.</a> <a href="#partial-examples" id="partial-examples">Partial Examples</a>
+</h1>
+<p><strong>JSON Representation Example</strong></p>
+<pre>
+{
+  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
+  "data": {
+    "status": "in-progress",
+    "class": {
+      "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+      "code": "IMP",
+      "display": "inpatient encounter"
+    }
+  }
+}
+</pre>
+<p><strong>XML Representation Example</strong></p>
+<pre>
+&lt;phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\""&gt;
+  &lt;Encounter xmlns="http://hl7.org/fhir"&gt;
+    &lt;status value="in-progress"/&gt;
+      &lt;class&gt;
+          &lt;system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/&gt;
+          &lt;code value="IMP"/&gt;
+          &lt;display value="inpatient encounter"/&gt;
+      &lt;/class&gt;
+  &lt;/Encounter&gt;
+&lt;/phtal:partial&gt;
+</pre>
+<h1 id="rfc.section.2.2">
+<a href="#rfc.section.2.2">2.2.</a> <a href="#self-descriptive-messages" id="self-descriptive-messages">Self-descriptive messages</a>
+</h1>
+<p id="rfc.section.2.2.p.1">The Uniform Interface constraint also dictates that messages be self-descriptive. This is achieved by message metadata, of which content type metadata is an important part. However, the purpose of content type metadata in web interactions is not only to indicate representation format or schema, but the sender&#8217;s preferred interpretation of that format, an application-specific format.</p>
+<p id="rfc.section.2.2.p.2">By making use of media type parameters, PHTAL representations allow participants to retain the ability to signal their preferred interpretation of a message through metadata. Message authors only have to identify the document that defines the application-specific format of their representation and attach it to an otherwise generic PHTAL representation.</p>
+<p id="rfc.section.2.2.p.3">When web participants identify an application-specific format in metadata they promote visibility and evolvability. Intermediaries (i.e., proxies and gateways) are able to accurately and more efficiently perform significant functions such as encapsulating legacy services, and enhancing client functionality.</p>
+<h1 id="rfc.section.2.2.1">
+<a href="#rfc.section.2.2.1">2.2.1.</a> <a href="#linking-to-a-profile" id="linking-to-a-profile">Linking to a profile</a>
+</h1>
+<p id="rfc.section.2.2.1.p.1">For example consider the following interactions:</p>
+<pre>
+POST http://www.example.com/someIdentifier
+Content-Type: application/json
+Accept: application/json
+</pre>
+<pre>
+200 OK
+Content-Type: application/json
+</pre>
+<p id="rfc.section.2.2.1.p.2">This interaction can only be accurately interpreted to mean that the client requested resource <samp>http://www.example.com/someIdentifier</samp> to process an <samp>application/json</samp> request and it successfully responded with an <samp>application/json</samp> response. <samp>application/json</samp> offers intermediaries no semantic information about the content of the message besides how it&#8217;s (de)serialized.</p>
+<p id="rfc.section.2.2.1.p.3">To indicate the format and semantics of a PHTAL representation, the sender SHOULD identify a document that explains additional semantics using a &#8220;profile&#8221; media type parameter.</p>
+<pre>
+POST http://www.example.com/someIdentifier
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
+Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
+</pre>
+<pre>
+200 OK
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
+</pre>
+<p id="rfc.section.2.2.1.p.4">In contrast, this second interaction is perfectly clear. The client asked <samp>http://www.example.com/someIdentifier</samp> to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.</p>
+<p id="rfc.section.2.2.1.p.5">The profile parameter SHOULD be a dereferenceable URI that resolves to a <a href="#RAML" class="xref">RAML 1.0 Spec</a> Data Type declaration. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.</p>
+<h1 id="rfc.section.2.3">
+<a href="#rfc.section.2.3">2.3.</a> <a href="#code-on-demand" id="code-on-demand">Code-On-Demand</a>
+</h1>
+<p id="rfc.section.2.3.p.1">In order to further promote modifiability of a system REST defines code-on-demand as an optional constraint. An optional constraint would observe desired behavior where supported, but with the understanding that it may not be the general case. Code-on-demand is a style of code mobility in which the processing logic is moved from the server into the client, thus providing dynamic extensibility; functionality can be added to a deployed component without impacting the rest of the system.</p>
+<p id="rfc.section.2.3.p.2">Very similar to HTML&#8217;s script element PHTAL provides ways to embed code into its representations.</p>
+<p id="rfc.section.2.3.p.3">Ultimately, application servers may prefer if legacy clients could adapt to new representations or communication protocols instead of having to support overloaded versions of a feature. At the cost of visibility, code-on-demand allows application servers to re-program a deployed component to support new features, thus freeing the server from the responsibility of maintaining backwards compatibility.</p>
+<p id="rfc.section.2.3.p.4">It&#8217;s worthy to mention other advantages of code-on-demand outside of modifiability. Scalability of the server is improved, since it can off-load work to the client. User-perceived performance and efficiency are enhanced when the code can adapt its actions to the client&#8217;s environment and interact with the user locally rather than through remote interactions.</p>
+<h1 id="rfc.section.2.3.1">
+<a href="#rfc.section.2.3.1">2.3.1.</a> <a href="#script" id="script">Script</a>
+</h1>
+<p id="rfc.section.2.3.1.p.1">A script element is equivalent to the script element in HTML and thus is the place for scripts (e.g., ECMAScript). Any functions defined within any script element have a &#8220;global&#8221; scope across the entire current document.</p>
+<h1 id="rfc.section.2.3.1.1">
+<a href="#rfc.section.2.3.1.1">2.3.1.1.</a> <a href="#properties-5" id="properties-5">Properties</a>
+</h1>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="center">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">type</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">Identifies the media type that describes the script content.</td>
+</tr>
+<tr>
+<td class="left">source?</td>
+<td class="center"><samp>string</samp></td>
+<td class="left">An URI that references the script&#8217;s content.</td>
+</tr>
+<tr>
+<td class="left">data?</td>
+<td class="center">Any</td>
+<td class="left">The actual contents of the script. It is mutually exclusive with the source property.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>JSON Representation Example</strong></p>
+<pre>
+{
+  "_scripts": [{
+    "type": "text/javascript",
+    "source": "http://fhir.myclinic.com/scripts/patientScript"
+    },
+    {
+    "type": "text/javascript",
+    "data": "..."
+    }]
+}
+</pre>
+<p><strong>XML Representation Example</strong></p>
+<pre>
+&lt;Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd"&gt;
+  &lt;phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/&gt;
+  &lt;phtal:script type="text/javascript"&gt;
+    &lt;![CDATA[
+      function foo(evt) {
+        ...
+      }
+    ]\]&gt;
+  &lt;/phtal:script&gt;
+&lt;/Patient&gt;
+</pre>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+</h1>
+<p id="rfc.section.3.p.1">This specification establishes two media types: &#8216;application/phtal+xml&#8217; and &#8216;application/phtal+json&#8217;</p>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#applicationphtalxml" id="applicationphtalxml">application/phtal+xml</a>
+</h1>
+<p><strong>Type name:</strong> application</p>
+<p><strong>Subtype name:</strong> phtal+xml</p>
+<p><strong>Required parameters:</strong> none</p>
+<p><strong>Optional parameters:</strong></p>
+<p></p>
+
+<ul class="empty"><li>
+<strong>charset:</strong> This parameter has identical semantics to the charset parameter of the &#8216;application/xml&#8217; media type as specified in <a href="#RFC7303" class="xref">[RFC7303]</a>.</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>profile:</strong> A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a PHTAL document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section #5.1 of this document.</li></ul>
+<p><strong>Encoding considerations:</strong></p>
+<p></p>
+
+<ul class="empty"><li>
+<strong>binary:</strong> Same as encoding considerations of application/xml as specified in <a href="#RFC7303" class="xref">[RFC7303]</a>.</li></ul>
+<p><strong>Security considerations:</strong></p>
+<p></p>
+
+<ul class="empty"><li>This format shares security issues common to all XML content types. The security issues of <a href="#RFC7303" class="xref">[RFC7303]</a>, section 10, should be considered.</li></ul>
+<p></p>
+
+<ul class="empty"><li>Several PHTAL elements may cause arbitrary URIs to be referenced. In this case, the security issues of <a href="#RFC3986" class="xref">[RFC3986]</a>, section 7, should be considered.</li></ul>
+<p></p>
+
+<ul class="empty"><li>In common with HTML, PHTAL documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.</li></ul>
+<p><strong>Interoperability considerations:</strong> An xsd document detailing the format of application/phtal+xml is located at <a href="http://www.phtal.org/schema/phtal+xml.xsd">http://www.phtal.org/schema/phtal+xml.xsd</a></p>
+<p><strong>Fragment identifier considerations:</strong></p>
+<p><strong>Published specification:</strong> This Document</p>
+<p><strong>Applications that use this media type:</strong> Various</p>
+<p><strong>Additional information:</strong></p>
+<p></p>
+
+<ul class="empty"><li>
+<strong>magic number(s):</strong> none</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>file extensions:</strong> .xml</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>macintosh type file code:</strong> TEXT</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>object idenfiers:</strong> none</li></ul>
+<p><strong>Person to contact for further information:</strong></p>
+<p></p>
+
+<ul class="empty"><li>
+<strong>Name:</strong> Jose Montoya</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>Email:</strong> jmontoya@ms3-inc.com</li></ul>
+<p><strong>Intended usage:</strong> Common</p>
+<p><strong>Author/change controller:</strong> Jose Montoya</p>
+<h1 id="rfc.section.3.2">
+<a href="#rfc.section.3.2">3.2.</a> <a href="#applicationphtaljson" id="applicationphtaljson">application/phtal+json</a>
+</h1>
+<p><strong>Type name:</strong> application</p>
+<p><strong>Subtype name:</strong> phtal+json</p>
+<p><strong>Required parameters:</strong> none</p>
+<p><strong>Optional parameters:</strong></p>
+<p></p>
+
+<ul class="empty"><li>
+<strong>profile:</strong> A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a PHTAL document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section #5.1 of this document.</li></ul>
+<p><strong>Encoding considerations:</strong> binary</p>
+<p><strong>Security considerations:</strong></p>
+<p></p>
+
+<ul class="empty"><li>This media type shares security issues common to all JSON content types. The security issues of <a href="#RFC8259" class="xref">[RFC8259]</a>, section 6, should be considered.</li></ul>
+<p></p>
+
+<ul class="empty"><li>Several PHTAL elements may cause arbitrary URIs to be referenced. In this case, the security issues of <a href="#RFC3986" class="xref">[RFC3986]</a>, section 7, should be considered.</li></ul>
+<p></p>
+
+<ul class="empty"><li>In common with HTML, PHTAL documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.</li></ul>
+<p><strong>Interoperability considerations:</strong> A json-schema document detailing the format of application/phtal+json is located at <a href="http://www.phtal.org/schema/phtal+json.yaml">http://www.phtal.org/schema/phtal+json.yaml</a></p>
+<p><strong>Fragment identifier considerations:</strong> none</p>
+<p><strong>Published specification:</strong> This Document</p>
+<p><strong>Applications that use this media type:</strong> Various</p>
+<p><strong>Additional information:</strong></p>
+<p></p>
+
+<ul class="empty"><li>
+<strong>magic number(s):</strong> none</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>file extensions:</strong> .json</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>macintosh type file code:</strong> TEXT</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>object idenfiers:</strong> none</li></ul>
+<p><strong>Person to contact for further information:</strong></p>
+<p></p>
+
+<ul class="empty"><li>
+<strong>Name:</strong> Jose Montoya</li></ul>
+<p></p>
+
+<ul class="empty"><li>
+<strong>Email:</strong> jmontoya@ms3-inc.com</li></ul>
+<p><strong>Intended usage:</strong> Common</p>
+<p><strong>Author/change controller:</strong> Jose Montoya</p>
+<h1 id="rfc.references">
+<a href="#rfc.references">4.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">4.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RAML">[RAML]</b></td>
+<td class="top">
+<a>The RAML Workgroup</a>, "<a href="https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md">RAML Specification</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3986">[RFC3986]</b></td>
+<td class="top">
+<a>Berners-Lee, T.</a>, <a>Fielding, R.</a> and <a>L. Masinter</a>, "<a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6570">[RFC6570]</b></td>
+<td class="top">
+<a>Gregorio, J.</a>, <a>Fielding, R.</a>, <a>Hadley, M.</a>, <a>Nottingham, M.</a> and <a>D. Orchard</a>, "<a href="https://tools.ietf.org/html/rfc6570">URI Template</a>", RFC 6570, DOI 10.17487/RFC6570, March 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6838">[RFC6838]</b></td>
+<td class="top">
+<a>Freed, N.</a>, <a>Klensin, J.</a> and <a>T. Hansen</a>, "<a href="https://tools.ietf.org/html/rfc6838">Media Type Specifications and Registration Procedures</a>", BCP 13, RFC 6838, DOI 10.17487/RFC6838, January 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7303">[RFC7303]</b></td>
+<td class="top">
+<a>Thompson, H.</a> and <a>C. Lilley</a>, "<a href="https://tools.ietf.org/html/rfc7303">XML Media Types</a>", RFC 7303, DOI 10.17487/RFC7303, July 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8259">[RFC8259]</b></td>
+<td class="top">
+<a>Bray, T.</a>, "<a href="https://tools.ietf.org/html/rfc8259">The JavaScript Object Notation (JSON) Data Interchange Format</a>", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">4.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="I-D.draft-handrews-json-schema-hyperschema-01">[I-D.draft-handrews-json-schema-hyperschema-01]</b></td>
+<td class="top">
+<a>Andrews, H.</a> and <a>A. Wright</a>, "<a href="https://tools.ietf.org/html/draft-handrews-json-schema-hyperschema-01">JSON Hyper-Schema: A Vocabulary for Hypermedia Annotation of JSON</a>", Internet-Draft draft-handrews-json-schema-hyperschema-01, January 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.draft-kelly-json-hal-08">[I-D.draft-kelly-json-hal-08]</b></td>
+<td class="top">
+<a>Kelly, M.</a>, "<a href="https://tools.ietf.org/html/draft-kelly-json-hal-08">JSON Hypertext Application Language</a>", Internet-Draft draft-kelly-json-hal-08, May 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="OpenAPI">[OpenAPI]</b></td>
+<td class="top">"<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md">OpenAPI Specification</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="REST">[REST]</b></td>
+<td class="top">
+<a title="University of California, Irvine">Fielding, R.</a>, "<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf">Architectural Styles and the Design of Network-based Software Architectures</a>", Ph.D. Dissertation, University of California, Irvine, 2000.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6906">[RFC6906]</b></td>
+<td class="top">
+<a>Wilde, E.</a>, "<a href="https://tools.ietf.org/html/rfc6906">The 'profile' Link Relation Type</a>", RFC 6906, DOI 10.17487/RFC6906, March 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7231">[RFC7231]</b></td>
+<td class="top">
+<a>Fielding, R.</a> and <a>J. Reschke</a>, "<a href="https://tools.ietf.org/html/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>", RFC 7231, DOI 10.17487/RFC7231, June 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="W3C.hydra">[W3C.hydra]</b></td>
+<td class="top">
+<a title="Google">Lanthaler, M.</a>, "<a href="http://www.hydra-cg.com/spec/latest/core/">A Vocabulary for Hypermedia-Driven Web APIs</a>", 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="W3C.TAG.role-media-types">[W3C.TAG.role-media-types]</b></td>
+<td class="top">
+<a title="Day Software">Fielding, R.</a> and <a title="W3C">I. Jacobs</a>, "<a href="https://www.w3.org/2001/tag/doc/mime-respect-20130422#media-type">Role of Internet Media Types</a>", 2001.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
+</h1>
+<p id="rfc.section.A.p.1">Thanks to Mike Kelly, Henry Andrews, Marcus Lanthaler, Mike Amundsen, Stu Charlton, and Jeff Michaud for their contributions in this space even if not directly related to PHTAL.</p>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> <a href="#frequently-asked-questions" id="frequently-asked-questions">Frequently Asked Questions</a>
+</h1>
+<h1 id="rfc.appendix.B.1">
+<a href="#rfc.appendix.B.1">B.1.</a> <a href="#how-can-i-submit-comments-or-feedback-to-the-editors" id="how-can-i-submit-comments-or-feedback-to-the-editors">How can I submit comments or feedback to the editors?</a>
+</h1>
+<p id="rfc.section.B.1.p.1">The issues list for this draft can be found at <a href="https://github.com/phtal-org/spec/issues">https://github.com/phtal-org/spec/issues</a>. For additional information, see <a href="https://phtal-org.github.io/internet-draft-phtal.org/">https://phtal-org.github.io/internet-draft-phtal.org/</a>.</p>
+<p id="rfc.section.B.1.p.2">To provide feedback, use this issue tracker, the communication methods listed on the homepage, or email the document editors.</p>
+<h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Jose Montoya</span> 
+	  <span class="n hidden">
+		<span class="family-name">Montoya</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Mountain State Software Solutions</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:jmontoya@ms3-inc.com">jmontoya@ms3-inc.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
