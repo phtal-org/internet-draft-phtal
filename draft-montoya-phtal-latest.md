@@ -31,13 +31,10 @@ normative:
   # I-D.draft-montoya-xrel-00:
 
 informative:
-  RFC6901: # JSON Pointer
   RFC6906: # Profile link relation
-  RFC8288: # Web Linking
   RFC7231: # HTTP
   I-D.draft-kelly-json-hal-08:
   I-D.draft-handrews-json-schema-hyperschema-01:
-  I-D.draft-pbryan-zyp-json-ref-03:
   OpenAPI:
     title: OpenAPI Specification
     target: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
@@ -75,13 +72,13 @@ informative:
 
 --- abstract
 
-This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without any graphical components.
+This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements.
 
 --- middle
 
 # Introduction
 
-This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without any graphical components.
+This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements.
 
 This document registers two media-type identifiers with the IANA: `application/phtal+json` and `application/phtal+xml`. This registration is for community review and will be submitted to the IESG for review, approval, and registration with IANA.
 
@@ -113,32 +110,32 @@ A trailing question mark, for example **description?**, indicates an optional pr
 
 ## Motivation
 
-The essential trade-off that REST makes when compared to an architectural style like RPC is dynamic modifiability over efficiency. Dynamic modifiability is the degree to which an application's architecture can be changed without stopping and restarting the entire system. This is what REST promises through the Uniform Interface, and optionally Code-On-Demand, constraints.
+The essential trade-off that REST makes when compared to an architectural style like RPC is dynamic modifiability over efficiency. Dynamic modifiability is the degree to which an application can be changed without stopping and restarting the entire system. This is what REST promises through the Uniform Interface, and optionally Code-On-Demand, constraints.
 
-Guided by these constraints PHTAL introduces the necessary elements defined to enable application authors to create evolvable and extensible applications.
+Guided by these constraints PHTAL introduces the necessary elements to enable application authors to create evolvable and extensible applications.
 
 # PHTAL Representations
 
 ## Hypermedia as the engine of application state
 
-The Uniform Interface constraint dictates that hypermedia be the engine of application state. This means that the state of the application and its potential transitions are dictated by the presence of hypermedia relationships in-band and the navigation of those relationships by an user (human or automated). In order for users to traverse a selected relationship they depend on the server to provide instructions for communicating with the target resource. The mechanism to obtain these instructions is usually defined by the processing model of the representation's media type.
+The Uniform Interface constraint dictates that hypermedia be the engine of application state. This means that the state of the application and its potential transitions are dictated by the presence of hypermedia relationships in-band and by the navigation of those relationships by an user (human or automated). In order for users to traverse a selected relationship they depend on the server to provide instructions for communicating with the target resource.
 
-When servers provide control information at run-time instead of at deploy-time, they retain control of their implementation space and enable dynamic evolvability. Dynamic evolvability means that the system doesn’t have to be restarted or redeployed in order to adapt to change. Applications servers are free to change their URI structure, they are free rearrange resources into different servers, they are free introduce new links that provide new features in existing representations, nothing will break already deployed components as long as links are not broken.
+When servers provide control information at run-time instead of at deploy-time, they retain control of their implementation space and enable dynamic evolvability; they can change their implementation without having to restart or deploy clients. Applications servers are free to change their URI structure, they are free rearrange resources into different servers, they are free introduce new links that provide new features in existing representations, nothing will break already deployed components as long as links are not broken.
 
-PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL. This frees authors to spend most of their descriptive efforts in defining application-specific representation and possibly on extended link relations to drive application state.
+PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL's markup. This frees authors to spend most of their descriptive efforts in defining application-specific representation and possibly on extended link relations to drive application state.
 
 ### Document Root
 
-The in-band elements defined by PHTAL are influenced by other hypermedia types like HAL, Collection+JSON, and Hydra. Specifically adding instructions for interacting with a given resource. This allows agents to evaluate the alternatives provided and submit the appropriate data or select the appropriate link to get the agent to the next application state.
+The in-band elements defined by PHTAL aim to provide just what's necessary for agents to evaluate the hypertext relationship alternatives provided and invoke the appropriate operation to get the agent to the next application state.
 
 #### Properties
 
 Name | Type | Description
 ---|:---:|---
-links? | Map[`string`, [[Link ](#link)]] | The links element is a map where the keys are the name or identifier of a hypermedia relationship and the values are single or multiple Link elements. The relationship name MUST be a IANA registered relation type or an URI that when dereferenced resolves to an XREL document.
+links? | Map[`string`, [[Link ](#link)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an XREL document.
 operations? | [[Operation ](#operation)] | Informs an agent of what operations are allowed to be invoked on the context resource.
 
-The operations element could be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
+The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
 
 Detailed mappings to XML and JSON are provided through the appropriate schemas in Section \#5 of this document.
 
@@ -221,7 +218,7 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
 Name | Type | Description
 ---|:---:|---
 href | `string` | The link's target resource. The href property MUST be a [URI](#RFC3986) or a [URI Template](#RFC6570).
-uriParameters? | Map[`string`, `string`] | A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to RAML 1.0 Data Type declarations explaining the format and semantics of the variables.
+uriParameters? | Map[`string`, `string`] | A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to [RAML 1.0 Spec](#RAML) Data Type declarations explaining the format and semantics of the variables.
 operation? | Map[`string`, [Operation ](#operation)] | The protocol specific operation for traversing this link. There SHOULD NOT be two operations for the same protocol.
 partial? | [Partial ](#partial) | A partial representation of the target resource.
 
@@ -276,11 +273,11 @@ Identifying protocol specific instructions allows servers to separate communicat
 
 Name | Type | Description
 ---|:---:|---
-method | `string` | Instructs the agent what protocol method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.
-produces | `string` | Indicates to the client what media types the server supports as response content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
-consumes | `string` | Indicates to the client what media types the server supports as request content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
-requestContent | `boolean` | Indicates to the client whether a request content is required or not for the following the current link. The default value is `false`.
-onInvoke | EventAttribute | Script function which is to be executed when the given event occurs.
+method? | `string` | Instructs the agent what protocol method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.
+produces? | `string` | Indicates to the client what media types the server supports as response content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
+consumes? | `string` | Indicates to the client what media types the server supports as request content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
+requestContent? | `boolean` | Indicates to the client whether a request content is required or not for the following the current link. The default value is `false`.
+onInvoke? | EventAttribute | Script function which is to be executed when this operation is invoked.
 
 The quality weight parameters MAY be used in the `consumes` and `produces` properties to indicate to the client which media types are preferred, possibly allowing the client to know when a known media type has been superseded and a new one is preferred.
 
@@ -294,14 +291,14 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
   "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
   "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
-  "onInvoke": "lorem ipsum"
+  "onInvoke": "..."
 }
 ~~~
 
 **XML Representation Example**
 
 ~~~ xml
-<phtal:operation protocol="HTTP" onInvoke="">
+<phtal:operation protocol="HTTP" onInvoke="...">
     <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
@@ -318,8 +315,8 @@ The HTTP Operation element is an extension of the Operation element specifically
 
 Name | Type | Description
 ---|:---:|---
-securedBy | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operatio can be authenticated by any of the specified security schemes.
-headers | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to RAML 1.0 Data Type declarations explaining the format and semantics of the variables.
+securedBy? | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
+headers? | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to [RAML 1.0 Spec](#RAML) Data Type declarations explaining the format and semantics of the variables.
 
 #### HTTP Operation Examples
 
@@ -337,7 +334,7 @@ headers | Map[`string`, `string`] | A map where the keys are the names of the HT
     },
     {
       "scheme": "https://api-docs.myclinic.com/fhir/security/oauth2.0",
-      "requiredScopes": [
+      "scopes": [
         "appointment:write"
       ]
     }
@@ -370,12 +367,12 @@ headers | Map[`string`, `string`] | A map where the keys are the names of the HT
 
 Name | Type | Description
 ---|:---:|---
-scheme | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
-scopes | [`string`] | A list of scope
+scheme | `string` |  An URI that MUST resolve to [RAML 1.0 Spec](#RAML) Security Scheme declarations.
+scopes? | [`string`] | A list of the scopes required for authorization. Scopes are required when the security scheme is of type OAuth 2.0.
 
 ### Partial
 
-The partial element is inspired by the embedded element defined by HAL. These SHOULD NOT be considered full representations even if their contents happen to be complete. It is RECOMMENDED partial representations provide just enough information for agents to be able to discern which link they want to follow and SHOULD NOT be used as mechanism to batch interactions.
+Partial representation of the linked resource.
 
 #### Properties
 
@@ -383,6 +380,8 @@ Name | Type | Description
 ---|:---:|---
 type | `string` | Identifies the media type that describes the partial representation.
 data | Any | The actual partial representation content.
+
+Partial content SHOULD NOT be considered full representations even if their contents happen to be complete. It is RECOMMENDED partial representations provide just enough information for agents to be able to discern which link they want to follow and SHOULD NOT be used as mechanism to batch interactions.
 
 In the case of XML it is the content of the `partial` element, in JSON it is the value of a `data` property.
 
@@ -429,7 +428,7 @@ When web participants identify an application-specific format in metadata they p
 
 ### Linking to a profile
 
-For example consider the following interactions
+For example consider the following interactions:
 
 ~~~~
 POST http://www.example.com/someIdentifier
@@ -457,17 +456,19 @@ Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Operatio
 Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
 ~~~~
 
-In contrast, the second interaction is perfectly clear. The client asked `http://www.example.com/someIdentifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or redirecting the message to different resources based on some other information, or maybe adding or removing links from the response.
+In contrast, this second interaction is perfectly clear. The client asked `http://www.example.com/someIdentifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.
 
-The profile parameter SHOULD be a dereferenceable URI that resolves to a RAML 1.0 Spec Data Type declaration. RAML data types are used because of their ability to describe representations independent of their runtime media type as well as supporting XSD and JSON Schema documents.
+The profile parameter SHOULD be a dereferenceable URI that resolves to a [RAML 1.0 Spec](#RAML) Data Type declaration. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.
 
 ## Code-On-Demand
 
-In order to further promote modifiability of a system REST defines code-on-demand as an optional constraint. An optional constraint would add desired behavior where supported, but with the understanding that it may not be the general case. Code-on-demand is a style of code mobility in which the processing logic is moved from the server into the client, thus providing dynamic extensibility; functionality can be added to a deployed component without impacting the rest of the system.
+In order to further promote modifiability of a system REST defines code-on-demand as an optional constraint. An optional constraint would observe desired behavior where supported, but with the understanding that it may not be the general case. Code-on-demand is a style of code mobility in which the processing logic is moved from the server into the client, thus providing dynamic extensibility; functionality can be added to a deployed component without impacting the rest of the system.
 
 Very similar to HTML's script element PHTAL provides ways to embed code into its representations.
 
-Ultimately, application servers may prefer if legacy clients could adapt to new representations or communication protocols instead of having to support overloaded versions of a feature. At the cost of visibility, code-on-demand allows application servers to re-program a deployed component to support new features, thus freeing the server from the responsibility of maintaining backwards compatibility. It's worthy to mention other advantages of code-on-demand outside of modifiability. Scalability of the server is improved, since it can off-load work to the client. User-perceived performance and efficiency are enhanced when the code can adapt its actions to the client’s environment and interact with the user locally rather than through remote interactions.
+Ultimately, application servers may prefer if legacy clients could adapt to new representations or communication protocols instead of having to support overloaded versions of a feature. At the cost of visibility, code-on-demand allows application servers to re-program a deployed component to support new features, thus freeing the server from the responsibility of maintaining backwards compatibility.
+
+It's worthy to mention other advantages of code-on-demand outside of modifiability. Scalability of the server is improved, since it can off-load work to the client. User-perceived performance and efficiency are enhanced when the code can adapt its actions to the client’s environment and interact with the user locally rather than through remote interactions.
 
 ### Script
 
@@ -478,8 +479,8 @@ A script element is equivalent to the script element in HTML and thus is the pla
 Name | Type | Description
 ---|:---:|---
 type | `string` | Identifies the media type that describes the script content.
-source | `string` | An URI that references the script's content.
-data | Any | The actual contents of the script. It is mutually exclusive with the source property.
+source? | `string` | An URI that references the script's content.
+data? | Any | The actual contents of the script. It is mutually exclusive with the source property.
 
 **JSON Representation Example**
 
@@ -619,7 +620,7 @@ This specification establishes two media types: 'application/phtal+xml' and 'app
 --- back
 
 # Acknowledgments
-Thanks to Darrel Miller, Henry Andrews, Mike Amundsen, and Jeff Michaud for their input and discussions even if not directly related to phtal.
+Thanks to Mike Kelly, Henry Andrews, Marcus Lanthaler, Mike Amundsen, Stu Charlton, and Jeff Michaud for their contributions in this space even if not directly related to PHTAL.
 
 # Frequently Asked Questions
 
