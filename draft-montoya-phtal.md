@@ -28,7 +28,7 @@ normative:
     target: https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md
     author:
       org: The RAML Workgroup
-  # I-D.draft-montoya-xrel-00:
+  I-D.draft-montoya-xrel-00:
 
 informative:
   RFC6906: # Profile link relation
@@ -132,10 +132,8 @@ The in-band elements defined by PHTAL aim to provide just what's necessary for a
 
 Name | Type | Description
 ---|:---:|---
-links? | Map[`string`, [[Link ](#link)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an XREL document.
+links? | Map[`string`, [[Link ](#link)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an [XREL](#I-D.draft-montoya-xrel-00) document.
 operations? | [[Operation ](#operation)] | Informs an agent of what operations are allowed to be invoked on the context resource.
-
-TODO: Link to actual XREL draft when published.
 
 The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
 
