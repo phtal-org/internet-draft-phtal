@@ -9,7 +9,7 @@ Expires: August 29, 2019
 
 
                 Profiled Hypertext Application Language
-                    draft-montoya-phtal-json-latest
+                       draft-montoya-phtal-latest
 
 Abstract
 
