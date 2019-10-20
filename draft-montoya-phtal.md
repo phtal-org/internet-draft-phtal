@@ -109,7 +109,13 @@ The essential trade-off that REST makes when compared to an architectural style 
 
 Guided by these constraints PHTAL introduces the necessary elements to enable application authors to create evolvable and extensible applications.
 
-# PHTAL Representations
+# PHTAL Document
+
+## Format
+All field names in the specification are case sensitive. This includes all fields that are used as keys in a map, except where explicitly noted that keys are case insensitive.
+
+## Schema
+In the description that will follow, if a field is not explicitly **REQUIRED** or described with a MUST or SHALL, it can be considered OPTIONAL.
 
 ## Hypermedia as the engine of application state
 
@@ -117,24 +123,24 @@ The Uniform Interface constraint dictates that hypermedia be the engine of appli
 
 When servers provide control information at run-time instead of at deploy-time, they retain control of their implementation space and enable dynamic evolvability; they can change their implementation without having to restart or deploy clients. Applications servers are free to change their URI structure, they are free rearrange resources into different servers, they are free introduce new links that provide new features in existing representations, nothing will break already deployed components as long as links are not broken.
 
-PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL's markup. This frees authors to spend most of their descriptive efforts in defining application-specific representation and possibly on extended link relations to drive application state.
+PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL's markup. This frees authors to spend most of their descriptive efforts in defining application-specific representations and possibly on extended link relations to drive application state.
 
-### Document Root
+### PHTAL Object
 
 The in-band elements defined by PHTAL aim to provide just what's necessary for agents to evaluate the hypertext relationship alternatives provided and invoke the appropriate operation to get the agent to the next application state.
 
-#### Properties
+#### Fixed Fields
 
 Name | Type | Description
 ---|:---:|---
-links? | Map[`string`, [[Link ](#link)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an [XREL](#I-D.draft-montoya-xrel-00) document.
-operations? | [[Operation ](#operation)] | Informs an agent of what operations are allowed to be invoked on the context resource.
+links | Map[`string`, [[Link Object](#link-object)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an [XREL](#I-D.draft-montoya-xrel-00) document.
+operations | [[Operation Object](#operation-object)] | Informs an agent of what operations are allowed to be invoked on the context resource.
 
 The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
 
 Detailed mappings to XML and JSON are provided through the appropriate schemas in Section \#5 of this document.
 
-#### PHTAL examples
+#### Examples
 
 **JSON Representation Example**
 
@@ -206,20 +212,20 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
 </Patient>
 ~~~
 
-### Link
+### Link Object
 
-#### Properties
+#### Fixed Fields
 
 Name | Type | Description
 ---|:---:|---
-href | `string` | The link's target resource. The href property MUST be a [URI](#RFC3986) or a [URI Template](#RFC6570).
-uriParameters? | Map[`string`, `string`] | A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to a document that appropriately describes the format and semantics of the variables, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.
-operation? | Map[`string`, [Operation ](#operation)] | The protocol specific operation for traversing this link. There SHOULD NOT be two operations for the same protocol.
-partial? | [Partial ](#partial) | A partial representation of the target resource.
+href | `string` | **REQUIRED** The link's target resource. The href property MUST be a [URI](#RFC3986) or a [URI Template](#RFC6570).
+uriParameters | Map[`string`, `string`] | A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to a document that appropriately describes the format and semantics of the variables, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.
+operation | Map[`string`, [Operation Object](#operation-object)] | The protocol specific operation for traversing this link. There SHOULD NOT be two operations for the same protocol.
+partial | [Partial Object](#partial-object) | A partial representation of the target resource.
 
 When the operation element is not present the client SHOULD assume that the required operation is an HTTP GET.
 
-#### Link Examples
+#### Examples
 
 **JSON Representation Example**
 
@@ -258,25 +264,25 @@ When the operation element is not present the client SHOULD assume that the requ
 </phtal:link>
 ~~~
 
-### Operation
+### Operation Object
 
 The most important element that PHTAL representations provide is the operation element. This element instructs the agent on how to interact with a resource through a particular communication protocol. This allows the server to control its own URI space and the clients to be undisrupted when URI changes are made or new representation or protocol support is added.
 
 Identifying protocol specific instructions allows servers to separate communication protocols from resource identification. This is consistent with the [URI specification](#RFC3986) and allows PHTAL to support arbitrary protocols.
 
-#### Properties
+#### Fixed Fields
 
 Name | Type | Description
 ---|:---:|---
-method? | `string` | Instructs the agent what protocol method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.
-produces? | `string` | Indicates to the client what media types the server supports as response content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
-consumes? | `string` | Indicates to the client what media types the server supports as request content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
-requestContent? | `boolean` | Indicates to the client whether a request content is required or not for the following the current link. The default value is `false`.
-onInvoke? | EventAttribute | Script function which is to be executed when this operation is invoked.
+method | `string` | Instructs the agent what protocol method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.
+produces | `string` | Indicates to the client what media types the server supports as response content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
+consumes | `string` | Indicates to the client what media types the server supports as request content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
+requestContent | `boolean` | Indicates to the client whether a request content is required or not for the following the current link. The default value is `false`.
+onInvoke | EventAttribute | Script function which is to be executed when this operation is invoked.
 
 The quality weight parameters MAY be used in the `consumes` and `produces` properties to indicate to the client which media types are preferred, possibly allowing the client to know when a known media type has been superseded and a new one is preferred.
 
-#### Operation Examples
+#### Examples
 
 **JSON Representation Example**
 
@@ -302,7 +308,7 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
 </phtal:operation>
 ~~~
 
-### HTTP Operation
+### HTTP Operation Object
 
 The HTTP Operation element is an extension of the Operation element specifically for interactions using the HTTP protocol.
 
@@ -310,10 +316,10 @@ The HTTP Operation element is an extension of the Operation element specifically
 
 Name | Type | Description
 ---|:---:|---
-security? | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
-headers? | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to a document that appropriately describes the format and semantics of the variables, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.
+security | [[Security Object](#security-object)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
+headers | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to a document that appropriately describes the format and semantics of the variables, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.
 
-#### HTTP Operation Examples
+#### Examples
 
 **JSON Representation Example**
 
@@ -356,20 +362,20 @@ headers? | Map[`string`, `string`] | A map where the keys are the names of the H
 </phtal:operation>
 ~~~
 
-### SecurityRequirement
+### Security Object
 
-#### Properties
+#### Fixed Fields
 
 Name | Type | Description
 ---|:---:|---
-scheme | `string` |  An URI that MUST resolve to an [OpenAPI 3.1 Spec](#OAS) Security Scheme declarations.
-scopes? | [`string`] | A list of the scopes required for authorization. Scopes are required when the security scheme is of type OAuth 2.0 or OpenID Connect.
+scheme | `string` | **REQUIRED** An URI that MUST resolve to an [OpenAPI 3.1 Spec](#OAS) Security Scheme declarations.
+scopes | [`string`] | A list of the scopes required for authorization. Scopes are required when the security scheme is of type OAuth 2.0 or OpenID Connect.
 
-### Partial
+### Partial Object
 
 Partial representation of the linked resource.
 
-#### Properties
+#### Fixed Fields
 
 Name | Type | Description
 ---|:---:|---
@@ -380,7 +386,7 @@ Partial content SHOULD NOT be considered full representations even if their cont
 
 In the case of XML it is the content of the `partial` element, in JSON it is the value of a `data` property.
 
-#### Partial Examples
+#### Examples
 
 **JSON Representation Example**
 
@@ -465,19 +471,21 @@ Ultimately, application servers may prefer if legacy clients could adapt to new 
 
 It's worthy to mention other advantages of code-on-demand outside of modifiability. Scalability of the server is improved, since it can off-load work to the client. User-perceived performance and efficiency are enhanced when the code can adapt its actions to the client’s environment and interact with the user locally rather than through remote interactions.
 
-### Script
+### Script Object
 
 A script element is equivalent to the script element in HTML and thus is the place for scripts (e.g., ECMAScript). Any functions defined within any script element have a "global" scope across the entire current document.
 
 TODO: Consider what to include about DOM and Events.
 
-#### Properties
+#### Fixed Fields
 
 Name | Type | Description
 ---|:---:|---
-type | `string` | Identifies the media type that describes the script content.
-source? | `string` | An URI that references the script's content.
-data? | Any | The actual contents of the script. It is mutually exclusive with the source property.
+type | `string` | **REQUIRED** Identifies the media type that describes the script content.
+source | `string` | An URI that references the script's content.
+data | `string` | The actual contents of the script. It is mutually exclusive with the source property.
+
+#### Examples
 
 **JSON Representation Example**
 
