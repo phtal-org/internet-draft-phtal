@@ -14,8 +14,7 @@ pi: [toc, sortrefs, symrefs]
 author:
 - ins: J. Montoya
   name: Jose Montoya
-  org: Mountain State Software Solutions
-  email: jmontoya@ms3-inc.com
+  email: jam01@protonmail.com
 
 normative:
   RFC7303: # XML Media Types
