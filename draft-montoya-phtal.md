@@ -22,21 +22,17 @@ normative:
   RFC3986: # URI
   RFC6570: # URI Template
   RFC6838: # Media Type Specifications and Registration Procedures
-  RAML:
-    title: RAML Specification
-    target: https://github.com/raml-org/raml-spec/blob/master/versions/raml-10/raml-10.md
+  OAS:
+    title: OpenAPI Specification
+    target: https://github.com/OAI/OpenAPI-Specification/blob/v3.1.0-dev/versions/3.1.0.md
     author:
-      org: The RAML Workgroup
+      org: OpenAPI Initiative, a Linux Foundation Collaborative Project
   I-D.draft-montoya-xrel-00:
 
 informative:
-  RFC6906: # Profile link relation
   RFC7231: # HTTP
   I-D.draft-kelly-json-hal-08:
   I-D.draft-handrews-json-schema-hyperschema-01:
-  OpenAPI:
-    title: OpenAPI Specification
-    target: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
   REST:
     target: http://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf
     title: Architectural Styles and the Design of Network-based Software Architectures
@@ -160,8 +156,8 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
       "operation": {
         "HTTP": {
           "method": "GET",
-          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+          "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
+                      application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
         }
       }
     }]
@@ -169,10 +165,10 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
   "_operations": {
     "HTTP": {
       "method": "PUT",
-      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
+      "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
+                  application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+                  application/phtal+xml;type=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }
   }
 }
@@ -193,18 +189,18 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
     <phtal:href>http://fhir.myclinic.com/Encounter/1234</phtal:href>
     <phtal:operation protocol="HTTP">
       <phtal:method>GET</phtal:method>
-      <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+      <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
+                    application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
       </phtal:produces>
     </phtal:operation>
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:consumes>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
-                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome",
+                  application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
   </phtal:operation>
 </Patient>
@@ -217,7 +213,7 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
 Name | Type | Description
 ---|:---:|---
 href | `string` | The link's target resource. The href property MUST be a [URI](#RFC3986) or a [URI Template](#RFC6570).
-uriParameters? | Map[`string`, `string`] | A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to [RAML 1.0 Spec](#RAML) Data Type declarations explaining the format and semantics of the variables.
+uriParameters? | Map[`string`, `string`] | A map where the keys are the names of the variables in the href property when it is an URI Template, and the values are URIs that resolve to a document that appropriately describes the format and semantics of the variables, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.
 operation? | Map[`string`, [Operation ](#operation)] | The protocol specific operation for traversing this link. There SHOULD NOT be two operations for the same protocol.
 partial? | [Partial ](#partial) | A partial representation of the target resource.
 
@@ -238,8 +234,8 @@ When the operation element is not present the client SHOULD assume that the requ
   "operation": {
     "HTTP": {
       "method": "GET",
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
+                application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
     }
   }
 }
@@ -255,8 +251,8 @@ When the operation element is not present the client SHOULD assume that the requ
   <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_elements.raml">_elements</phtal:uriParameter>
   <phtal:operation protocol="HTTP">
     <phtal:method>GET</phtal:method>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
     </phtal:produces>
   </phtal:instructions>
 </phtal:link>
@@ -287,8 +283,8 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
 ~~~ json
 {
   "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "onInvoke": "..."
 }
@@ -298,9 +294,9 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
 
 ~~~ xml
 <phtal:operation protocol="HTTP" onInvoke="...">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
 </phtal:operation>
@@ -314,8 +310,8 @@ The HTTP Operation element is an extension of the Operation element specifically
 
 Name | Type | Description
 ---|:---:|---
-securedBy? | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
-headers? | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to [RAML 1.0 Spec](#RAML) Data Type declarations explaining the format and semantics of the variables.
+security? | [[SecurityRequirement ](#securityrequirement)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
+headers? | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to a document that appropriately describes the format and semantics of the variables, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.
 
 #### HTTP Operation Examples
 
@@ -324,10 +320,10 @@ headers? | Map[`string`, `string`] | A map where the keys are the names of the H
 ~~~ json
 {
   "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
-  "securedBy": [
+  "security": [
     {
       "scheme": "https://api-docs.myclinic.com/fhir/security/basicAuth"
     },
@@ -348,15 +344,15 @@ headers? | Map[`string`, `string`] | A map where the keys are the names of the H
 
 ~~~ xml
 <phtal:operation protocol="HTTP">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
-    <phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
+    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
       <phtal:scope>appointment:write</phtal:scope>
-    </phtal:securedBy>
-    <phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/>
+    </phtal:security>
+    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/>
 </phtal:operation>
 ~~~
 
@@ -366,8 +362,8 @@ headers? | Map[`string`, `string`] | A map where the keys are the names of the H
 
 Name | Type | Description
 ---|:---:|---
-scheme | `string` |  An URI that MUST resolve to [RAML 1.0 Spec](#RAML) Security Scheme declarations.
-scopes? | [`string`] | A list of the scopes required for authorization. Scopes are required when the security scheme is of type OAuth 2.0.
+scheme | `string` |  An URI that MUST resolve to an [OpenAPI 3.1 Spec](#OAS) Security Scheme declarations.
+scopes? | [`string`] | A list of the scopes required for authorization. Scopes are required when the security scheme is of type OAuth 2.0 or OpenID Connect.
 
 ### Partial
 
@@ -390,7 +386,7 @@ In the case of XML it is the content of the `partial` element, in JSON it is the
 
 ~~~ json
 {
-  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
+  "type": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\"",
   "data": {
     "status": "in-progress",
     "class": {
@@ -405,7 +401,7 @@ In the case of XML it is the content of the `partial` element, in JSON it is the
 **XML Representation Example**
 
 ~~~ xml
-<phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+<phtal:partial type="application/phtal+xml;type=\"http://hl7.org/fhir/json-schema/Encounter\"">
   <Encounter xmlns="http://hl7.org/fhir">
     <status value="in-progress"/>
       <class>
@@ -425,12 +421,12 @@ By making use of media type parameters, PHTAL representations allow participants
 
 When web participants identify an application-specific format in metadata they promote visibility and evolvability. Intermediaries (i.e., proxies and gateways) are able to accurately and more efficiently perform significant functions such as encapsulating legacy services, and enhancing client functionality.
 
-### Linking to a profile
+### Linking to a type
 
 For example consider the following interactions:
 
 ~~~~
-POST http://www.example.com/someIdentifier
+POST http://www.example.com/some-identifier
 Content-Type: application/json
 Accept: application/json
 ~~~~
@@ -440,26 +436,24 @@ Accept: application/json
 Content-Type: application/json
 ~~~~
 
-This interaction can only be accurately interpreted to mean that the client requested resource `http://www.example.com/someIdentifier` to process an `application/json` request and it successfully responded with an `application/json` response. `application/json` offers intermediaries no semantic information about the content of the message besides how it's (de)serialized.
+This interaction can only be accurately interpreted to mean that the client requested `http://www.example.com/some-identifier` to process an `application/json` request and it successfully responded with an `application/json` response. `application/json` offers intermediaries no semantic information about the content of the message besides how it's (de)serialized.
 
-To indicate the format and semantics of a PHTAL representation, the sender SHOULD identify a document that explains additional semantics using a "profile" media type parameter.
+To indicate the format and semantics of a PHTAL representation, the sender SHOULD identify a document that explains additional semantics using a "type" media type parameter.
 
 ~~~~
-POST http://www.example.com/someIdentifier
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
-Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
+POST http://www.example.com/some-identifier
+Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Appointment"
+Accept: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"
 ~~~~
 
 ~~~~
 200 OK
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
+Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"```
 ~~~~
 
-In contrast, this second interaction is perfectly clear. The client asked `http://www.example.com/someIdentifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.
+In contrast, this second interaction is perfectly clear. The client requested `http://www.example.com/some-identifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the type information.
 
-The profile parameter SHOULD be a dereferenceable URI that resolves to a [RAML 1.0 Spec](#RAML) Data Type declaration. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.
-
-TODO: Consider restricting profile parameter to a single value, forego the link rel definition.
+The type parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document type, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.
 
 ## Code-On-Demand
 
@@ -533,7 +527,7 @@ TODO: Update schemas linked.
 
   > **charset:** This parameter has identical semantics to the charset parameter of the 'application/xml' media type as specified in {{RFC7303}}.
 
-  > **profile:** A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a PHTAL document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section \#5.1 of this document.
+  > **type:**
 
 **Encoding considerations:**
 
@@ -585,7 +579,7 @@ TODO: Update schemas linked.
 
 **Optional parameters:**
 
-  > **profile:** A whitespace-separated list of URIs identifying specific constraints or conventions that apply to a PHTAL document. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process. Profile URIs MUST be dereferenceable and resolve to a profile document as defined in Section \#5.1 of this document.
+  > **type:**
 
 **Encoding considerations:** binary
 
