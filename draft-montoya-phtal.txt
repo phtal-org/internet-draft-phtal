@@ -3,9 +3,9 @@
 
 
 Network Working Group                                         J. Montoya
-Internet-Draft                         Mountain State Software Solutions
-Intended status: Informational                         February 26, 2019
-Expires: August 30, 2019
+Internet-Draft                                          October 31, 2019
+Intended status: Informational
+Expires: May 3, 2020
 
 
                 Profiled Hypertext Application Language
@@ -32,7 +32,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 30, 2019.
+   This Internet-Draft will expire on May 3, 2020.
 
 Copyright Notice
 
@@ -53,42 +53,44 @@ Copyright Notice
 
 
 
-Montoya                  Expires August 30, 2019                [Page 1]
+Montoya                    Expires May 3, 2020                  [Page 1]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Definitions and Terminology . . . . . . . . . . . . . . .   2
+     1.1.  Definitions and Terminology . . . . . . . . . . . . . . .   3
        1.1.1.  Terminology and Conformance Language  . . . . . . . .   3
        1.1.2.  General . . . . . . . . . . . . . . . . . . . . . . .   3
-       1.1.3.  Documents description . . . . . . . . . . . . . . . .   3
+       1.1.3.  Documents description . . . . . . . . . . . . . . . .   4
      1.2.  Motivation  . . . . . . . . . . . . . . . . . . . . . . .   4
-   2.  PHTAL Representations . . . . . . . . . . . . . . . . . . . .   4
-     2.1.  Hypermedia as the engine of application state . . . . . .   4
-       2.1.1.  Document Root . . . . . . . . . . . . . . . . . . . .   4
-       2.1.2.  Link  . . . . . . . . . . . . . . . . . . . . . . . .   7
-       2.1.3.  Operation . . . . . . . . . . . . . . . . . . . . . .   9
-       2.1.4.  HTTP Operation  . . . . . . . . . . . . . . . . . . .  11
-       2.1.5.  SecurityRequirement . . . . . . . . . . . . . . . . .  12
-       2.1.6.  Partial . . . . . . . . . . . . . . . . . . . . . . .  13
-     2.2.  Self-descriptive messages . . . . . . . . . . . . . . . .  14
-       2.2.1.  Linking to a profile  . . . . . . . . . . . . . . . .  15
-     2.3.  Code-On-Demand  . . . . . . . . . . . . . . . . . . . . .  16
-       2.3.1.  Script  . . . . . . . . . . . . . . . . . . . . . . .  16
+   2.  PHTAL Document  . . . . . . . . . . . . . . . . . . . . . . .   4
+     2.1.  Format  . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     2.2.  Schema  . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     2.3.  Hypermedia as the engine of application state . . . . . .   4
+       2.3.1.  PHTAL Object  . . . . . . . . . . . . . . . . . . . .   5
+       2.3.2.  Link Object . . . . . . . . . . . . . . . . . . . . .   7
+       2.3.3.  Operation Object  . . . . . . . . . . . . . . . . . .   9
+       2.3.4.  HTTP Operation Object . . . . . . . . . . . . . . . .  11
+       2.3.5.  Security Object . . . . . . . . . . . . . . . . . . .  12
+       2.3.6.  Partial Object  . . . . . . . . . . . . . . . . . . .  13
+     2.4.  Self-descriptive messages . . . . . . . . . . . . . . . .  14
+       2.4.1.  Linking to a type . . . . . . . . . . . . . . . . . .  15
+     2.5.  Code-On-Demand  . . . . . . . . . . . . . . . . . . . . .  16
+       2.5.1.  Script Object . . . . . . . . . . . . . . . . . . . .  16
    3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
      3.1.  application/phtal+xml . . . . . . . . . . . . . . . . . .  18
      3.2.  application/phtal+json  . . . . . . . . . . . . . . . . .  19
-   4.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  21
-     4.1.  Normative References  . . . . . . . . . . . . . . . . . .  21
-     4.2.  Informative References  . . . . . . . . . . . . . . . . .  22
+   4.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     4.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
+     4.2.  Informative References  . . . . . . . . . . . . . . . . .  21
      4.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  22
-   Appendix A.  Acknowledgments  . . . . . . . . . . . . . . . . . .  23
-   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  23
-     B.1.  How can I submit comments or feedback to the editors? . .  23
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  23
+   Appendix A.  Acknowledgments  . . . . . . . . . . . . . . . . . .  22
+   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  22
+     B.1.  How can I submit comments or feedback to the editors? . .  22
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  22
 
 1.  Introduction
 
@@ -101,18 +103,18 @@ Table of Contents
    registration is for community review and will be submitted to the
    IESG for review, approval, and registration with IANA.
 
-1.1.  Definitions and Terminology
 
 
 
 
 
 
-
-Montoya                  Expires August 30, 2019                [Page 2]
+Montoya                    Expires May 3, 2020                  [Page 2]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
+
+1.1.  Definitions and Terminology
 
 1.1.1.  Terminology and Conformance Language
 
@@ -156,19 +158,22 @@ Internet-Draft                    phtal                    February 2019
    computing to a given task, controlled and stored by the user agent
    and can be composed of representations from multiple servers.
 
+
+
+
+
+
+
+
+Montoya                    Expires May 3, 2020                  [Page 3]
+
+Internet-Draft                    phtal                     October 2019
+
+
 1.1.3.  Documents description
 
    A trailing question mark, for example *description?*, indicates an
    optional property.
-
-
-
-
-
-Montoya                  Expires August 30, 2019                [Page 3]
-
-Internet-Draft                    phtal                    February 2019
-
 
 1.2.  Motivation
 
@@ -183,9 +188,21 @@ Internet-Draft                    phtal                    February 2019
    to enable application authors to create evolvable and extensible
    applications.
 
-2.  PHTAL Representations
+2.  PHTAL Document
 
-2.1.  Hypermedia as the engine of application state
+2.1.  Format
+
+   All field names in the specification are case sensitive.  This
+   includes all fields that are used as keys in a map, except where
+   explicitly noted that keys are case insensitive.
+
+2.2.  Schema
+
+   In the description that will follow, if a field is not explicitly
+   *REQUIRED* or described with a MUST or SHALL, it can be considered
+   OPTIONAL.
+
+2.3.  Hypermedia as the engine of application state
 
    The Uniform Interface constraint dictates that hypermedia be the
    engine of application state.  This means that the state of the
@@ -201,6 +218,14 @@ Internet-Draft                    phtal                    February 2019
    without having to restart or deploy clients.  Applications servers
    are free to change their URI structure, they are free rearrange
    resources into different servers, they are free introduce new links
+
+
+
+Montoya                    Expires May 3, 2020                  [Page 4]
+
+Internet-Draft                    phtal                     October 2019
+
+
    that provide new features in existing representations, nothing will
    break already deployed components as long as links are not broken.
 
@@ -208,44 +233,36 @@ Internet-Draft                    phtal                    February 2019
    instead of creating and registering a new, application specific,
    hypertext enabled media type, authors can choose to make use of
    PHTAL's markup.  This frees authors to spend most of their
-   descriptive efforts in defining application-specific representation
+   descriptive efforts in defining application-specific representations
    and possibly on extended link relations to drive application state.
 
-2.1.1.  Document Root
+2.3.1.  PHTAL Object
 
    The in-band elements defined by PHTAL aim to provide just what's
    necessary for agents to evaluate the hypertext relationship
    alternatives provided and invoke the appropriate operation to get the
    agent to the next application state.
 
+2.3.1.1.  Fixed Fields
 
-
-
-Montoya                  Expires August 30, 2019                [Page 4]
-
-Internet-Draft                    phtal                    February 2019
-
-
-2.1.1.1.  Properties
-
-   +-------------+---------------+-------------------------------------+
-   | Name        |      Type     | Description                         |
-   +-------------+---------------+-------------------------------------+
-   | links?      | Map["string", | The links element is a map where    |
-   |             |     [Link     | the keys are hypermedia             |
-   |             |    (Section   | relationship identifiers and the    |
-   |             |    2.1.2)]]   | values are single or multiple Link  |
-   |             |               | elements. The relationship          |
-   |             |               | identifier MUST be a IANA           |
-   |             |               | registered relation type or an URI  |
-   |             |               | that when dereferenced resolves to  |
-   |             |               | an XREL [I-D.draft-montoya-xrel-00] |
-   |             |               | document.                           |
-   |             |               |                                     |
-   | operations? |   [Operation  | Informs an agent of what operations |
-   |             |    (Section   | are allowed to be invoked on the    |
-   |             |    2.1.3)]    | context resource.                   |
-   +-------------+---------------+-------------------------------------+
+   +------------+---------------+--------------------------------------+
+   | Name       |      Type     | Description                          |
+   +------------+---------------+--------------------------------------+
+   | links      | Map["string", | The links element is a map where the |
+   |            | [Link Object  | keys are hypermedia relationship     |
+   |            | (Section 2.3. | identifiers and the values are       |
+   |            |      2)]]     | single or multiple Link elements.    |
+   |            |               | The relationship identifier MUST be  |
+   |            |               | a IANA registered relation type or   |
+   |            |               | an URI that when dereferenced        |
+   |            |               | resolves to an XREL                  |
+   |            |               | [I-D.draft-montoya-xrel-00]          |
+   |            |               | document.                            |
+   |            |               |                                      |
+   | operations |   [Operation  | Informs an agent of what operations  |
+   |            | Object (Secti | are allowed to be invoked on the     |
+   |            |   on 2.3.3)]  | context resource.                    |
+   +------------+---------------+--------------------------------------+
 
    The operations element MAY be included as part of an HTTP GET
    response body, or as the response body to an HTTP OPTIONS, for
@@ -254,33 +271,20 @@ Internet-Draft                    phtal                    February 2019
    Detailed mappings to XML and JSON are provided through the
    appropriate schemas in Section #5 of this document.
 
-2.1.1.2.  PHTAL examples
+
+
+
+
+
+
+Montoya                    Expires May 3, 2020                  [Page 5]
+
+Internet-Draft                    phtal                     October 2019
+
+
+2.3.1.2.  Examples
 
    *JSON Representation Example*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Montoya                  Expires August 30, 2019                [Page 5]
-
-Internet-Draft                    phtal                    February 2019
-
 
 {
   "name": [
@@ -299,8 +303,8 @@ Internet-Draft                    phtal                    February 2019
       "operation": {
         "HTTP": {
           "method": "GET",
-          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+          "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
+                      application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
         }
       }
     }]
@@ -308,10 +312,10 @@ Internet-Draft                    phtal                    February 2019
   "_operations": {
     "HTTP": {
       "method": "PUT",
-      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
+      "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
+                  application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+                  application/phtal+xml;type=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }
   }
 }
@@ -329,13 +333,9 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-
-
-
-
-Montoya                  Expires August 30, 2019                [Page 6]
+Montoya                    Expires May 3, 2020                  [Page 6]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
 <Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
@@ -350,27 +350,25 @@ Internet-Draft                    phtal                    February 2019
     <phtal:href>http://fhir.myclinic.com/Encounter/1234</phtal:href>
     <phtal:operation protocol="HTTP">
       <phtal:method>GET</phtal:method>
-      <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+      <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
+                    application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
       </phtal:produces>
     </phtal:operation>
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:consumes>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
-                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome",
+                  application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
   </phtal:operation>
 </Patient>
 
-2.1.2.  Link
+2.3.2.  Link Object
 
-2.1.2.1.  Properties
-
-
+2.3.2.1.  Fixed Fields
 
 
 
@@ -389,43 +387,46 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-Montoya                  Expires August 30, 2019                [Page 7]
+
+
+Montoya                    Expires May 3, 2020                  [Page 7]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-   +----------------+---------------+----------------------------------+
-   | Name           |      Type     | Description                      |
-   +----------------+---------------+----------------------------------+
-   | href           |    "string"   | The link's target resource. The  |
-   |                |               | href property MUST be a URI      |
-   |                |               | [RFC3986] or a URI Template      |
-   |                |               | [RFC6570].                       |
-   |                |               |                                  |
-   | uriParameters? | Map["string", | A map where the keys are the     |
-   |                |   "string"]   | names of the variables in the    |
-   |                |               | href property when it is an URI  |
-   |                |               | Template, and the values are     |
-   |                |               | URIs that resolve to RAML 1.0    |
-   |                |               | Spec [RAML] Data Type            |
-   |                |               | declarations explaining the      |
-   |                |               | format and semantics of the      |
-   |                |               | variables.                       |
-   |                |               |                                  |
-   | operation?     | Map["string", | The protocol specific operation  |
-   |                |   Operation   | for traversing this link. There  |
-   |                |    (Section   | SHOULD NOT be two operations for |
-   |                |    2.1.3)]    | the same protocol.               |
-   |                |               |                                  |
-   | partial?       |    Partial    | A partial representation of the  |
-   |                |    (Section   | target resource.                 |
-   |                |     2.1.6)    |                                  |
-   +----------------+---------------+----------------------------------+
+   +---------------+---------------+-----------------------------------+
+   | Name          |      Type     | Description                       |
+   +---------------+---------------+-----------------------------------+
+   | href          |    "string"   | *REQUIRED* The link's target      |
+   |               |               | resource. The href property MUST  |
+   |               |               | be a URI [RFC3986] or a URI       |
+   |               |               | Template [RFC6570].               |
+   |               |               |                                   |
+   | uriParameters | Map["string", | A map where the keys are the      |
+   |               |   "string"]   | names of the variables in the     |
+   |               |               | href property when it is an URI   |
+   |               |               | Template, and the values are URIs |
+   |               |               | that resolve to a document that   |
+   |               |               | appropriately describes the       |
+   |               |               | format and semantics of the       |
+   |               |               | variables, e.g.: a DTD, XSD, JSON |
+   |               |               | Schema, RAML Data Type, OpenAPI   |
+   |               |               | schema, etc.                      |
+   |               |               |                                   |
+   | operation     | Map["string", | The protocol specific operation   |
+   |               |   Operation   | for traversing this link. There   |
+   |               | Object (Secti | SHOULD NOT be two operations for  |
+   |               |   on 2.3.3)]  | the same protocol.                |
+   |               |               |                                   |
+   | partial       |    Partial    | A partial representation of the   |
+   |               | Object (Secti | target resource.                  |
+   |               |   on 2.3.6)   |                                   |
+   +---------------+---------------+-----------------------------------+
 
    When the operation element is not present the client SHOULD assume
    that the required operation is an HTTP GET.
 
-2.1.2.2.  Link Examples
+2.3.2.2.  Examples
 
    *JSON Representation Example*
 
@@ -444,10 +445,9 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-
-Montoya                  Expires August 30, 2019                [Page 8]
+Montoya                    Expires May 3, 2020                  [Page 8]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
 {
@@ -460,8 +460,8 @@ Internet-Draft                    phtal                    February 2019
   "operation": {
     "HTTP": {
       "method": "GET",
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
+                application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
     }
   }
 }
@@ -475,13 +475,13 @@ Internet-Draft                    phtal                    February 2019
   <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_elements.raml">_elements</phtal:uriParameter>
   <phtal:operation protocol="HTTP">
     <phtal:method>GET</phtal:method>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
     </phtal:produces>
   </phtal:instructions>
 </phtal:link>
 
-2.1.3.  Operation
+2.3.3.  Operation Object
 
    The most important element that PHTAL representations provide is the
    operation element.  This element instructs the agent on how to
@@ -501,53 +501,52 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-Montoya                  Expires August 30, 2019                [Page 9]
+Montoya                    Expires May 3, 2020                  [Page 9]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-2.1.3.1.  Properties
+2.3.3.1.  Fixed Fields
 
-   +-----------------+----------------+--------------------------------+
-   | Name            |      Type      | Description                    |
-   +-----------------+----------------+--------------------------------+
-   | method?         |    "string"    | Instructs the agent what       |
-   |                 |                | protocol method to use when    |
-   |                 |                | interacting with the           |
-   |                 |                | identified resource. The       |
-   |                 |                | default value is whatever      |
-   |                 |                | protocol specific method       |
-   |                 |                | results in information         |
-   |                 |                | retrieval, eg. HTTP GET.       |
-   |                 |                |                                |
-   | produces?       |    "string"    | Indicates to the client what   |
-   |                 |                | media types the server         |
-   |                 |                | supports as response content   |
-   |                 |                | to following the current link. |
-   |                 |                | It MUST be a media range and   |
-   |                 |                | parameters according to        |
-   |                 |                | Section 5.3.2 'Accept' of the  |
-   |                 |                | HTTP Specification [RFC7231].  |
-   |                 |                |                                |
-   | consumes?       |    "string"    | Indicates to the client what   |
-   |                 |                | media types the server         |
-   |                 |                | supports as request content to |
-   |                 |                | following the current link. It |
-   |                 |                | MUST be a media range and      |
-   |                 |                | parameters according to        |
-   |                 |                | Section 5.3.2 'Accept' of the  |
-   |                 |                | HTTP Specification [RFC7231].  |
-   |                 |                |                                |
-   | requestContent? |   "boolean"    | Indicates to the client        |
-   |                 |                | whether a request content is   |
-   |                 |                | required or not for the        |
-   |                 |                | following the current link.    |
-   |                 |                | The default value is "false".  |
-   |                 |                |                                |
-   | onInvoke?       | EventAttribute | Script function which is to be |
-   |                 |                | executed when this operation   |
-   |                 |                | is invoked.                    |
-   +-----------------+----------------+--------------------------------+
+   +----------------+----------------+---------------------------------+
+   | Name           |      Type      | Description                     |
+   +----------------+----------------+---------------------------------+
+   | method         |    "string"    | Instructs the agent what        |
+   |                |                | protocol method to use when     |
+   |                |                | interacting with the identified |
+   |                |                | resource. The default value is  |
+   |                |                | whatever protocol specific      |
+   |                |                | method results in information   |
+   |                |                | retrieval, eg. HTTP GET.        |
+   |                |                |                                 |
+   | produces       |    "string"    | Indicates to the client what    |
+   |                |                | media types the server supports |
+   |                |                | as response content to          |
+   |                |                | following the current link. It  |
+   |                |                | MUST be a media range and       |
+   |                |                | parameters according to Section |
+   |                |                | 5.3.2 'Accept' of the HTTP      |
+   |                |                | Specification [RFC7231].        |
+   |                |                |                                 |
+   | consumes       |    "string"    | Indicates to the client what    |
+   |                |                | media types the server supports |
+   |                |                | as request content to following |
+   |                |                | the current link. It MUST be a  |
+   |                |                | media range and parameters      |
+   |                |                | according to Section 5.3.2      |
+   |                |                | 'Accept' of the HTTP            |
+   |                |                | Specification [RFC7231].        |
+   |                |                |                                 |
+   | requestContent |   "boolean"    | Indicates to the client whether |
+   |                |                | a request content is required   |
+   |                |                | or not for the following the    |
+   |                |                | current link. The default value |
+   |                |                | is "false".                     |
+   |                |                |                                 |
+   | onInvoke       | EventAttribute | Script function which is to be  |
+   |                |                | executed when this operation is |
+   |                |                | invoked.                        |
+   +----------------+----------------+---------------------------------+
 
    The quality weight parameters MAY be used in the "consumes" and
    "produces" properties to indicate to the client which media types are
@@ -557,19 +556,20 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-Montoya                  Expires August 30, 2019               [Page 10]
+
+Montoya                    Expires May 3, 2020                 [Page 10]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-2.1.3.2.  Operation Examples
+2.3.3.2.  Examples
 
    *JSON Representation Example*
 
 {
   "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "onInvoke": "..."
 }
@@ -577,57 +577,57 @@ Internet-Draft                    phtal                    February 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP" onInvoke="...">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
 </phtal:operation>
 
-2.1.4.  HTTP Operation
+2.3.4.  HTTP Operation Object
 
    The HTTP Operation element is an extension of the Operation element
    specifically for interactions using the HTTP protocol.
 
-2.1.4.1.  Added Properties
+2.3.4.1.  Added Properties
 
-   +------------+----------------------+-------------------------------+
-   | Name       |         Type         | Description                   |
-   +------------+----------------------+-------------------------------+
-   | securedBy? | [SecurityRequirement | An array of                   |
-   |            |   (Section 2.1.5)]   | SecurityRequirement elements, |
-   |            |                      | the operation can be          |
-   |            |                      | authenticated by any of the   |
-   |            |                      | specified security schemes.   |
-   |            |                      |                               |
-   | headers?   |    Map["string",     | A map where the keys are the  |
-   |            |      "string"]       | names of the HTTP headers to  |
-   |            |                      | be sent and the values are    |
-   |            |                      | URIs that resolve to RAML 1.0 |
-   |            |                      | Spec [RAML] Data Type         |
-   |            |                      | declarations explaining the   |
-   |            |                      | format and semantics of the   |
-   |            |                      | variables.                    |
-   +------------+----------------------+-------------------------------+
-
+   +----------+---------------+----------------------------------------+
+   | Name     |      Type     | Description                            |
+   +----------+---------------+----------------------------------------+
+   | security |   [Security   | An array of SecurityRequirement        |
+   |          | Object (Secti | elements, the operation can be         |
+   |          |   on 2.3.5)]  | authenticated by any of the specified  |
+   |          |               | security schemes.                      |
+   |          |               |                                        |
+   | headers  | Map["string", | A map where the keys are the names of  |
+   |          |   "string"]   | the HTTP headers to be sent and the    |
+   |          |               | values are URIs that resolve to a      |
+   |          |               | document that appropriately describes  |
+   |          |               | the format and semantics of the        |
+   |          |               | variables, e.g.: a DTD, XSD, JSON      |
+   |          |               | Schema, RAML Data Type, OpenAPI        |
+   |          |               | schema, etc.                           |
+   +----------+---------------+----------------------------------------+
 
 
 
-Montoya                  Expires August 30, 2019               [Page 11]
+
+
+Montoya                    Expires May 3, 2020                 [Page 11]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-2.1.4.2.  HTTP Operation Examples
+2.3.4.2.  Examples
 
    *JSON Representation Example*
 
 {
   "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
-  "securedBy": [
+  "security": [
     {
       "scheme": "https://api-docs.myclinic.com/fhir/security/basicAuth"
     },
@@ -646,22 +646,20 @@ Internet-Draft                    phtal                    February 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
-    <phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
+    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
       <phtal:scope>appointment:write</phtal:scope>
-    </phtal:securedBy>
-    <phtal:securedBy scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/>
+    </phtal:security>
+    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/>
 </phtal:operation>
 
-2.1.5.  SecurityRequirement
+2.3.5.  Security Object
 
-2.1.5.1.  Properties
-
-
+2.3.5.1.  Fixed Fields
 
 
 
@@ -669,27 +667,31 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-Montoya                  Expires August 30, 2019               [Page 12]
+
+
+Montoya                    Expires May 3, 2020                 [Page 12]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-   +---------+------------+--------------------------------------------+
-   | Name    |    Type    | Description                                |
-   +---------+------------+--------------------------------------------+
-   | scheme  |  "string"  | An URI that MUST resolve to RAML 1.0 Spec  |
-   |         |            | [RAML] Security Scheme declarations.       |
-   |         |            |                                            |
-   | scopes? | ["string"] | A list of the scopes required for          |
-   |         |            | authorization. Scopes are required when    |
-   |         |            | the security scheme is of type OAuth 2.0.  |
-   +---------+------------+--------------------------------------------+
+   +--------+------------+---------------------------------------------+
+   | Name   |    Type    | Description                                 |
+   +--------+------------+---------------------------------------------+
+   | scheme |  "string"  | *REQUIRED* An URI that MUST resolve to an   |
+   |        |            | OpenAPI 3.1 Spec [OAS] Security Scheme      |
+   |        |            | declarations.                               |
+   |        |            |                                             |
+   | scopes | ["string"] | A list of the scopes required for           |
+   |        |            | authorization. Scopes are required when the |
+   |        |            | security scheme is of type OAuth 2.0 or     |
+   |        |            | OpenID Connect.                             |
+   +--------+------------+---------------------------------------------+
 
-2.1.6.  Partial
+2.3.6.  Partial Object
 
    Partial representation of the linked resource.
 
-2.1.6.1.  Properties
+2.3.6.1.  Fixed Fields
 
    +------+----------+-------------------------------------------------+
    | Name |   Type   | Description                                     |
@@ -709,7 +711,7 @@ Internet-Draft                    phtal                    February 2019
    In the case of XML it is the content of the "partial" element, in
    JSON it is the value of a "data" property.
 
-2.1.6.2.  Partial Examples
+2.3.6.2.  Examples
 
    *JSON Representation Example*
 
@@ -723,15 +725,13 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-
-
-Montoya                  Expires August 30, 2019               [Page 13]
+Montoya                    Expires May 3, 2020                 [Page 13]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
 {
-  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
+  "type": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\"",
   "data": {
     "status": "in-progress",
     "class": {
@@ -744,7 +744,7 @@ Internet-Draft                    phtal                    February 2019
 
    *XML Representation Example*
 
-<phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+<phtal:partial type="application/phtal+xml;type=\"http://hl7.org/fhir/json-schema/Encounter\"">
   <Encounter xmlns="http://hl7.org/fhir">
     <status value="in-progress"/>
       <class>
@@ -755,7 +755,7 @@ Internet-Draft                    phtal                    February 2019
   </Encounter>
 </phtal:partial>
 
-2.2.  Self-descriptive messages
+2.4.  Self-descriptive messages
 
    The Uniform Interface constraint also dictates that messages be self-
    descriptive.  This is achieved by message metadata, of which content
@@ -781,16 +781,16 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-Montoya                  Expires August 30, 2019               [Page 14]
+Montoya                    Expires May 3, 2020                 [Page 14]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-2.2.1.  Linking to a profile
+2.4.1.  Linking to a type
 
    For example consider the following interactions:
 
-   POST http://www.example.com/someIdentifier
+   POST http://www.example.com/some-identifier
    Content-Type: application/json
    Accept: application/json
 
@@ -798,51 +798,51 @@ Internet-Draft                    phtal                    February 2019
    Content-Type: application/json
 
    This interaction can only be accurately interpreted to mean that the
-   client requested resource "http://www.example.com/someIdentifier" to
-   process an "application/json" request and it successfully responded
-   with an "application/json" response. "application/json" offers
-   intermediaries no semantic information about the content of the
-   message besides how it's (de)serialized.
+   client requested "http://www.example.com/some-identifier" to process
+   an "application/json" request and it successfully responded with an
+   "application/json" response. "application/json" offers intermediaries
+   no semantic information about the content of the message besides how
+   it's (de)serialized.
 
    To indicate the format and semantics of a PHTAL representation, the
    sender SHOULD identify a document that explains additional semantics
-   using a "profile" media type parameter.
+   using a "type" media type parameter.
 
-POST http://www.example.com/someIdentifier
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
-Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
+POST http://www.example.com/some-identifier
+Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Appointment"
+Accept: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"
 
 200 OK
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
+Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"```
 
    In contrast, this second interaction is perfectly clear.  The client
-   asked "http://www.example.com/someIdentifier" to process a clinical
-   Appointment request and it successfully responded with an
+   requested "http://www.example.com/some-identifier" to process a
+   clinical Appointment request and it successfully responded with an
    OperationOutcome response that details the results of the processing.
    Intermediaries are able to parse and manipulate the message, perhaps
    defaulting values of the appointment request, or adding and/or
    removing links from the response, or maybe redirecting the message to
-   different resources based on the profile information.
+   different resources based on the type information.
 
-   The profile parameter SHOULD be a dereferenceable URI that resolves
-   to a RAML 1.0 Spec [RAML] Data Type declaration.  RAML data types are
-   used because of their ability to describe representations independent
-   of their runtime media type, as well as supporting XSD and JSON
-   Schema documents.
-
-   TODO: Consider restricting profile parameter to a single value,
-   forego the link rel definition.
+   The type parameter SHOULD be a dereferenceable URI that resolves to a
+   document that appropriately describes the document type, e.g.: a DTD,
+   XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.. RAML data
+   types are used because of their ability to describe representations
+   independent of their runtime media type, as well as supporting XSD
+   and JSON Schema documents.
 
 
 
 
 
-Montoya                  Expires August 30, 2019               [Page 15]
+
+
+Montoya                    Expires May 3, 2020                 [Page 15]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-2.3.  Code-On-Demand
+2.5.  Code-On-Demand
 
    In order to further promote modifiability of a system REST defines
    code-on-demand as an optional constraint.  An optional constraint
@@ -870,7 +870,7 @@ Internet-Draft                    phtal                    February 2019
    client's environment and interact with the user locally rather than
    through remote interactions.
 
-2.3.1.  Script
+2.5.1.  Script Object
 
    A script element is equivalent to the script element in HTML and thus
    is the place for scripts (e.g., ECMAScript).  Any functions defined
@@ -879,7 +879,7 @@ Internet-Draft                    phtal                    February 2019
 
    TODO: Consider what to include about DOM and Events.
 
-2.3.1.1.  Properties
+2.5.1.1.  Fixed Fields
 
 
 
@@ -893,22 +893,24 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-Montoya                  Expires August 30, 2019               [Page 16]
+Montoya                    Expires May 3, 2020                 [Page 16]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
-   +---------+----------+----------------------------------------------+
-   | Name    |   Type   | Description                                  |
-   +---------+----------+----------------------------------------------+
-   | type    | "string" | Identifies the media type that describes the |
-   |         |          | script content.                              |
-   |         |          |                                              |
-   | source? | "string" | An URI that references the script's content. |
-   |         |          |                                              |
-   | data?   |   Any    | The actual contents of the script. It is     |
-   |         |          | mutually exclusive with the source property. |
-   +---------+----------+----------------------------------------------+
+   +--------+----------+-----------------------------------------------+
+   | Name   |   Type   | Description                                   |
+   +--------+----------+-----------------------------------------------+
+   | type   | "string" | *REQUIRED* Identifies the media type that     |
+   |        |          | describes the script content.                 |
+   |        |          |                                               |
+   | source | "string" | An URI that references the script's content.  |
+   |        |          |                                               |
+   | data   | "string" | The actual contents of the script. It is      |
+   |        |          | mutually exclusive with the source property.  |
+   +--------+----------+-----------------------------------------------+
+
+2.5.1.2.  Examples
 
    *JSON Representation Example*
 
@@ -947,11 +949,9 @@ Internet-Draft                    phtal                    February 2019
 
 
 
-
-
-Montoya                  Expires August 30, 2019               [Page 17]
+Montoya                    Expires May 3, 2020                 [Page 17]
 
-Internet-Draft                    phtal                    February 2019
+Internet-Draft                    phtal                     October 2019
 
 
 3.1.  application/phtal+xml
@@ -968,16 +968,7 @@ Internet-Draft                    phtal                    February 2019
       parameter of the 'application/xml' media type as specified in
       [RFC7303].
 
-      *profile:* A whitespace-separated list of URIs identifying
-      specific constraints or conventions that apply to a PHTAL
-      document.  A profile must not change the semantics of the resource
-      representation when processed without profile knowledge, so that
-      clients both with and without knowledge of a profiled resource can
-      safely use the same representation.  The profile parameter may
-      also be used by clients to express their preferences in the
-      content negotiation process.  Profile URIs MUST be dereferenceable
-      and resolve to a profile document as defined in Section #5.1 of
-      this document.
+      *type:*
 
    *Encoding considerations:*
 
@@ -1003,13 +994,6 @@ Internet-Draft                    phtal                    February 2019
    format of application/phtal+xml is located at
    http://www.phtal.org/schema/phtal+xml.xsd [1]
 
-
-
-Montoya                  Expires August 30, 2019               [Page 18]
-
-Internet-Draft                    phtal                    February 2019
-
-
    *Fragment identifier considerations:*
 
    *Published specification:* This Document
@@ -1017,6 +1001,14 @@ Internet-Draft                    phtal                    February 2019
    *Applications that use this media type:* Various
 
    *Additional information:*
+
+
+
+
+Montoya                    Expires May 3, 2020                 [Page 18]
+
+Internet-Draft                    phtal                     October 2019
+
 
       *magic number(s):* none
 
@@ -1046,25 +1038,9 @@ Internet-Draft                    phtal                    February 2019
 
    *Optional parameters:*
 
-      *profile:* A whitespace-separated list of URIs identifying
-      specific constraints or conventions that apply to a PHTAL
-      document.  A profile must not change the semantics of the resource
-      representation when processed without profile knowledge, so that
-      clients both with and without knowledge of a profiled resource can
-      safely use the same representation.  The profile parameter may
-      also be used by clients to express their preferences in the
-      content negotiation process.  Profile URIs MUST be dereferenceable
-      and resolve to a profile document as defined in Section #5.1 of
-      this document.
+      *type:*
 
    *Encoding considerations:* binary
-
-
-
-Montoya                  Expires August 30, 2019               [Page 19]
-
-Internet-Draft                    phtal                    February 2019
-
 
    *Security considerations:*
 
@@ -1080,6 +1056,15 @@ Internet-Draft                    phtal                    February 2019
       scripting language media.  Scripting languages are executable
       content.  In this case, the security considerations in the Media
       Type registrations for those formats shall apply.
+
+
+
+
+
+Montoya                    Expires May 3, 2020                 [Page 19]
+
+Internet-Draft                    phtal                     October 2019
+
 
    *Interoperability considerations:* A json-schema document detailing
    the format of application/phtal+json is located at
@@ -1111,17 +1096,6 @@ Internet-Draft                    phtal                    February 2019
 
    *Author/change controller:* Jose Montoya
 
-
-
-
-
-
-
-Montoya                  Expires August 30, 2019               [Page 20]
-
-Internet-Draft                    phtal                    February 2019
-
-
 4.  References
 
 4.1.  Normative References
@@ -1130,14 +1104,23 @@ Internet-Draft                    phtal                    February 2019
               Montoya, J., "Extended Link Relationships", draft-montoya-
               xrel-00 (work in progress), February 2019.
 
-   [RAML]     The RAML Workgroup, "RAML Specification", n.d.,
-              <https://github.com/raml-org/raml-
-              spec/blob/master/versions/raml-10/raml-10.md>.
+   [OAS]      OpenAPI Initiative, a Linux Foundation Collaborative
+              Project, "OpenAPI Specification", n.d.,
+              <https://github.com/OAI/OpenAPI-Specification/blob/v3.1.0-
+              dev/versions/3.1.0.md>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+Montoya                    Expires May 3, 2020                 [Page 20]
+
+Internet-Draft                    phtal                     October 2019
+
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -1167,17 +1150,6 @@ Internet-Draft                    phtal                    February 2019
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
 
-
-
-
-
-
-
-Montoya                  Expires August 30, 2019               [Page 21]
-
-Internet-Draft                    phtal                    February 2019
-
-
 4.2.  Informative References
 
    [I-D.draft-handrews-json-schema-hyperschema-01]
@@ -1190,18 +1162,21 @@ Internet-Draft                    phtal                    February 2019
               Kelly, M., "JSON Hypertext Application Language", draft-
               kelly-json-hal-08 (work in progress), May 2016.
 
-   [OpenAPI]  "OpenAPI Specification", n.d., <https://github.com/OAI/
-              OpenAPI-Specification/blob/master/versions/3.0.0.md>.
-
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
               University of California, Irvine, 2000,
               <http://www.ics.uci.edu/~fielding/pubs/dissertation/
               fielding_dissertation.pdf>.
 
-   [RFC6906]  Wilde, E., "The 'profile' Link Relation Type", RFC 6906,
-              DOI 10.17487/RFC6906, March 2013,
-              <https://www.rfc-editor.org/info/rfc6906>.
+
+
+
+
+
+Montoya                    Expires May 3, 2020                 [Page 21]
+
+Internet-Draft                    phtal                     October 2019
+
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
@@ -1227,13 +1202,6 @@ Internet-Draft                    phtal                    February 2019
 
    [4] https://phtal-org.github.io/internet-draft-phtal/
 
-
-
-Montoya                  Expires August 30, 2019               [Page 22]
-
-Internet-Draft                    phtal                    February 2019
-
-
 Appendix A.  Acknowledgments
 
    Thanks to Mike Kelly, Henry Andrews, Marcus Lanthaler, Mike Amundsen,
@@ -1255,34 +1223,10 @@ B.1.  How can I submit comments or feedback to the editors?
 Author's Address
 
    Jose Montoya
-   Mountain State Software Solutions
 
-   Email: jmontoya@ms3-inc.com
-
+   Email: jam01@protonmail.com
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Montoya                  Expires August 30, 2019               [Page 23]
+Montoya                    Expires May 3, 2020                 [Page 22]
