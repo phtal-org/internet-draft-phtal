@@ -78,10 +78,10 @@ Table of Contents
        2.3.6.  Partial Object  . . . . . . . . . . . . . . . . . . .  13
      2.4.  Self-descriptive messages . . . . . . . . . . . . . . . .  14
        2.4.1.  Linking to a profile  . . . . . . . . . . . . . . . .  15
-     2.5.  Code-On-Demand  . . . . . . . . . . . . . . . . . . . . .  16
+     2.5.  Code-On-Demand  . . . . . . . . . . . . . . . . . . . . .  15
        2.5.1.  Script Object . . . . . . . . . . . . . . . . . . . .  16
    3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-     3.1.  application/phtal+xml . . . . . . . . . . . . . . . . . .  18
+     3.1.  application/phtal+xml . . . . . . . . . . . . . . . . . .  17
      3.2.  application/phtal+json  . . . . . . . . . . . . . . . . .  19
    4.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
      4.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
@@ -827,13 +827,13 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
    The profile parameter SHOULD be a dereferenceable URI that resolves
    to a document that appropriately describes the document profile,
    e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc..
-   RAML data types are used because of their ability to describe
-   representations independent of their runtime media type, as well as
-   supporting XSD and JSON Schema documents.
 
+2.5.  Code-On-Demand
 
-
-
+   In order to further promote modifiability of a system REST defines
+   code-on-demand as an optional constraint.  An optional constraint
+   would observe desired behavior where supported, but with the
+   understanding that it may not be the general case.  Code-on-demand is
 
 
 
@@ -842,12 +842,6 @@ Montoya                    Expires May 3, 2020                 [Page 15]
 Internet-Draft                    phtal                     October 2019
 
 
-2.5.  Code-On-Demand
-
-   In order to further promote modifiability of a system REST defines
-   code-on-demand as an optional constraint.  An optional constraint
-   would observe desired behavior where supported, but with the
-   understanding that it may not be the general case.  Code-on-demand is
    a style of code mobility in which the processing logic is moved from
    the server into the client, thus providing dynamic extensibility;
    functionality can be added to a deployed component without impacting
@@ -881,23 +875,6 @@ Internet-Draft                    phtal                     October 2019
 
 2.5.1.1.  Fixed Fields
 
-
-
-
-
-
-
-
-
-
-
-
-
-Montoya                    Expires May 3, 2020                 [Page 16]
-
-Internet-Draft                    phtal                     October 2019
-
-
    +--------+----------+-----------------------------------------------+
    | Name   |   Type   | Description                                   |
    +--------+----------+-----------------------------------------------+
@@ -909,6 +886,17 @@ Internet-Draft                    phtal                     October 2019
    | data   | "string" | The actual contents of the script. It is      |
    |        |          | mutually exclusive with the source property.  |
    +--------+----------+-----------------------------------------------+
+
+
+
+
+
+
+
+Montoya                    Expires May 3, 2020                 [Page 16]
+
+Internet-Draft                    phtal                     October 2019
+
 
 2.5.1.2.  Examples
 
@@ -945,15 +933,6 @@ Internet-Draft                    phtal                     October 2019
 
    TODO: Update schemas linked.
 
-
-
-
-
-Montoya                    Expires May 3, 2020                 [Page 17]
-
-Internet-Draft                    phtal                     October 2019
-
-
 3.1.  application/phtal+xml
 
    *Type name:* application
@@ -968,7 +947,22 @@ Internet-Draft                    phtal                     October 2019
       parameter of the 'application/xml' media type as specified in
       [RFC7303].
 
-      *profile:*
+
+
+Montoya                    Expires May 3, 2020                 [Page 17]
+
+Internet-Draft                    phtal                     October 2019
+
+
+      *profile:* A dereferenceable URI that resolves to a document that
+      appropriately describes the format and semantics of the resource
+      representation, e.g.: a DTD, XSD, RAML Data Type, OpenAPI schema,
+      etc.. A profile must not change the semantics of the resource
+      representation when processed without profile knowledge, so that
+      clients both with and without knowledge of a profiled resource can
+      safely use the same representation.  The profile parameter may
+      also be used by clients to express their preferences in the
+      content negotiation process.
 
    *Encoding considerations:*
 
@@ -1002,6 +996,12 @@ Internet-Draft                    phtal                     October 2019
 
    *Additional information:*
 
+      *magic number(s):* none
+
+      *file extensions:* .xml
+
+      *macintosh type file code:* TEXT
+
 
 
 
@@ -1009,12 +1009,6 @@ Montoya                    Expires May 3, 2020                 [Page 18]
 
 Internet-Draft                    phtal                     October 2019
 
-
-      *magic number(s):* none
-
-      *file extensions:* .xml
-
-      *macintosh type file code:* TEXT
 
       *object idenfiers:* none
 
@@ -1038,7 +1032,15 @@ Internet-Draft                    phtal                     October 2019
 
    *Optional parameters:*
 
-      *profile:*
+      *profile:* A dereferenceable URI that resolves to a document that
+      appropriately describes the format and semantics of the resource
+      representation, e.g.: a JSON Schema, RAML Data Type, OpenAPI
+      schema, etc.. A profile must not change the semantics of the
+      resource representation when processed without profile knowledge,
+      so that clients both with and without knowledge of a profiled
+      resource can safely use the same representation.  The profile
+      parameter may also be used by clients to express their preferences
+      in the content negotiation process.
 
    *Encoding considerations:* binary
 
@@ -1056,8 +1058,6 @@ Internet-Draft                    phtal                     October 2019
       scripting language media.  Scripting languages are executable
       content.  In this case, the security considerations in the Media
       Type registrations for those formats shall apply.
-
-
 
 
 

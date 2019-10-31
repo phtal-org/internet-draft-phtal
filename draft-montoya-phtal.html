@@ -899,7 +899,7 @@ Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Operatio
 Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
 </pre>
 <p id="rfc.section.2.4.1.p.4">In contrast, this second interaction is perfectly clear. The client requested <samp>http://www.example.com/some-identifier</samp> to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.</p>
-<p id="rfc.section.2.4.1.p.5">The profile parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document profile, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.</p>
+<p id="rfc.section.2.4.1.p.5">The profile parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document profile, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc..</p>
 <h1 id="rfc.section.2.5">
 <a href="#rfc.section.2.5">2.5.</a> <a href="#code-on-demand" id="code-on-demand">Code-On-Demand</a>
 </h1>
@@ -987,7 +987,8 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
 <strong>charset:</strong> This parameter has identical semantics to the charset parameter of the &#8216;application/xml&#8217; media type as specified in <a href="#RFC7303" class="xref">[RFC7303]</a>.</li></ul>
 <p></p>
 
-<ul class="empty"><li><strong>profile:</strong></li></ul>
+<ul class="empty"><li>
+<strong>profile:</strong> A dereferenceable URI that resolves to a document that appropriately describes the format and semantics of the resource representation, e.g.: a DTD, XSD, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.</li></ul>
 <p><strong>Encoding considerations:</strong></p>
 <p></p>
 
@@ -1044,7 +1045,8 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
 <p><strong>Optional parameters:</strong></p>
 <p></p>
 
-<ul class="empty"><li><strong>profile:</strong></li></ul>
+<ul class="empty"><li>
+<strong>profile:</strong> A dereferenceable URI that resolves to a document that appropriately describes the format and semantics of the resource representation, e.g.: a JSON Schema, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.</li></ul>
 <p><strong>Encoding considerations:</strong> binary</p>
 <p><strong>Security considerations:</strong></p>
 <p></p>
