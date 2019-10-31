@@ -77,7 +77,7 @@ Table of Contents
        2.3.5.  Security Object . . . . . . . . . . . . . . . . . . .  12
        2.3.6.  Partial Object  . . . . . . . . . . . . . . . . . . .  13
      2.4.  Self-descriptive messages . . . . . . . . . . . . . . . .  14
-       2.4.1.  Linking to a type . . . . . . . . . . . . . . . . . .  15
+       2.4.1.  Linking to a profile  . . . . . . . . . . . . . . . .  15
      2.5.  Code-On-Demand  . . . . . . . . . . . . . . . . . . . . .  16
        2.5.1.  Script Object . . . . . . . . . . . . . . . . . . . .  16
    3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
@@ -303,8 +303,8 @@ Internet-Draft                    phtal                     October 2019
       "operation": {
         "HTTP": {
           "method": "GET",
-          "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
-                      application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
+          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
         }
       }
     }]
@@ -312,10 +312,10 @@ Internet-Draft                    phtal                     October 2019
   "_operations": {
     "HTTP": {
       "method": "PUT",
-      "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
-                  application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
-      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
-                  application/phtal+xml;type=\"http://hl7.org/fhir/operationoutcome.xsd\""
+      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }
   }
 }
@@ -350,18 +350,18 @@ Internet-Draft                    phtal                     October 2019
     <phtal:href>http://fhir.myclinic.com/Encounter/1234</phtal:href>
     <phtal:operation protocol="HTTP">
       <phtal:method>GET</phtal:method>
-      <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
-                    application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
+      <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
       </phtal:produces>
     </phtal:operation>
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
+    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome",
-                  application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
+                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
   </phtal:operation>
 </Patient>
@@ -460,8 +460,8 @@ Internet-Draft                    phtal                     October 2019
   "operation": {
     "HTTP": {
       "method": "GET",
-      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
-                application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
     }
   }
 }
@@ -470,13 +470,13 @@ Internet-Draft                    phtal                     October 2019
 
 <phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter">
   <phtal:href>http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}</phtal:href>
-  <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/patientId.raml">id</phtal:uriParameter>
-  <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml">_pretty</phtal:uriParameter>
-  <phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_elements.raml">_elements</phtal:uriParameter>
+  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/patientId.raml">id</phtal:uriParameter>
+  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml">_pretty</phtal:uriParameter>
+  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_elements.raml">_elements</phtal:uriParameter>
   <phtal:operation protocol="HTTP">
     <phtal:method>GET</phtal:method>
-    <phtal:produces>application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
+    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
     </phtal:produces>
   </phtal:instructions>
 </phtal:link>
@@ -568,8 +568,8 @@ Internet-Draft                    phtal                     October 2019
 
 {
   "method": "POST",
-  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "onInvoke": "..."
 }
@@ -577,9 +577,9 @@ Internet-Draft                    phtal                     October 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP" onInvoke="...">
-    <phtal:consumes>application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
 </phtal:operation>
@@ -624,8 +624,8 @@ Internet-Draft                    phtal                     October 2019
 
 {
   "method": "POST",
-  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "security": [
     {
@@ -646,9 +646,9 @@ Internet-Draft                    phtal                     October 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP">
-    <phtal:consumes>application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
     <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
@@ -731,7 +731,7 @@ Internet-Draft                    phtal                     October 2019
 
 
 {
-  "type": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\"",
+  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
   "data": {
     "status": "in-progress",
     "class": {
@@ -744,7 +744,7 @@ Internet-Draft                    phtal                     October 2019
 
    *XML Representation Example*
 
-<phtal:partial type="application/phtal+xml;type=\"http://hl7.org/fhir/json-schema/Encounter\"">
+<phtal:partial profile="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
   <Encounter xmlns="http://hl7.org/fhir">
     <status value="in-progress"/>
       <class>
@@ -786,7 +786,7 @@ Montoya                    Expires May 3, 2020                 [Page 14]
 Internet-Draft                    phtal                     October 2019
 
 
-2.4.1.  Linking to a type
+2.4.1.  Linking to a profile
 
    For example consider the following interactions:
 
@@ -806,14 +806,14 @@ Internet-Draft                    phtal                     October 2019
 
    To indicate the format and semantics of a PHTAL representation, the
    sender SHOULD identify a document that explains additional semantics
-   using a "type" media type parameter.
+   using a "profile" media type parameter.
 
 POST http://www.example.com/some-identifier
-Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Appointment"
-Accept: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
+Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
 
 200 OK
-Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"```
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
 
    In contrast, this second interaction is perfectly clear.  The client
    requested "http://www.example.com/some-identifier" to process a
@@ -822,14 +822,14 @@ Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Opera
    Intermediaries are able to parse and manipulate the message, perhaps
    defaulting values of the appointment request, or adding and/or
    removing links from the response, or maybe redirecting the message to
-   different resources based on the type information.
+   different resources based on the profile information.
 
-   The type parameter SHOULD be a dereferenceable URI that resolves to a
-   document that appropriately describes the document type, e.g.: a DTD,
-   XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.. RAML data
-   types are used because of their ability to describe representations
-   independent of their runtime media type, as well as supporting XSD
-   and JSON Schema documents.
+   The profile parameter SHOULD be a dereferenceable URI that resolves
+   to a document that appropriately describes the document profile,
+   e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc..
+   RAML data types are used because of their ability to describe
+   representations independent of their runtime media type, as well as
+   supporting XSD and JSON Schema documents.
 
 
 
@@ -928,8 +928,8 @@ Internet-Draft                    phtal                     October 2019
    *XML Representation Example*
 
 <Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
-  <phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
-  <phtal:script type="text/javascript">
+  <phtal:script profile="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
+  <phtal:script profile="text/javascript">
     <![CDATA[
       function foo(evt) {
         ...
@@ -968,7 +968,7 @@ Internet-Draft                    phtal                     October 2019
       parameter of the 'application/xml' media type as specified in
       [RFC7303].
 
-      *type:*
+      *profile:*
 
    *Encoding considerations:*
 
@@ -1038,7 +1038,7 @@ Internet-Draft                    phtal                     October 2019
 
    *Optional parameters:*
 
-      *type:*
+      *profile:*
 
    *Encoding considerations:* binary
 

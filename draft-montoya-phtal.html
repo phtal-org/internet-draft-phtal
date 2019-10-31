@@ -299,7 +299,7 @@ ul.toc li {
 <link href="#rfc.section.2.3.5" rel="Chapter" title="2.3.5 Security Object">
 <link href="#rfc.section.2.3.6" rel="Chapter" title="2.3.6 Partial Object">
 <link href="#rfc.section.2.4" rel="Chapter" title="2.4 Self-descriptive messages">
-<link href="#rfc.section.2.4.1" rel="Chapter" title="2.4.1 Linking to a type">
+<link href="#rfc.section.2.4.1" rel="Chapter" title="2.4.1 Linking to a profile">
 <link href="#rfc.section.2.5" rel="Chapter" title="2.5 Code-On-Demand">
 <link href="#rfc.section.2.5.1" rel="Chapter" title="2.5.1 Script Object">
 <link href="#rfc.section.3" rel="Chapter" title="3 IANA Considerations">
@@ -404,7 +404,7 @@ ul.toc li {
 </li>
 </ul><li>2.4.   <a href="#rfc.section.2.4">Self-descriptive messages</a>
 </li>
-<ul><li>2.4.1.   <a href="#rfc.section.2.4.1">Linking to a type</a>
+<ul><li>2.4.1.   <a href="#rfc.section.2.4.1">Linking to a profile</a>
 </li>
 </ul><li>2.5.   <a href="#rfc.section.2.5">Code-On-Demand</a>
 </li>
@@ -532,8 +532,8 @@ ul.toc li {
       "operation": {
         "HTTP": {
           "method": "GET",
-          "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
-                      application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
+          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
         }
       }
     }]
@@ -541,10 +541,10 @@ ul.toc li {
   "_operations": {
     "HTTP": {
       "method": "PUT",
-      "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
-                  application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
-      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
-                  application/phtal+xml;type=\"http://hl7.org/fhir/operationoutcome.xsd\""
+      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }
   }
 }
@@ -563,18 +563,18 @@ ul.toc li {
     &lt;phtal:href&gt;http://fhir.myclinic.com/Encounter/1234&lt;/phtal:href&gt;
     &lt;phtal:operation protocol="HTTP"&gt;
       &lt;phtal:method&gt;GET&lt;/phtal:method&gt;
-      &lt;phtal:produces&gt;application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
-                    application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
+      &lt;phtal:produces&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
       &lt;/phtal:produces&gt;
     &lt;/phtal:operation&gt;
   &lt;/phtal:link&gt;
   &lt;phtal:operation protocol="HTTP"&gt;
     &lt;phtal:method&gt;PUT&lt;/phtal:method&gt;
-    &lt;phtal:consumes&gt;application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
+    &lt;phtal:consumes&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
     &lt;/phtal:consumes&gt;
-    &lt;phtal:produces&gt;application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome",
-                  application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
+    &lt;phtal:produces&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
+                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     &lt;/phtal:produces&gt;
   &lt;/phtal:operation&gt;
 &lt;/Patient&gt;
@@ -631,8 +631,8 @@ ul.toc li {
   "operation": {
     "HTTP": {
       "method": "GET",
-      "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\",
-                application/phtal+xml;type=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
     }
   }
 }
@@ -641,13 +641,13 @@ ul.toc li {
 <pre>
 &lt;phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter"&gt;
   &lt;phtal:href&gt;http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}&lt;/phtal:href&gt;
-  &lt;phtal:uriParameter type="https://api-docs.myclinic.com/fhir/patientId.raml"&gt;id&lt;/phtal:uriParameter&gt;
-  &lt;phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml"&gt;_pretty&lt;/phtal:uriParameter&gt;
-  &lt;phtal:uriParameter type="https://api-docs.myclinic.com/fhir/parameters/_elements.raml"&gt;_elements&lt;/phtal:uriParameter&gt;
+  &lt;phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/patientId.raml"&gt;id&lt;/phtal:uriParameter&gt;
+  &lt;phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml"&gt;_pretty&lt;/phtal:uriParameter&gt;
+  &lt;phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_elements.raml"&gt;_elements&lt;/phtal:uriParameter&gt;
   &lt;phtal:operation protocol="HTTP"&gt;
     &lt;phtal:method&gt;GET&lt;/phtal:method&gt;
-    &lt;phtal:produces&gt;application/phtal+json;type="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;type="http://hl7.org/fhir/encounter.xsd"
+    &lt;phtal:produces&gt;application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
     &lt;/phtal:produces&gt;
   &lt;/phtal:instructions&gt;
 &lt;/phtal:link&gt;
@@ -702,8 +702,8 @@ ul.toc li {
 <pre>
 {
   "method": "POST",
-  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "onInvoke": "..."
 }
@@ -711,9 +711,9 @@ ul.toc li {
 <p><strong>XML Representation Example</strong></p>
 <pre>
 &lt;phtal:operation protocol="HTTP" onInvoke="..."&gt;
-    &lt;phtal:consumes&gt;application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
+    &lt;phtal:consumes&gt;application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     &lt;/phtal:consumes&gt;
-    &lt;phtal:produces&gt;application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
+    &lt;phtal:produces&gt;application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     &lt;/phtal:produces&gt;
     &lt;phtal:requestContent&gt;true&lt;/phtal:requestContent&gt;
 &lt;/phtal:operation&gt;
@@ -751,8 +751,8 @@ ul.toc li {
 <pre>
 {
   "method": "POST",
-  "consumes": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "security": [
     {
@@ -773,9 +773,9 @@ ul.toc li {
 <p><strong>XML Representation Example</strong></p>
 <pre>
 &lt;phtal:operation protocol="HTTP"&gt;
-    &lt;phtal:consumes&gt;application/phtal+xml;type="http://hl7.org/fhir/appointment.xsd"
+    &lt;phtal:consumes&gt;application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     &lt;/phtal:consumes&gt;
-    &lt;phtal:produces&gt;application/phtal+xml;type="http://hl7.org/fhir/operationoutcome.xsd"
+    &lt;phtal:produces&gt;application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     &lt;/phtal:produces&gt;
     &lt;phtal:requestContent&gt;true&lt;/phtal:requestContent&gt;
     &lt;phtal:security scheme="https://api-docs.myclinic.com/fhir/security/basicAuth"&gt;
@@ -844,7 +844,7 @@ ul.toc li {
 <p><strong>JSON Representation Example</strong></p>
 <pre>
 {
-  "type": "application/phtal+json;type=\"http://hl7.org/fhir/json-schema/Encounter\"",
+  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
   "data": {
     "status": "in-progress",
     "class": {
@@ -857,7 +857,7 @@ ul.toc li {
 </pre>
 <p><strong>XML Representation Example</strong></p>
 <pre>
-&lt;phtal:partial type="application/phtal+xml;type=\"http://hl7.org/fhir/json-schema/Encounter\""&gt;
+&lt;phtal:partial profile="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\""&gt;
   &lt;Encounter xmlns="http://hl7.org/fhir"&gt;
     &lt;status value="in-progress"/&gt;
       &lt;class&gt;
@@ -875,7 +875,7 @@ ul.toc li {
 <p id="rfc.section.2.4.p.2">By making use of media type parameters, PHTAL representations allow participants to retain the ability to signal their preferred interpretation of a message through metadata. Message authors only have to identify the document that defines the application-specific format of their representation and attach it to an otherwise generic PHTAL representation.</p>
 <p id="rfc.section.2.4.p.3">When web participants identify an application-specific format in metadata they promote visibility and evolvability. Intermediaries (i.e., proxies and gateways) are able to accurately and more efficiently perform significant functions such as encapsulating legacy services, and enhancing client functionality.</p>
 <h1 id="rfc.section.2.4.1">
-<a href="#rfc.section.2.4.1">2.4.1.</a> <a href="#linking-to-a-type" id="linking-to-a-type">Linking to a type</a>
+<a href="#rfc.section.2.4.1">2.4.1.</a> <a href="#linking-to-a-profile" id="linking-to-a-profile">Linking to a profile</a>
 </h1>
 <p id="rfc.section.2.4.1.p.1">For example consider the following interactions:</p>
 <pre>
@@ -888,18 +888,18 @@ Accept: application/json
 Content-Type: application/json
 </pre>
 <p id="rfc.section.2.4.1.p.2">This interaction can only be accurately interpreted to mean that the client requested <samp>http://www.example.com/some-identifier</samp> to process an <samp>application/json</samp> request and it successfully responded with an <samp>application/json</samp> response. <samp>application/json</samp> offers intermediaries no semantic information about the content of the message besides how it&#8217;s (de)serialized.</p>
-<p id="rfc.section.2.4.1.p.3">To indicate the format and semantics of a PHTAL representation, the sender SHOULD identify a document that explains additional semantics using a &#8220;type&#8221; media type parameter.</p>
+<p id="rfc.section.2.4.1.p.3">To indicate the format and semantics of a PHTAL representation, the sender SHOULD identify a document that explains additional semantics using a &#8220;profile&#8221; media type parameter.</p>
 <pre>
 POST http://www.example.com/some-identifier
-Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Appointment"
-Accept: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
+Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
 </pre>
 <pre>
 200 OK
-Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/OperationOutcome"```
+Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
 </pre>
-<p id="rfc.section.2.4.1.p.4">In contrast, this second interaction is perfectly clear. The client requested <samp>http://www.example.com/some-identifier</samp> to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the type information.</p>
-<p id="rfc.section.2.4.1.p.5">The type parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document type, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.</p>
+<p id="rfc.section.2.4.1.p.4">In contrast, this second interaction is perfectly clear. The client requested <samp>http://www.example.com/some-identifier</samp> to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.</p>
+<p id="rfc.section.2.4.1.p.5">The profile parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document profile, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.</p>
 <h1 id="rfc.section.2.5">
 <a href="#rfc.section.2.5">2.5.</a> <a href="#code-on-demand" id="code-on-demand">Code-On-Demand</a>
 </h1>
@@ -959,8 +959,8 @@ Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Opera
 <p><strong>XML Representation Example</strong></p>
 <pre>
 &lt;Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd"&gt;
-  &lt;phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/&gt;
-  &lt;phtal:script type="text/javascript"&gt;
+  &lt;phtal:script profile="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/&gt;
+  &lt;phtal:script profile="text/javascript"&gt;
     &lt;![CDATA[
       function foo(evt) {
         ...
@@ -987,7 +987,7 @@ Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Opera
 <strong>charset:</strong> This parameter has identical semantics to the charset parameter of the &#8216;application/xml&#8217; media type as specified in <a href="#RFC7303" class="xref">[RFC7303]</a>.</li></ul>
 <p></p>
 
-<ul class="empty"><li><strong>type:</strong></li></ul>
+<ul class="empty"><li><strong>profile:</strong></li></ul>
 <p><strong>Encoding considerations:</strong></p>
 <p></p>
 
@@ -1044,7 +1044,7 @@ Content-Type: application/phtal+json;type="http://hl7.org/fhir/json-schema/Opera
 <p><strong>Optional parameters:</strong></p>
 <p></p>
 
-<ul class="empty"><li><strong>type:</strong></li></ul>
+<ul class="empty"><li><strong>profile:</strong></li></ul>
 <p><strong>Encoding considerations:</strong> binary</p>
 <p><strong>Security considerations:</strong></p>
 <p></p>
