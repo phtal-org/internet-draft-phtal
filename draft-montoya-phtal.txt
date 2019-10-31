@@ -256,7 +256,7 @@ Internet-Draft                    phtal                     October 2019
    |            |               | a IANA registered relation type or   |
    |            |               | an URI that when dereferenced        |
    |            |               | resolves to an XREL                  |
-   |            |               | [I-D.draft-montoya-xrel-00]          |
+   |            |               | [I-D.draft-montoya-xrel-01]          |
    |            |               | document.                            |
    |            |               |                                      |
    | operations |   [Operation  | Informs an agent of what operations  |
@@ -1100,9 +1100,9 @@ Internet-Draft                    phtal                     October 2019
 
 4.1.  Normative References
 
-   [I-D.draft-montoya-xrel-00]
+   [I-D.draft-montoya-xrel-01]
               Montoya, J., "Extended Link Relationships", draft-montoya-
-              xrel-00 (work in progress), February 2019.
+              xrel-01 (work in progress), October 2019.
 
    [OAS]      OpenAPI Initiative, a Linux Foundation Collaborative
               Project, "OpenAPI Specification", n.d.,
