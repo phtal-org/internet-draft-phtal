@@ -459,7 +459,7 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
 
 In contrast, this second interaction is perfectly clear. The client requested `http://www.example.com/some-identifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.
 
-The profile parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document profile, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.. RAML data types are used because of their ability to describe representations independent of their runtime media type, as well as supporting XSD and JSON Schema documents.
+The profile parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document profile, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc..
 
 ## Code-On-Demand
 
@@ -535,7 +535,7 @@ TODO: Update schemas linked.
 
   > **charset:** This parameter has identical semantics to the charset parameter of the 'application/xml' media type as specified in {{RFC7303}}.
 
-  > **profile:**
+  > **profile:** A dereferenceable URI that resolves to a document that appropriately describes the format and semantics of the resource representation, e.g.: a DTD, XSD, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.
 
 **Encoding considerations:**
 
@@ -587,7 +587,7 @@ TODO: Update schemas linked.
 
 **Optional parameters:**
 
-  > **profile:**
+  > **profile:** A dereferenceable URI that resolves to a document that appropriately describes the format and semantics of the resource representation, e.g.: a JSON Schema, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.
 
 **Encoding considerations:** binary
 
