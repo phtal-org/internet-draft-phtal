@@ -27,7 +27,7 @@ normative:
     target: https://github.com/OAI/OpenAPI-Specification/blob/v3.1.0-dev/versions/3.1.0.md
     author:
       org: OpenAPI Initiative, a Linux Foundation Collaborative Project
-  I-D.draft-montoya-xrel-00:
+  I-D.draft-montoya-xrel-01:
 
 informative:
   RFC7231: # HTTP
@@ -133,7 +133,7 @@ The in-band elements defined by PHTAL aim to provide just what's necessary for a
 
 Name | Type | Description
 ---|:---:|---
-links | Map[`string`, [[Link Object](#link-object)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an [XREL](#I-D.draft-montoya-xrel-00) document.
+links | Map[`string`, [[Link Object](#link-object)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an [XREL](#I-D.draft-montoya-xrel-01) document.
 operations | [[Operation Object](#operation-object)] | Informs an agent of what operations are allowed to be invoked on the context resource.
 
 The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
