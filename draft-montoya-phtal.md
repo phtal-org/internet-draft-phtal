@@ -87,13 +87,13 @@ This document registers two media-type identifiers with the IANA: `application/p
 
 Representational State Transfer, or **REST**, is an architectural style for distributed hypermedia systems. Introduced and first defined in 2000 in Chapter 5, REST, of the doctoral dissertation "Architectural Styles and the Design of Network-based Software Architecture" by Roy Fielding.
 
-**Hypermedia**, or hypertext, is defined by the presence of application control information embedded within, or as a layer above, the presentation of information. Hypermedia allows for a virtually unbound network of resources while also guiding users through an application as they navigate said relationships.
+**Hypermedia**, or hypertext, is defined by the presence of application control information embedded within, or as a layer above, the presentation of information. Hypermedia allows for a virtually unbound network of resources while also guiding users through an application as they navigate through hyperlinks.
 
 A **resource** is the intended conceptual target of a hypertext reference.
 
 **Representational state** indicates the current state of a requested resource, the desired state for a requested resource, or the value of some other resource, such as a representation of the input data within a client’s query form, or a representation of some error condition for a response.
 
-A **hyperlink** or link, is the representation of a virtual uni-directional relationship between the context resource represented by the document in which the link is found, and another resource. A link consists of a hypertext reference, a hypermedia relationship identifier, and communication protocol information.
+A **hyperlink** or simply link, is the representation of a virtual uni-directional relationship between the context resource represented by the document in which the link is found, and another resource. A link consists of a hypertext reference, a hypermedia relationship identifier, and communication protocol information.
 
 A **hypertext reference** or href, is the target's Uniform Resource Identifier.
 
@@ -175,8 +175,10 @@ The operations element MAY be included as part of an HTTP GET response body, or 
   "_operations": {
     "HTTP": [{
       "method": "PUT",
-      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Patient\";q=1.0,
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/patient.xsd\;q=1.0"
+                  application/fhir+json;q=0.5,
+                  application/hl7-v3+xml;q=0.1"
       "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
                   application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }]
@@ -206,8 +208,8 @@ The operations element MAY be included as part of an HTTP GET response body, or 
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Patient",
+                  application/phtal+xml;profile="http://hl7.org/fhir/patient.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
                   application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
@@ -304,6 +306,7 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
 
 ~~~ xml
 <phtal:operation protocol="HTTP" onInvoke="...">
+    <phtal:method>POST</phtal:method>
     <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
@@ -349,7 +352,7 @@ headers | Map[`string`, `string`] | A map where the keys are the names of the HT
 
 ~~~ xml
 <phtal:operation protocol="HTTP">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:method>POST</phtal:method>    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
@@ -405,7 +408,7 @@ In the case of XML it is the content of the `partial` element, in JSON it is the
 **XML Representation Example**
 
 ~~~ xml
-<phtal:partial profile="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+<phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
   <Encounter xmlns="http://hl7.org/fhir">
     <status value="in-progress"/>
       <class>
