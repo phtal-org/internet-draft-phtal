@@ -136,7 +136,7 @@ Internet-Draft                    phtal                    November 2019
    control information embedded within, or as a layer above, the
    presentation of information.  Hypermedia allows for a virtually
    unbound network of resources while also guiding users through an
-   application as they navigate said relationships.
+   application as they navigate through hyperlinks.
 
    A *resource* is the intended conceptual target of a hypertext
    reference.
@@ -147,7 +147,7 @@ Internet-Draft                    phtal                    November 2019
    within a client's query form, or a representation of some error
    condition for a response.
 
-   A *hyperlink* or link, is the representation of a virtual uni-
+   A *hyperlink* or simply link, is the representation of a virtual uni-
    directional relationship between the context resource represented by
    the document in which the link is found, and another resource.  A
    link consists of a hypertext reference, a hypermedia relationship
@@ -312,8 +312,10 @@ Internet-Draft                    phtal                    November 2019
   "_operations": {
     "HTTP": [{
       "method": "PUT",
-      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Patient\";q=1.0,
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/patient.xsd\;q=1.0"
+                  application/fhir+json;q=0.5,
+                  application/hl7-v3+xml;q=0.1"
       "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
                   application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }]
@@ -321,8 +323,6 @@ Internet-Draft                    phtal                    November 2019
 }
 
    *XML Representation Example*
-
-
 
 
 
@@ -357,8 +357,8 @@ Internet-Draft                    phtal                    November 2019
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Patient",
+                  application/phtal+xml;profile="http://hl7.org/fhir/patient.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
                   application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
@@ -577,6 +577,7 @@ Internet-Draft                    phtal                    November 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP" onInvoke="...">
+    <phtal:method>POST</phtal:method>
     <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
@@ -612,7 +613,6 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-
 Montoya                    Expires May 4, 2020                 [Page 11]
 
 Internet-Draft                    phtal                    November 2019
@@ -641,7 +641,7 @@ Internet-Draft                    phtal                    November 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:method>POST</phtal:method>    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
@@ -744,7 +744,7 @@ Internet-Draft                    phtal                    November 2019
 
    *XML Representation Example*
 
-<phtal:partial profile="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+<phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
   <Encounter xmlns="http://hl7.org/fhir">
     <status value="in-progress"/>
       <class>
