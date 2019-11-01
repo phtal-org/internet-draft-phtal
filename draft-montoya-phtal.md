@@ -22,6 +22,7 @@ normative:
   RFC3986: # URI
   RFC6570: # URI Template
   RFC6838: # Media Type Specifications and Registration Procedures
+  RFC7231: # HTTP
   OAS:
     title: OpenAPI Specification
     target: https://github.com/OAI/OpenAPI-Specification/blob/v3.1.0-dev/versions/3.1.0.md
@@ -30,7 +31,6 @@ normative:
   I-D.draft-montoya-xrel-01:
 
 informative:
-  RFC7231: # HTTP
   I-D.draft-kelly-json-hal-08:
   I-D.draft-handrews-json-schema-hyperschema-01:
   REST:
@@ -67,13 +67,13 @@ informative:
 
 --- abstract
 
-This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements.
+This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without any graphical objectives.
 
 --- middle
 
 # Introduction
 
-This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without graphical requirements.
+This document defines PHTAL, a generic representation format for hypertext applications guided by REST constraints. PHTAL could be compared to HTML without any graphical objectives.
 
 This document registers two media-type identifiers with the IANA: `application/phtal+json` and `application/phtal+xml`. This registration is for community review and will be submitted to the IESG for review, approval, and registration with IANA.
 
@@ -89,56 +89,60 @@ Representational State Transfer, or **REST**, is an architectural style for dist
 
 **Hypermedia**, or hypertext, is defined by the presence of application control information embedded within, or as a layer above, the presentation of information. Hypermedia allows for a virtually unbound network of resources while also guiding users through an application as they navigate said relationships.
 
-A **hypermedia relationship**, also known as a link relation, describes the semantics behind a virtual uni-directional association between two resources.
-
-A **hypermedia relationship name** is an identifier for a hypermedia relationship.
-
 A **resource** is the intended conceptual target of a hypertext reference.
 
-**Representational state** indicates the current state of the requested resource, the desired state for the requested resource, or the value of some other resource, such as a representation of the input data within a client’s query form, or a representation of some error condition for a response.
+**Representational state** indicates the current state of a requested resource, the desired state for a requested resource, or the value of some other resource, such as a representation of the input data within a client’s query form, or a representation of some error condition for a response.
+
+A **hyperlink** or link, is the representation of a virtual uni-directional relationship between the context resource represented by the document in which the link is found, and another resource. A link consists of a hypertext reference, a hypermedia relationship identifier, and communication protocol information.
+
+A **hypertext reference** or href, is the target's Uniform Resource Identifier.
+
+A **hyperlink relationship**, also known as a link relation, identifies the semantics behind a hyperlink.
 
 **Application state** is the state of the user’s application of computing to a given task, controlled and stored by the user agent and can be composed of representations from multiple servers.
-
-### Documents description
-
-A trailing question mark, for example **description?**, indicates an optional property.
 
 ## Motivation
 
 The essential trade-off that REST makes when compared to an architectural style like RPC is dynamic modifiability over efficiency. Dynamic modifiability is the degree to which an application can be changed without stopping and restarting the entire system. This is what REST promises through the Uniform Interface, and optionally Code-On-Demand, constraints.
 
-Guided by these constraints PHTAL introduces the necessary elements to enable application authors to create evolvable and extensible applications.
+Guided by these constraints PHTAL introduces generic but comprehensive hypertext markup to enable application authors to create evolvable and extensible applications, while spending most of their descriptive efforts in defining application-specific representations.
 
 # PHTAL Document
 
-## Format
-All field names in the specification are case sensitive. This includes all fields that are used as keys in a map, except where explicitly noted that keys are case insensitive.
+## Document description
 
-## Schema
-In the description that will follow, if a field is not explicitly **REQUIRED** or described with a MUST or SHALL, it can be considered OPTIONAL.
+### Format
+
+All field names in the specification are **case sensitive**. This includes all fields that are used as keys in a map, except where explicitly noted that keys are **case insensitive**.
+
+The schema exposes two types of fields: Fixed fields, which have a declared name, and Patterned fields, which declare a regex pattern for the field name.
+
+Patterned fields MUST have unique names within the containing object.
+
+### Schema
+
+In the descriptions that will follow, if a field is not explicitly **REQUIRED** or described with a MUST or SHALL, it can be considered OPTIONAL.
+
+Machine readable mappings to XML and JSON are provided through the appropriate schemas at <http://www.phtal.org/xsd/phtal.xsd> and <http://www.phtal.org/json-schema/phtal.json>, respectively.
 
 ## Hypermedia as the engine of application state
 
-The Uniform Interface constraint dictates that hypermedia be the engine of application state. This means that the state of the application and its potential transitions are dictated by the presence of hypermedia relationships in-band and by the navigation of those relationships by an user (human or automated). In order for users to traverse a selected relationship they depend on the server to provide instructions for communicating with the target resource.
+The Uniform Interface constraint dictates that hypermedia must be the engine of application state. This means that the state of the application and its potential transitions are dictated by the presence of hyperlinks and by the navigation of those links by an user (human or automated). In order for users to traverse a selected relationship they depend on the server to provide communication protocol instructions.
 
 When servers provide control information at run-time instead of at deploy-time, they retain control of their implementation space and enable dynamic evolvability; they can change their implementation without having to restart or deploy clients. Applications servers are free to change their URI structure, they are free rearrange resources into different servers, they are free introduce new links that provide new features in existing representations, nothing will break already deployed components as long as links are not broken.
 
-PHTAL introduces generic but comprehensive hypertext markup so that instead of creating and registering a new, application specific, hypertext enabled media type, authors can choose to make use of PHTAL's markup. This frees authors to spend most of their descriptive efforts in defining application-specific representations and possibly on extended link relations to drive application state.
+### Document root
 
-### PHTAL Object
-
-The in-band elements defined by PHTAL aim to provide just what's necessary for agents to evaluate the hypertext relationship alternatives provided and invoke the appropriate operation to get the agent to the next application state.
+The in-band elements defined by PHTAL aim to provide just what's necessary for agents to evaluate the hyperlinks provided and invoke the necessary operation to get the agent to the next application state.
 
 #### Fixed Fields
 
 Name | Type | Description
 ---|:---:|---
 links | Map[`string`, [[Link Object](#link-object)]] | The links element is a map where the keys are hypermedia relationship identifiers and the values are single or multiple Link elements. The relationship identifier MUST be a IANA registered relation type or an URI that when dereferenced resolves to an [XREL](#I-D.draft-montoya-xrel-01) document.
-operations | [[Operation Object](#operation-object)] | Informs an agent of what operations are allowed to be invoked on the context resource.
+operations | Map[`string`, [[Operation Object](#operation-object)]] | A map where the key is a protocol identifier and the value is a collection of Operation elements.
 
 The operations element MAY be included as part of an HTTP GET response body, or as the response body to an HTTP OPTIONS, for example.
-
-Detailed mappings to XML and JSON are provided through the appropriate schemas in Section \#5 of this document.
 
 #### Examples
 
@@ -169,13 +173,13 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
     }]
   },
   "_operations": {
-    "HTTP": {
+    "HTTP": [{
       "method": "PUT",
       "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
                   application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
       "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
                   application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
-    }
+    }]
   }
 }
 ~~~
@@ -183,7 +187,7 @@ Detailed mappings to XML and JSON are provided through the appropriate schemas i
 **XML Representation Example**
 
 ~~~ xml
-<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
+<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org">
   <id value="example"/>
   <name>
     <use value="official"/>
@@ -274,7 +278,7 @@ Identifying protocol specific instructions allows servers to separate communicat
 
 Name | Type | Description
 ---|:---:|---
-method | `string` | Instructs the agent what protocol method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.
+method | `string` | Instructs the agent what protocol specific method to use when interacting with the identified resource. The default value is whatever protocol specific method results in information retrieval, eg. HTTP GET.
 produces | `string` | Indicates to the client what media types the server supports as response content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
 consumes | `string` | Indicates to the client what media types the server supports as request content to following the current link. It MUST be a media range and parameters according to Section 5.3.2 'Accept' of the [HTTP Specification](#RFC7231).
 requestContent | `boolean` | Indicates to the client whether a request content is required or not for the following the current link. The default value is `false`.
@@ -310,13 +314,13 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
 
 ### HTTP Operation Object
 
-The HTTP Operation element is an extension of the Operation element specifically for interactions using the HTTP protocol.
+The HTTP Operation element is an extension of the Operation element specifically for interactions using the [HTTP](#RFC7231) protocol.
 
 #### Added Properties
 
 Name | Type | Description
 ---|:---:|---
-security | [[Security Object](#security-object)] | An array of SecurityRequirement elements, the operation can be authenticated by any of the specified security schemes.
+security | [[Security Object](#security-object)] | An array of Security elements, the operation can be authenticated by any of the specified security schemes.
 headers | Map[`string`, `string`] | A map where the keys are the names of the HTTP headers to be sent and the values are URIs that resolve to a document that appropriately describes the format and semantics of the variables, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc.
 
 #### Examples
@@ -329,17 +333,12 @@ headers | Map[`string`, `string`] | A map where the keys are the names of the HT
   "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
   "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
-  "security": [
-    {
-      "scheme": "https://api-docs.myclinic.com/fhir/security/basicAuth"
-    },
-    {
-      "scheme": "https://api-docs.myclinic.com/fhir/security/oauth2.0",
-      "scopes": [
-        "appointment:write"
-      ]
-    }
-  ],
+  "security": {
+    "https://api-docs.myclinic.com/fhir/security/basicAuth": [],
+    "https://api-docs.myclinic.com/fhir/security/oauth2.0": [
+      "appointment:write"
+    ]
+  },
   "headers": {
     "trace-id": "https://api-docs.myclinic.com/fhir/traceId.raml"
   }
@@ -364,12 +363,11 @@ headers | Map[`string`, `string`] | A map where the keys are the names of the HT
 
 ### Security Object
 
-#### Fixed Fields
+#### Patterned Fields
 
-Name | Type | Description
+Field Pattern | Type | Description
 ---|:---:|---
-scheme | `string` | **REQUIRED** An URI that MUST resolve to an [OpenAPI 3.1 Spec](#OAS) Security Scheme declarations.
-scopes | [`string`] | A list of the scopes required for authorization. Scopes are required when the security scheme is of type OAuth 2.0 or OpenID Connect.
+{name} | [`string`] | Each name MUST resolve to an [OpenAPI 3.1 Spec](#OAS) Security Scheme declaration. If the security scheme is of type "oauth2" or "openIdConnect", then the value is a list of scope names required for the execution. For other security scheme types, the array MUST be empty
 
 ### Partial Object
 
@@ -421,13 +419,15 @@ In the case of XML it is the content of the `partial` element, in JSON it is the
 
 ## Self-descriptive messages
 
-The Uniform Interface constraint also dictates that messages be self-descriptive. This is achieved by message metadata, of which content type metadata is an important part. However, the purpose of content type metadata in web interactions is not only to indicate representation format or schema, but the sender's preferred interpretation of that format, an application-specific format.
+The Uniform Interface constraint also dictates that messages must be self-descriptive. This is achieved by message metadata, of which content type metadata is a vital part. The purpose of content type metadata in web interactions is not only to indicate representation format or schema, but the sender's preferred interpretation of that format, an application-specific format.
 
-By making use of media type parameters, PHTAL representations allow participants to retain the ability to signal their preferred interpretation of a message through metadata. Message authors only have to identify the document that defines the application-specific format of their representation and attach it to an otherwise generic PHTAL representation.
+By making use of media type parameters, PHTAL representations allow participants to retain the ability to signal their preferred interpretation of a message. Message authors only have to identify the document that defines the application-specific format of their representation and attach it to an otherwise generic PHTAL representation.
 
 When web participants identify an application-specific format in metadata they promote visibility and evolvability. Intermediaries (i.e., proxies and gateways) are able to accurately and more efficiently perform significant functions such as encapsulating legacy services, and enhancing client functionality.
 
 ### Linking to a profile
+
+To indicate their preferred interpretation of a PHTAL representation, the sender SHOULD include a "profile" media type parameter. The profile parameter SHOULD be a dereferenceable URI that resolves to a document that describes the format and semantics of the resource representation, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc..
 
 For example consider the following interactions:
 
@@ -444,8 +444,6 @@ Content-Type: application/json
 
 This interaction can only be accurately interpreted to mean that the client requested `http://www.example.com/some-identifier` to process an `application/json` request and it successfully responded with an `application/json` response. `application/json` offers intermediaries no semantic information about the content of the message besides how it's (de)serialized.
 
-To indicate the format and semantics of a PHTAL representation, the sender SHOULD identify a document that explains additional semantics using a "profile" media type parameter.
-
 ~~~~
 POST http://www.example.com/some-identifier
 Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
@@ -459,17 +457,15 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
 
 In contrast, this second interaction is perfectly clear. The client requested `http://www.example.com/some-identifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.
 
-The profile parameter SHOULD be a dereferenceable URI that resolves to a document that appropriately describes the document profile, e.g.: a DTD, XSD, JSON Schema, RAML Data Type, OpenAPI schema, etc..
-
 ## Code-On-Demand
 
 In order to further promote modifiability of a system REST defines code-on-demand as an optional constraint. An optional constraint would observe desired behavior where supported, but with the understanding that it may not be the general case. Code-on-demand is a style of code mobility in which the processing logic is moved from the server into the client, thus providing dynamic extensibility; functionality can be added to a deployed component without impacting the rest of the system.
 
-Very similar to HTML's script element PHTAL provides ways to embed code into its representations.
-
 Ultimately, application servers may prefer if legacy clients could adapt to new representations or communication protocols instead of having to support overloaded versions of a feature. At the cost of visibility, code-on-demand allows application servers to re-program a deployed component to support new features, thus freeing the server from the responsibility of maintaining backwards compatibility.
 
 It's worthy to mention other advantages of code-on-demand outside of modifiability. Scalability of the server is improved, since it can off-load work to the client. User-perceived performance and efficiency are enhanced when the code can adapt its actions to the client’s environment and interact with the user locally rather than through remote interactions.
+
+Very similar to HTML's script element PHTAL provides ways to embed code into its representations.
 
 ### Script Object
 
@@ -492,12 +488,12 @@ data | `string` | The actual contents of the script. It is mutually exclusive wi
 ~~~ json
 {
   "_scripts": [{
-    "type": "text/javascript",
-    "source": "http://fhir.myclinic.com/scripts/patientScript"
+      "type": "text/javascript",
+      "source": "http://fhir.myclinic.com/scripts/patientScript"
     },
     {
-    "type": "text/javascript",
-    "data": "..."
+      "type": "text/javascript",
+      "data": "..."
     }]
 }
 ~~~
@@ -505,9 +501,9 @@ data | `string` | The actual contents of the script. It is mutually exclusive wi
 **XML Representation Example**
 
 ~~~ xml
-<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org/v1/XMLSchema.xsd">
-  <phtal:script profile="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
-  <phtal:script profile="text/javascript">
+<Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org">
+  <phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
+  <phtal:script type="text/javascript">
     <![CDATA[
       function foo(evt) {
         ...
@@ -521,8 +517,6 @@ data | `string` | The actual contents of the script. It is mutually exclusive wi
 
 This specification establishes two media types: 'application/phtal+xml' and 'application/phtal+json'
 
-TODO: Update schemas linked.
-
 ## application/phtal+xml
 
 **Type name:** application
@@ -535,7 +529,7 @@ TODO: Update schemas linked.
 
   > **charset:** This parameter has identical semantics to the charset parameter of the 'application/xml' media type as specified in {{RFC7303}}.
 
-  > **profile:** A dereferenceable URI that resolves to a document that appropriately describes the format and semantics of the resource representation, e.g.: a DTD, XSD, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.
+  > **profile:** A dereferenceable URI that resolves to a document that describes the format and semantics of the resource representation, e.g.: a DTD, XSD, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.
 
 **Encoding considerations:**
 
@@ -549,7 +543,7 @@ TODO: Update schemas linked.
 
   > In common with HTML, PHTAL documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.
 
-**Interoperability considerations:** An xsd document detailing the format of application/phtal+xml is located at <http://www.phtal.org/schema/phtal+xml.xsd>
+**Interoperability considerations:** none
 
 **Fragment identifier considerations:**
 
@@ -571,7 +565,7 @@ TODO: Update schemas linked.
 
   > **Name:** Jose Montoya
 
-  > **Email:** jmontoya@ms3-inc.com
+  > **Email:** jam01@protonmail.com
 
 **Intended usage:** Common
 
@@ -587,7 +581,7 @@ TODO: Update schemas linked.
 
 **Optional parameters:**
 
-  > **profile:** A dereferenceable URI that resolves to a document that appropriately describes the format and semantics of the resource representation, e.g.: a JSON Schema, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.
+  > **profile:** A dereferenceable URI that resolves to a document that describes the format and semantics of the resource representation, e.g.: a JSON Schema, RAML Data Type, OpenAPI schema, etc.. A profile must not change the semantics of the resource representation when processed without profile knowledge, so that clients both with and without knowledge of a profiled resource can safely use the same representation. The profile parameter may also be used by clients to express their preferences in the content negotiation process.
 
 **Encoding considerations:** binary
 
@@ -599,7 +593,7 @@ TODO: Update schemas linked.
 
   > In common with HTML, PHTAL documents may reference external scripting language media. Scripting languages are executable content. In this case, the security considerations in the Media Type registrations for those formats shall apply.
 
-**Interoperability considerations:** A json-schema document detailing the format of application/phtal+json is located at <http://www.phtal.org/schema/phtal+json.yaml>
+**Interoperability considerations:** none
 
 **Fragment identifier considerations:** none
 
@@ -621,7 +615,7 @@ TODO: Update schemas linked.
 
   > **Name:** Jose Montoya
 
-  > **Email:** jmontoya@ms3-inc.com
+  > **Email:** jam01@protonmail.com
 
 **Intended usage:** Common
 
