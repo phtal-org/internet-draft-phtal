@@ -71,26 +71,27 @@ Table of Contents
        2.1.2.  Schema  . . . . . . . . . . . . . . . . . . . . . . .   4
      2.2.  Hypermedia as the engine of application state . . . . . .   4
        2.2.1.  Document root . . . . . . . . . . . . . . . . . . . .   5
-       2.2.2.  Link Object . . . . . . . . . . . . . . . . . . . . .   7
-       2.2.3.  Operation Object  . . . . . . . . . . . . . . . . . .   9
-       2.2.4.  HTTP Operation Object . . . . . . . . . . . . . . . .  11
-       2.2.5.  Security Object . . . . . . . . . . . . . . . . . . .  12
-       2.2.6.  Partial Object  . . . . . . . . . . . . . . . . . . .  13
-     2.3.  Self-descriptive messages . . . . . . . . . . . . . . . .  14
-       2.3.1.  Linking to a profile  . . . . . . . . . . . . . . . .  15
-     2.4.  Code-On-Demand  . . . . . . . . . . . . . . . . . . . . .  15
-       2.4.1.  Script Object . . . . . . . . . . . . . . . . . . . .  16
-   3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-     3.1.  application/phtal+xml . . . . . . . . . . . . . . . . . .  17
-     3.2.  application/phtal+json  . . . . . . . . . . . . . . . . .  19
-   4.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
-     4.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
-     4.2.  Informative References  . . . . . . . . . . . . . . . . .  21
-     4.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  22
-   Appendix A.  Acknowledgments  . . . . . . . . . . . . . . . . . .  22
-   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  22
-     B.1.  How can I submit comments or feedback to the editors? . .  22
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  22
+       2.2.2.  Link Object . . . . . . . . . . . . . . . . . . . . .   8
+       2.2.3.  Operation Object  . . . . . . . . . . . . . . . . . .  11
+       2.2.4.  HTTP Operation Object . . . . . . . . . . . . . . . .  13
+       2.2.5.  Security Object . . . . . . . . . . . . . . . . . . .  15
+       2.2.6.  Partial Object  . . . . . . . . . . . . . . . . . . .  15
+     2.3.  Self-descriptive messages . . . . . . . . . . . . . . . .  17
+       2.3.1.  Linking to a profile  . . . . . . . . . . . . . . . .  17
+     2.4.  Code-On-Demand  . . . . . . . . . . . . . . . . . . . . .  18
+       2.4.1.  Script Object . . . . . . . . . . . . . . . . . . . .  19
+   3.  Security Considerations . . . . . . . . . . . . . . . . . . .  20
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
+     4.1.  application/phtal+xml . . . . . . . . . . . . . . . . . .  20
+     4.2.  application/phtal+json  . . . . . . . . . . . . . . . . .  22
+   5.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
+     5.1.  Normative References  . . . . . . . . . . . . . . . . . .  23
+     5.2.  Informative References  . . . . . . . . . . . . . . . . .  24
+     5.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  24
+   Appendix A.  Acknowledgments  . . . . . . . . . . . . . . . . . .  25
+   Appendix B.  Frequently Asked Questions . . . . . . . . . . . . .  25
+     B.1.  How can I submit comments or feedback to the editors? . .  25
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  25
 
 1.  Introduction
 
@@ -102,7 +103,6 @@ Table of Contents
    "application/phtal+json" and "application/phtal+xml".  This
    registration is for community review and will be submitted to the
    IESG for review, approval, and registration with IANA.
-
 
 
 
@@ -126,7 +126,7 @@ Internet-Draft                    phtal                         May 2020
 
 1.1.2.  General
 
-   Representational State Transfer, or *REST*, is an architectural style
+   Representational State Transfer, or [REST], is an architectural style
    for distributed hypermedia systems.  Introduced and first defined in
    2000 in Chapter 5, REST, of the doctoral dissertation "Architectural
    Styles and the Design of Network-based Software Architecture" by Roy
@@ -136,7 +136,7 @@ Internet-Draft                    phtal                         May 2020
    control information embedded within, or as a layer above, the
    presentation of information.  Hypermedia allows for a virtually
    unbound network of resources while also guiding users through an
-   application as they navigate said relationships.
+   application as they navigate through hyperlinks.
 
    A *resource* is the intended conceptual target of a hypertext
    reference.
@@ -147,7 +147,7 @@ Internet-Draft                    phtal                         May 2020
    within a client's query form, or a representation of some error
    condition for a response.
 
-   A *hyperlink* or link, is the representation of a virtual uni-
+   A *hyperlink* or simply link, is the representation of a virtual uni-
    directional relationship between the context resource represented by
    the document in which the link is found, and another resource.  A
    link consists of a hypertext reference, a hypermedia relationship
@@ -286,41 +286,41 @@ Internet-Draft                    phtal                         May 2020
 
    *JSON Representation Example*
 
-{
-  "name": [
-    {
-      "use": "official",
-      "family": "Chalmers",
-      "given": [
-        "Peter",
-        "James"
-      ]
-    }
-  ],
-  "_links": {
-    "https://api-docs.myclinic.com/fhir/rel/encounter": [{
-      "href": "http://fhir.myclinic.com/Encounter/1234",
-      "operation": {
-        "HTTP": {
-          "method": "GET",
-          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
-        }
-      }
-    }]
-  },
-  "_operations": {
-    "HTTP": [{
-      "method": "PUT",
-      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
-    }]
-  }
-}
 
-   *XML Representation Example*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -338,6 +338,64 @@ Montoya                 Expires November 6, 2020                [Page 6]
 Internet-Draft                    phtal                         May 2020
 
 
+ {
+   "name": [
+     {
+       "use": "official",
+       "family": "Chalmers",
+       "given": [
+         "Peter",
+         "James"
+       ]
+     }
+   ],
+   "_links": {
+     "https://docs.clinic.com/fhir/rel/encounter": [{
+       "href": "http://fhir.myclinic.com/Encounter/1234",
+       "operation": {
+         "HTTP": {
+           "method": "GET",
+           "produces":
+             "application/phtal+json;
+               profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+             application/phtal+xml;
+               profile=\"http://hl7.org/fhir/encounter.xsd\""
+         }
+       }
+     }]
+   },
+   "_operations": {
+     "HTTP": [{
+       "method": "PUT",
+       "consumes":
+         "application/phtal+json;
+           profile=\"http://hl7.org/fhir/json-schema/Patient\";
+           q=1.0,
+         application/phtal+xml;
+           profile=\"http://hl7.org/fhir/patient.xsd\";
+           q=1.0,
+         application/fhir+json;
+           q=0.5,
+         application/hl7-v3+xml;
+           q=0.1"
+       "produces":
+         "application/phtal+json;
+           profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+         application/phtal+xml;
+           profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
+     }]
+   }
+ }
+
+
+
+Montoya                 Expires November 6, 2020                [Page 7]
+
+Internet-Draft                    phtal                         May 2020
+
+
+   *XML Representation Example*
+
 <Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org">
   <id value="example"/>
   <name>
@@ -346,22 +404,31 @@ Internet-Draft                    phtal                         May 2020
     <given value="Peter"/>
     <given value="James"/>
   </name>
-  <phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter">
+  <phtal:link rel="https://docs.clinic.com/fhir/rel/encounter">
     <phtal:href>http://fhir.myclinic.com/Encounter/1234</phtal:href>
     <phtal:operation protocol="HTTP">
       <phtal:method>GET</phtal:method>
-      <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+      <phtal:produces>
+        application/phtal+json;
+          profile="http://hl7.org/fhir/json-schema/Encounter",
+        application/phtal+xml;
+          profile="http://hl7.org/fhir/encounter.xsd"
       </phtal:produces>
     </phtal:operation>
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:consumes>
+      application/phtal+json;
+        profile="http://hl7.org/fhir/json-schema/Patient",
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/patient.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
-                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>
+      application/phtal+json;
+        profile="http://hl7.org/fhir/json-schema/OperationOutcome",
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
   </phtal:operation>
 </Patient>
@@ -378,18 +445,7 @@ Internet-Draft                    phtal                         May 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Montoya                 Expires November 6, 2020                [Page 7]
+Montoya                 Expires November 6, 2020                [Page 8]
 
 Internet-Draft                    phtal                         May 2020
 
@@ -445,41 +501,93 @@ Internet-Draft                    phtal                         May 2020
 
 
 
-Montoya                 Expires November 6, 2020                [Page 8]
+Montoya                 Expires November 6, 2020                [Page 9]
 
 Internet-Draft                    phtal                         May 2020
 
 
-{
-  "href": "http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}",
-  "uriParameters": {
-    "id": "https://api-docs.myclinic.com/fhir/patientId.raml",
-    "_pretty": "https://api-docs.myclinic.com/fhir/parameters/_pretty.raml",
-    "_elements": "https://api-docs.myclinic.com/fhir/parameters/_elements.raml"
-  },
-  "operation": {
-    "HTTP": {
-      "method": "GET",
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
-    }
-  }
-}
+ {
+   "href": "http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}",
+   "uriParameters": {
+     "id": "https://docs.clinic.com/fhir/patientId.raml",
+     "_pretty":
+       "https://docs.clinic.com/fhir/parameters/_pretty.raml",
+     "_elements":
+       "https://docs.clinic.com/fhir/parameters/_elements.raml"
+   },
+   "operation": {
+     "HTTP": {
+       "method": "GET",
+       "produces":
+         "application/phtal+json;
+           profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+         application/phtal+xml;
+           profile=\"http://hl7.org/fhir/encounter.xsd\""
+     }
+   }
+ }
 
    *XML Representation Example*
 
-<phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter">
-  <phtal:href>http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}</phtal:href>
-  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/patientId.raml">id</phtal:uriParameter>
-  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml">_pretty</phtal:uriParameter>
-  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_elements.raml">_elements</phtal:uriParameter>
-  <phtal:operation protocol="HTTP">
-    <phtal:method>GET</phtal:method>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
-    </phtal:produces>
-  </phtal:instructions>
-</phtal:link>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 10]
+
+Internet-Draft                    phtal                         May 2020
+
+
+   <phtal:link rel="https://docs.clinic.com/fhir/rel/encounter">
+     <phtal:href>
+       http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}
+     </phtal:href>
+     <phtal:uriParameter
+       profile="https://docs.clinic.com/fhir/patientId.raml">
+       id
+     </phtal:uriParameter>
+     <phtal:uriParameter
+       profile="https://docs.clinic.com/fhir/parameters/_pretty.raml">
+       _pretty
+     </phtal:uriParameter>
+     <phtal:uriParameter
+       profile="https://docs.clinic.com/fhir/parameters/_elements.raml">
+       _elements
+     </phtal:uriParameter>
+     <phtal:operation protocol="HTTP">
+       <phtal:method>GET</phtal:method>
+       <phtal:produces>
+         application/phtal+json;
+           profile="http://hl7.org/fhir/json-schema/Encounter",
+         application/phtal+xml;
+           profile="http://hl7.org/fhir/encounter.xsd"
+       </phtal:produces>
+     </phtal:instructions>
+   </phtal:link>
 
 2.2.3.  Operation Object
 
@@ -495,18 +603,20 @@ Internet-Draft                    phtal                         May 2020
    consistent with the URI specification [RFC3986] and allows PHTAL to
    support arbitrary protocols.
 
+2.2.3.1.  Fixed Fields
 
 
 
 
 
 
-Montoya                 Expires November 6, 2020                [Page 9]
+
+
+
+Montoya                 Expires November 6, 2020               [Page 11]
 
 Internet-Draft                    phtal                         May 2020
 
-
-2.2.3.1.  Fixed Fields
 
    +----------------+----------------+---------------------------------+
    | Name           |      Type      | Description                     |
@@ -557,7 +667,9 @@ Internet-Draft                    phtal                         May 2020
 
 
 
-Montoya                 Expires November 6, 2020               [Page 10]
+
+
+Montoya                 Expires November 6, 2020               [Page 12]
 
 Internet-Draft                    phtal                         May 2020
 
@@ -566,23 +678,32 @@ Internet-Draft                    phtal                         May 2020
 
    *JSON Representation Example*
 
-{
-  "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
-  "requestContent": true,
-  "onInvoke": "..."
-}
+   {
+     "method": "POST",
+     "consumes":
+       "application/phtal+json;
+         profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+     "produces":
+       "application/phtal+json;
+         profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+     "requestContent": true,
+     "onInvoke": "..."
+   }
 
    *XML Representation Example*
 
-<phtal:operation protocol="HTTP" onInvoke="...">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
-    </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
-    </phtal:produces>
-    <phtal:requestContent>true</phtal:requestContent>
-</phtal:operation>
+   <phtal:operation protocol="HTTP" onInvoke="...">
+       <phtal:method>POST</phtal:method>
+       <phtal:consumes>
+         application/phtal+xml;
+           profile="http://hl7.org/fhir/appointment.xsd"
+       </phtal:consumes>
+       <phtal:produces>
+         application/phtal+xml;
+           profile="http://hl7.org/fhir/operationoutcome.xsd"
+       </phtal:produces>
+       <phtal:requestContent>true</phtal:requestContent>
+   </phtal:operation>
 
 2.2.4.  HTTP Operation Object
 
@@ -590,6 +711,24 @@ Internet-Draft                    phtal                         May 2020
    specifically for interactions using the HTTP [RFC7231] protocol.
 
 2.2.4.1.  Added Properties
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 13]
+
+Internet-Draft                    phtal                         May 2020
+
 
    +----------+---------------+----------------------------------------+
    | Name     |      Type     | Description                            |
@@ -608,71 +747,67 @@ Internet-Draft                    phtal                         May 2020
    |          |               | schema, etc.                           |
    +----------+---------------+----------------------------------------+
 
-
-
-
-
-
-Montoya                 Expires November 6, 2020               [Page 11]
-
-Internet-Draft                    phtal                         May 2020
-
-
 2.2.4.2.  Examples
 
    *JSON Representation Example*
 
-{
-  "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
-  "requestContent": true,
-  "security": {
-    "https://api-docs.myclinic.com/fhir/security/basicAuth": [],
-    "https://api-docs.myclinic.com/fhir/security/oauth2.0": [
-      "appointment:write"
-    ]
-  },
-  "headers": {
-    "trace-id": "https://api-docs.myclinic.com/fhir/traceId.raml"
-  }
-}
+   {
+     "method": "POST",
+     "consumes":
+       "application/phtal+json;
+         profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+     "produces":
+       "application/phtal+json;
+         profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+     "requestContent": true,
+     "security": {
+       "https://docs.clinic.com/fhir/security/basicAuth": [],
+       "https://docs.clinic.com/fhir/security/oauth2.0": [
+         "appointment:write"
+       ]
+     },
+     "headers": {
+       "trace-id": "https://docs.clinic.com/fhir/traceId.raml"
+     }
+   }
 
    *XML Representation Example*
 
-<phtal:operation protocol="HTTP">
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
-    </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
-    </phtal:produces>
-    <phtal:requestContent>true</phtal:requestContent>
-    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
-      <phtal:scope>appointment:write</phtal:scope>
-    </phtal:security>
-    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/>
-</phtal:operation>
+
+
+
+
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 14]
+
+Internet-Draft                    phtal                         May 2020
+
+
+   <phtal:operation protocol="HTTP">
+       <phtal:method>POST</phtal:method>
+       <phtal:consumes>
+         application/phtal+xml;
+           profile="http://hl7.org/fhir/appointment.xsd"
+       </phtal:consumes>
+       <phtal:produces>
+         application/phtal+xml;
+           profile="http://hl7.org/fhir/operationoutcome.xsd"
+       </phtal:produces>
+       <phtal:requestContent>true</phtal:requestContent>
+       <phtal:security
+         scheme="https://docs.clinic.com/fhir/security/basicAuth">
+         <phtal:scope>appointment:write</phtal:scope>
+       </phtal:security>
+       <phtal:security
+         scheme="https://docs.clinic.com/fhir/security/oauth2.0"/>
+   </phtal:operation>
 
 2.2.5.  Security Object
 
 2.2.5.1.  Patterned Fields
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Montoya                 Expires November 6, 2020               [Page 12]
-
-Internet-Draft                    phtal                         May 2020
-
 
    +---------+------------+--------------------------------------------+
    | Field   |    Type    | Description                                |
@@ -692,6 +827,20 @@ Internet-Draft                    phtal                         May 2020
    Partial representation of the linked resource.
 
 2.2.6.1.  Fixed Fields
+
+
+
+
+
+
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 15]
+
+Internet-Draft                    phtal                         May 2020
+
 
    +------+----------+-------------------------------------------------+
    | Name |   Type   | Description                                     |
@@ -715,6 +864,21 @@ Internet-Draft                    phtal                         May 2020
 
    *JSON Representation Example*
 
+   {
+     "type":
+       "application/phtal+json;
+         profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
+     "data": {
+       "status": "in-progress",
+       "class": {
+         "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+         "code": "IMP",
+         "display": "inpatient encounter"
+       }
+     }
+   }
+
+   *XML Representation Example*
 
 
 
@@ -725,35 +889,29 @@ Internet-Draft                    phtal                         May 2020
 
 
 
-Montoya                 Expires November 6, 2020               [Page 13]
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 16]
 
 Internet-Draft                    phtal                         May 2020
 
 
-{
-  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
-  "data": {
-    "status": "in-progress",
-    "class": {
-      "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-      "code": "IMP",
-      "display": "inpatient encounter"
-    }
-  }
-}
-
-   *XML Representation Example*
-
-<phtal:partial profile="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
-  <Encounter xmlns="http://hl7.org/fhir">
-    <status value="in-progress"/>
-      <class>
-          <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
-          <code value="IMP"/>
-          <display value="inpatient encounter"/>
-      </class>
-  </Encounter>
-</phtal:partial>
+   <phtal:partial
+     type="application/phtal+xml;
+       profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+     <Encounter xmlns="http://hl7.org/fhir">
+       <status value="in-progress"/>
+         <class>
+           <system
+             value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+           <code value="IMP"/>
+           <display value="inpatient encounter"/>
+         </class>
+       </status>
+     </Encounter>
+   </phtal:partial>
 
 2.3.  Self-descriptive messages
 
@@ -777,15 +935,6 @@ Internet-Draft                    phtal                         May 2020
    efficiently perform significant functions such as encapsulating
    legacy services, and enhancing client functionality.
 
-
-
-
-
-Montoya                 Expires November 6, 2020               [Page 14]
-
-Internet-Draft                    phtal                         May 2020
-
-
 2.3.1.  Linking to a profile
 
    To indicate their preferred interpretation of a PHTAL representation,
@@ -796,6 +945,14 @@ Internet-Draft                    phtal                         May 2020
    OpenAPI schema, etc..
 
    For example consider the following interactions:
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 17]
+
+Internet-Draft                    phtal                         May 2020
+
 
    POST http://www.example.com/some-identifier
    Content-Type: application/json
@@ -811,12 +968,15 @@ Internet-Draft                    phtal                         May 2020
    no semantic information about the content of the message besides how
    it's (de)serialized.
 
-POST http://www.example.com/some-identifier
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
-Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
+   POST http://www.example.com/some-identifier
+   Content-Type: application/phtal+json;
+     profile="http://hl7.org/fhir/json-schema/Appointment"
+   Accept: application/phtal+json;
+     profile="http://hl7.org/fhir/json-schema/OperationOutcome"
 
-200 OK
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
+   200 OK
+   Content-Type: application/phtal+json;
+     profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
 
    In contrast, this second interaction is perfectly clear.  The client
    requested "http://www.example.com/some-identifier" to process a
@@ -834,14 +994,6 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
    would observe desired behavior where supported, but with the
    understanding that it may not be the general case.  Code-on-demand is
    a style of code mobility in which the processing logic is moved from
-
-
-
-Montoya                 Expires November 6, 2020               [Page 15]
-
-Internet-Draft                    phtal                         May 2020
-
-
    the server into the client, thus providing dynamic extensibility;
    functionality can be added to a deployed component without impacting
    the rest of the system.
@@ -850,6 +1002,14 @@ Internet-Draft                    phtal                         May 2020
    adapt to new representations or communication protocols instead of
    having to support overloaded versions of a feature.  At the cost of
    visibility, code-on-demand allows application servers to re-program a
+
+
+
+Montoya                 Expires November 6, 2020               [Page 18]
+
+Internet-Draft                    phtal                         May 2020
+
+
    deployed component to support new features, thus freeing the server
    from the responsibility of maintaining backwards compatibility.
 
@@ -886,21 +1046,25 @@ Internet-Draft                    phtal                         May 2020
    |        |          | mutually exclusive with the source property.  |
    +--------+----------+-----------------------------------------------+
 
-
-
-
-
-
-
-
-Montoya                 Expires November 6, 2020               [Page 16]
-
-Internet-Draft                    phtal                         May 2020
-
-
 2.4.1.2.  Examples
 
    *JSON Representation Example*
+
+
+
+
+
+
+
+
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 19]
+
+Internet-Draft                    phtal                         May 2020
+
 
    {
      "_scripts": [{
@@ -916,7 +1080,8 @@ Internet-Draft                    phtal                         May 2020
    *XML Representation Example*
 
 <Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org">
-  <phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
+  <phtal:script type="text/javascript"
+    src="http://fhir.myclinic.com/scripts/patientScript"/>
   <phtal:script type="text/javascript">
     <![CDATA[
       function foo(evt) {
@@ -926,12 +1091,18 @@ Internet-Draft                    phtal                         May 2020
   </phtal:script>
 </Patient>
 
-3.  IANA Considerations
+3.  Security Considerations
+
+   This document registers two media types in the following section,
+   IANA Considerations.  See the Security Considerations for each type
+   in that section.
+
+4.  IANA Considerations
 
    This specification establishes two media types: 'application/
    phtal+xml' and 'application/phtal+json'
 
-3.1.  application/phtal+xml
+4.1.  application/phtal+xml
 
    *Type name:* application
 
@@ -941,18 +1112,19 @@ Internet-Draft                    phtal                         May 2020
 
    *Optional parameters:*
 
-      *charset:* This parameter has identical semantics to the charset
-      parameter of the 'application/xml' media type as specified in
-      [RFC7303].
 
 
 
 
 
-Montoya                 Expires November 6, 2020               [Page 17]
+Montoya                 Expires November 6, 2020               [Page 20]
 
 Internet-Draft                    phtal                         May 2020
 
+
+      *charset:* This parameter has identical semantics to the charset
+      parameter of the 'application/xml' media type as specified in
+      [RFC7303].
 
       *profile:* A dereferenceable URI that resolves to a document that
       describes the format and semantics of the resource representation,
@@ -999,16 +1171,16 @@ Internet-Draft                    phtal                         May 2020
 
       *macintosh type file code:* TEXT
 
-      *object idenfiers:* none
-
-   *Person to contact for further information:*
 
 
-
-Montoya                 Expires November 6, 2020               [Page 18]
+Montoya                 Expires November 6, 2020               [Page 21]
 
 Internet-Draft                    phtal                         May 2020
 
+
+      *object idenfiers:* none
+
+   *Person to contact for further information:*
 
       *Name:* Jose Montoya
 
@@ -1018,7 +1190,7 @@ Internet-Draft                    phtal                         May 2020
 
    *Author/change controller:* Jose Montoya
 
-3.2.  application/phtal+json
+4.2.  application/phtal+json
 
    *Type name:* application
 
@@ -1055,16 +1227,16 @@ Internet-Draft                    phtal                         May 2020
       content.  In this case, the security considerations in the Media
       Type registrations for those formats shall apply.
 
-   *Interoperability considerations:* none
-
-   *Fragment identifier considerations:* none
 
 
-
-Montoya                 Expires November 6, 2020               [Page 19]
+Montoya                 Expires November 6, 2020               [Page 22]
 
 Internet-Draft                    phtal                         May 2020
 
+
+   *Interoperability considerations:* none
+
+   *Fragment identifier considerations:* none
 
    *Published specification:* This Document
 
@@ -1090,9 +1262,9 @@ Internet-Draft                    phtal                         May 2020
 
    *Author/change controller:* Jose Montoya
 
-4.  References
+5.  References
 
-4.1.  Normative References
+5.1.  Normative References
 
    [I-D.draft-montoya-xrel-01]
               Montoya, J., "Extended Link Relationships", draft-montoya-
@@ -1108,29 +1280,25 @@ Internet-Draft                    phtal                         May 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 23]
+
+Internet-Draft                    phtal                         May 2020
+
+
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/info/rfc3986>.
 
-
-
-
-
-Montoya                 Expires November 6, 2020               [Page 20]
-
-Internet-Draft                    phtal                         May 2020
-
-
    [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
               and D. Orchard, "URI Template", RFC 6570,
               DOI 10.17487/RFC6570, March 2012,
               <https://www.rfc-editor.org/info/rfc6570>.
-
-   [RFC6838]  Freed, N., Klensin, J., and T. Hansen, "Media Type
-              Specifications and Registration Procedures", BCP 13,
-              RFC 6838, DOI 10.17487/RFC6838, January 2013,
-              <https://www.rfc-editor.org/info/rfc6838>.
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
@@ -1150,17 +1318,7 @@ Internet-Draft                    phtal                         May 2020
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
 
-4.2.  Informative References
-
-   [I-D.draft-handrews-json-schema-hyperschema-01]
-              Andrews, H. and A. Wright, "JSON Hyper-Schema: A
-              Vocabulary for Hypermedia Annotation of JSON", draft-
-              handrews-json-schema-hyperschema-01 (work in progress),
-              January 2018.
-
-   [I-D.draft-kelly-json-hal-08]
-              Kelly, M., "JSON Hypertext Application Language", draft-
-              kelly-json-hal-08 (work in progress), May 2016.
+5.2.  Informative References
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
@@ -1168,32 +1326,25 @@ Internet-Draft                    phtal                         May 2020
               <http://www.ics.uci.edu/~fielding/pubs/dissertation/
               fielding_dissertation.pdf>.
 
-
-
-
-
-
-Montoya                 Expires November 6, 2020               [Page 21]
-
-Internet-Draft                    phtal                         May 2020
-
-
-   [W3C.hydra]
-              Lanthaler, M., "A Vocabulary for Hypermedia-Driven Web
-              APIs", 2018, <http://www.hydra-cg.com/spec/latest/core/>.
-
    [W3C.TAG.role-media-types]
               Fielding, R. and I. Jacobs, "Role of Internet Media
               Types", 2001, <https://www.w3.org/2001/tag/doc/
               mime-respect-20130422#media-type>.
 
-4.3.  URIs
+5.3.  URIs
 
    [1] http://www.phtal.org/xsd/phtal.xsd
 
    [2] http://www.phtal.org/json-schema/phtal.json
 
    [3] https://github.com/phtal-org/internet-draft-phtal/issues
+
+
+
+Montoya                 Expires November 6, 2020               [Page 24]
+
+Internet-Draft                    phtal                         May 2020
+
 
    [4] https://phtal-org.github.io/internet-draft-phtal/
 
@@ -1229,4 +1380,21 @@ Author's Address
 
 
 
-Montoya                 Expires November 6, 2020               [Page 22]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Montoya                 Expires November 6, 2020               [Page 25]
