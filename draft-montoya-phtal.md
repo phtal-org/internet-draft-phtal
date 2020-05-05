@@ -21,7 +21,6 @@ normative:
   RFC8259: # JSON
   RFC3986: # URI
   RFC6570: # URI Template
-  RFC6838: # Media Type Specifications and Registration Procedures
   RFC7231: # HTTP
   OAS:
     title: OpenAPI Specification
@@ -31,8 +30,6 @@ normative:
   I-D.draft-montoya-xrel-01:
 
 informative:
-  I-D.draft-kelly-json-hal-08:
-  I-D.draft-handrews-json-schema-hyperschema-01:
   REST:
     target: http://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf
     title: Architectural Styles and the Design of Network-based Software Architectures
@@ -45,14 +42,6 @@ informative:
       "Ph.D.": "Dissertation, University of California, Irvine"
     format:
       PDF: http://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf
-  W3C.hydra:
-    target: http://www.hydra-cg.com/spec/latest/core/
-    title: A Vocabulary for Hypermedia-Driven Web APIs
-    author:
-      ins: M. Lanthaler
-      name: Markus Lanthaler
-      org: Google
-    date: 2018
   W3C.TAG.role-media-types:
     target: https://www.w3.org/2001/tag/doc/mime-respect-20130422#media-type
     title: Role of Internet Media Types
@@ -85,7 +74,7 @@ This document registers two media-type identifiers with the IANA: `application/p
 
 ### General
 
-Representational State Transfer, or **REST**, is an architectural style for distributed hypermedia systems. Introduced and first defined in 2000 in Chapter 5, REST, of the doctoral dissertation "Architectural Styles and the Design of Network-based Software Architecture" by Roy Fielding.
+Representational State Transfer, or [REST](#REST), is an architectural style for distributed hypermedia systems. Introduced and first defined in 2000 in Chapter 5, REST, of the doctoral dissertation "Architectural Styles and the Design of Network-based Software Architecture" by Roy Fielding.
 
 **Hypermedia**, or hypertext, is defined by the presence of application control information embedded within, or as a layer above, the presentation of information. Hypermedia allows for a virtually unbound network of resources while also guiding users through an application as they navigate through hyperlinks.
 
@@ -161,13 +150,16 @@ The operations element MAY be included as part of an HTTP GET response body, or 
     }
   ],
   "_links": {
-    "https://api-docs.myclinic.com/fhir/rel/encounter": [{
+    "https://docs.clinic.com/fhir/rel/encounter": [{
       "href": "http://fhir.myclinic.com/Encounter/1234",
       "operation": {
         "HTTP": {
           "method": "GET",
-          "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                      application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+          "produces":
+            "application/phtal+json;
+              profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+            application/phtal+xml;
+              profile=\"http://hl7.org/fhir/encounter.xsd\""
         }
       }
     }]
@@ -175,12 +167,22 @@ The operations element MAY be included as part of an HTTP GET response body, or 
   "_operations": {
     "HTTP": [{
       "method": "PUT",
-      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Patient\";q=1.0,
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/patient.xsd\;q=1.0"
-                  application/fhir+json;q=0.5,
-                  application/hl7-v3+xml;q=0.1"
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
+      "consumes":
+        "application/phtal+json;
+          profile=\"http://hl7.org/fhir/json-schema/Patient\";
+          q=1.0,
+        application/phtal+xml;
+          profile=\"http://hl7.org/fhir/patient.xsd\";
+          q=1.0,
+        application/fhir+json;
+          q=0.5,
+        application/hl7-v3+xml;
+          q=0.1"
+      "produces":
+        "application/phtal+json;
+          profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
+        application/phtal+xml;
+          profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }]
   }
 }
@@ -197,22 +199,31 @@ The operations element MAY be included as part of an HTTP GET response body, or 
     <given value="Peter"/>
     <given value="James"/>
   </name>
-  <phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter">
+  <phtal:link rel="https://docs.clinic.com/fhir/rel/encounter">
     <phtal:href>http://fhir.myclinic.com/Encounter/1234</phtal:href>
     <phtal:operation protocol="HTTP">
       <phtal:method>GET</phtal:method>
-      <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                    application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+      <phtal:produces>
+        application/phtal+json;
+          profile="http://hl7.org/fhir/json-schema/Encounter",
+        application/phtal+xml;
+          profile="http://hl7.org/fhir/encounter.xsd"
       </phtal:produces>
     </phtal:operation>
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Patient",
-                  application/phtal+xml;profile="http://hl7.org/fhir/patient.xsd"
+    <phtal:consumes>
+      application/phtal+json;
+        profile="http://hl7.org/fhir/json-schema/Patient",
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/patient.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
-                  application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>
+      application/phtal+json;
+        profile="http://hl7.org/fhir/json-schema/OperationOutcome",
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
   </phtal:operation>
 </Patient>
@@ -239,15 +250,20 @@ When the operation element is not present the client SHOULD assume that the requ
 {
   "href": "http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}",
   "uriParameters": {
-    "id": "https://api-docs.myclinic.com/fhir/patientId.raml",
-    "_pretty": "https://api-docs.myclinic.com/fhir/parameters/_pretty.raml",
-    "_elements": "https://api-docs.myclinic.com/fhir/parameters/_elements.raml"
+    "id": "https://docs.clinic.com/fhir/patientId.raml",
+    "_pretty":
+      "https://docs.clinic.com/fhir/parameters/_pretty.raml",
+    "_elements":
+      "https://docs.clinic.com/fhir/parameters/_elements.raml"
   },
   "operation": {
     "HTTP": {
       "method": "GET",
-      "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
-                application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
+      "produces":
+        "application/phtal+json;
+          profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+        application/phtal+xml;
+          profile=\"http://hl7.org/fhir/encounter.xsd\""
     }
   }
 }
@@ -256,15 +272,29 @@ When the operation element is not present the client SHOULD assume that the requ
 **XML Representation Example**
 
 ~~~ xml
-<phtal:link rel="https://api-docs.myclinic.com/fhir/rel/encounter">
-  <phtal:href>http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}</phtal:href>
-  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/patientId.raml">id</phtal:uriParameter>
-  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_pretty.raml">_pretty</phtal:uriParameter>
-  <phtal:uriParameter profile="https://api-docs.myclinic.com/fhir/parameters/_elements.raml">_elements</phtal:uriParameter>
+<phtal:link rel="https://docs.clinic.com/fhir/rel/encounter">
+  <phtal:href>
+    http://fhir.myclinic.com/Patient/{id}/{?_pretty,_elements}
+  </phtal:href>
+  <phtal:uriParameter
+    profile="https://docs.clinic.com/fhir/patientId.raml">
+    id
+  </phtal:uriParameter>
+  <phtal:uriParameter
+    profile="https://docs.clinic.com/fhir/parameters/_pretty.raml">
+    _pretty
+  </phtal:uriParameter>
+  <phtal:uriParameter
+    profile="https://docs.clinic.com/fhir/parameters/_elements.raml">
+    _elements
+  </phtal:uriParameter>
   <phtal:operation protocol="HTTP">
     <phtal:method>GET</phtal:method>
-    <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
-                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
+    <phtal:produces>
+      application/phtal+json;
+        profile="http://hl7.org/fhir/json-schema/Encounter",
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/encounter.xsd"
     </phtal:produces>
   </phtal:instructions>
 </phtal:link>
@@ -295,8 +325,12 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
 ~~~ json
 {
   "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes":
+    "application/phtal+json;
+      profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces":
+    "application/phtal+json;
+      profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "onInvoke": "..."
 }
@@ -307,9 +341,13 @@ The quality weight parameters MAY be used in the `consumes` and `produces` prope
 ~~~ xml
 <phtal:operation protocol="HTTP" onInvoke="...">
     <phtal:method>POST</phtal:method>
-    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
 </phtal:operation>
@@ -333,17 +371,21 @@ headers | Map[`string`, `string`] | A map where the keys are the names of the HT
 ~~~ json
 {
   "method": "POST",
-  "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
-  "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
+  "consumes":
+    "application/phtal+json;
+      profile=\"http://hl7.org/fhir/json-schema/Appointment\"",
+  "produces":
+    "application/phtal+json;
+      profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\"",
   "requestContent": true,
   "security": {
-    "https://api-docs.myclinic.com/fhir/security/basicAuth": [],
-    "https://api-docs.myclinic.com/fhir/security/oauth2.0": [
+    "https://docs.clinic.com/fhir/security/basicAuth": [],
+    "https://docs.clinic.com/fhir/security/oauth2.0": [
       "appointment:write"
     ]
   },
   "headers": {
-    "trace-id": "https://api-docs.myclinic.com/fhir/traceId.raml"
+    "trace-id": "https://docs.clinic.com/fhir/traceId.raml"
   }
 }
 ~~~
@@ -352,15 +394,22 @@ headers | Map[`string`, `string`] | A map where the keys are the names of the HT
 
 ~~~ xml
 <phtal:operation protocol="HTTP">
-    <phtal:method>POST</phtal:method>    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:method>POST</phtal:method>
+    <phtal:consumes>
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
-    <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
+    <phtal:produces>
+      application/phtal+xml;
+        profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
     <phtal:requestContent>true</phtal:requestContent>
-    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/basicAuth">
+    <phtal:security
+      scheme="https://docs.clinic.com/fhir/security/basicAuth">
       <phtal:scope>appointment:write</phtal:scope>
     </phtal:security>
-    <phtal:security scheme="https://api-docs.myclinic.com/fhir/security/oauth2.0"/>
+    <phtal:security
+      scheme="https://docs.clinic.com/fhir/security/oauth2.0"/>
 </phtal:operation>
 ~~~
 
@@ -393,7 +442,9 @@ In the case of XML it is the content of the `partial` element, in JSON it is the
 
 ~~~ json
 {
-  "type": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
+  "type":
+    "application/phtal+json;
+      profile=\"http://hl7.org/fhir/json-schema/Encounter\"",
   "data": {
     "status": "in-progress",
     "class": {
@@ -408,14 +459,18 @@ In the case of XML it is the content of the `partial` element, in JSON it is the
 **XML Representation Example**
 
 ~~~ xml
-<phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+<phtal:partial
+  type="application/phtal+xml;
+    profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
   <Encounter xmlns="http://hl7.org/fhir">
     <status value="in-progress"/>
       <class>
-          <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
-          <code value="IMP"/>
-          <display value="inpatient encounter"/>
+        <system
+          value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+        <code value="IMP"/>
+        <display value="inpatient encounter"/>
       </class>
+    </status>
   </Encounter>
 </phtal:partial>
 ~~~
@@ -449,13 +504,16 @@ This interaction can only be accurately interpreted to mean that the client requ
 
 ~~~~
 POST http://www.example.com/some-identifier
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Appointment"
-Accept: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"
+Content-Type: application/phtal+json;
+  profile="http://hl7.org/fhir/json-schema/Appointment"
+Accept: application/phtal+json;
+  profile="http://hl7.org/fhir/json-schema/OperationOutcome"
 ~~~~
 
 ~~~~
 200 OK
-Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
+Content-Type: application/phtal+json;
+  profile="http://hl7.org/fhir/json-schema/OperationOutcome"```
 ~~~~
 
 In contrast, this second interaction is perfectly clear. The client requested `http://www.example.com/some-identifier` to process a clinical Appointment request and it successfully responded with an OperationOutcome response that details the results of the processing. Intermediaries are able to parse and manipulate the message, perhaps defaulting values of the appointment request, or adding and/or removing links from the response, or maybe redirecting the message to different resources based on the profile information.
@@ -505,7 +563,8 @@ data | `string` | The actual contents of the script. It is mutually exclusive wi
 
 ~~~ xml
 <Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org">
-  <phtal:script type="text/javascript" src="http://fhir.myclinic.com/scripts/patientScript"/>
+  <phtal:script type="text/javascript"
+    src="http://fhir.myclinic.com/scripts/patientScript"/>
   <phtal:script type="text/javascript">
     <![CDATA[
       function foo(evt) {
@@ -515,6 +574,9 @@ data | `string` | The actual contents of the script. It is mutually exclusive wi
   </phtal:script>
 </Patient>
 ~~~
+
+# Security Considerations
+This document registers two media types in the following section, IANA Considerations. See the Security Considerations for each type in that section.
 
 # IANA Considerations
 
