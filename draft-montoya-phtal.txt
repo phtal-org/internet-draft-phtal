@@ -3,9 +3,9 @@
 
 
 Network Working Group                                         J. Montoya
-Internet-Draft                                         November 01, 2019
+Internet-Draft                                              May 05, 2020
 Intended status: Informational
-Expires: May 4, 2020
+Expires: November 6, 2020
 
 
                 Profiled Hypertext Application Language
@@ -32,11 +32,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 4, 2020.
+   This Internet-Draft will expire on November 6, 2020.
 
 Copyright Notice
 
-   Copyright (c) 2019 IETF Trust and the persons identified as the
+   Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 1]
+Montoya                 Expires November 6, 2020                [Page 1]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 2]
+Montoya                 Expires November 6, 2020                [Page 2]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 1.1.  Definitions and Terminology
@@ -136,7 +136,7 @@ Internet-Draft                    phtal                    November 2019
    control information embedded within, or as a layer above, the
    presentation of information.  Hypermedia allows for a virtually
    unbound network of resources while also guiding users through an
-   application as they navigate through hyperlinks.
+   application as they navigate said relationships.
 
    A *resource* is the intended conceptual target of a hypertext
    reference.
@@ -147,7 +147,7 @@ Internet-Draft                    phtal                    November 2019
    within a client's query form, or a representation of some error
    condition for a response.
 
-   A *hyperlink* or simply link, is the representation of a virtual uni-
+   A *hyperlink* or link, is the representation of a virtual uni-
    directional relationship between the context resource represented by
    the document in which the link is found, and another resource.  A
    link consists of a hypertext reference, a hypermedia relationship
@@ -165,9 +165,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 3]
+Montoya                 Expires November 6, 2020                [Page 3]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 1.2.  Motivation
@@ -221,9 +221,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 4]
+Montoya                 Expires November 6, 2020                [Page 4]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
    relationship they depend on the server to provide communication
@@ -277,9 +277,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 5]
+Montoya                 Expires November 6, 2020                [Page 5]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 2.2.1.2.  Examples
@@ -312,10 +312,8 @@ Internet-Draft                    phtal                    November 2019
   "_operations": {
     "HTTP": [{
       "method": "PUT",
-      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Patient\";q=1.0,
-                  application/phtal+xml;profile=\"http://hl7.org/fhir/patient.xsd\;q=1.0"
-                  application/fhir+json;q=0.5,
-                  application/hl7-v3+xml;q=0.1"
+      "consumes": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/Encounter\",
+                  application/phtal+xml;profile=\"http://hl7.org/fhir/encounter.xsd\""
       "produces": "application/phtal+json;profile=\"http://hl7.org/fhir/json-schema/OperationOutcome\",
                   application/phtal+xml;profile=\"http://hl7.org/fhir/operationoutcome.xsd\""
     }]
@@ -333,9 +331,11 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 6]
+
+
+Montoya                 Expires November 6, 2020                [Page 6]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 <Patient xmlns="http://hl7.org/fhir" xmlns:phtal="http://www.phtal.org">
@@ -357,8 +357,8 @@ Internet-Draft                    phtal                    November 2019
   </phtal:link>
   <phtal:operation protocol="HTTP">
     <phtal:method>PUT</phtal:method>
-    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Patient",
-                  application/phtal+xml;profile="http://hl7.org/fhir/patient.xsd"
+    <phtal:consumes>application/phtal+json;profile="http://hl7.org/fhir/json-schema/Encounter",
+                  application/phtal+xml;profile="http://hl7.org/fhir/encounter.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+json;profile="http://hl7.org/fhir/json-schema/OperationOutcome",
                   application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
@@ -389,9 +389,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 7]
+Montoya                 Expires November 6, 2020                [Page 7]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
    +---------------+---------------+-----------------------------------+
@@ -445,9 +445,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 8]
+Montoya                 Expires November 6, 2020                [Page 8]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 {
@@ -501,9 +501,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                  [Page 9]
+Montoya                 Expires November 6, 2020                [Page 9]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 2.2.3.1.  Fixed Fields
@@ -557,9 +557,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 10]
+Montoya                 Expires November 6, 2020               [Page 10]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 2.2.3.2.  Examples
@@ -577,7 +577,6 @@ Internet-Draft                    phtal                    November 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP" onInvoke="...">
-    <phtal:method>POST</phtal:method>
     <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
@@ -613,9 +612,10 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 11]
+
+Montoya                 Expires November 6, 2020               [Page 11]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 2.2.4.2.  Examples
@@ -641,7 +641,7 @@ Internet-Draft                    phtal                    November 2019
    *XML Representation Example*
 
 <phtal:operation protocol="HTTP">
-    <phtal:method>POST</phtal:method>    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
+    <phtal:consumes>application/phtal+xml;profile="http://hl7.org/fhir/appointment.xsd"
     </phtal:consumes>
     <phtal:produces>application/phtal+xml;profile="http://hl7.org/fhir/operationoutcome.xsd"
     </phtal:produces>
@@ -669,9 +669,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 12]
+Montoya                 Expires November 6, 2020               [Page 12]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
    +---------+------------+--------------------------------------------+
@@ -725,9 +725,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 13]
+Montoya                 Expires November 6, 2020               [Page 13]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 {
@@ -744,7 +744,7 @@ Internet-Draft                    phtal                    November 2019
 
    *XML Representation Example*
 
-<phtal:partial type="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
+<phtal:partial profile="application/phtal+xml;profile=\"http://hl7.org/fhir/json-schema/Encounter\"">
   <Encounter xmlns="http://hl7.org/fhir">
     <status value="in-progress"/>
       <class>
@@ -781,9 +781,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 14]
+Montoya                 Expires November 6, 2020               [Page 14]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 2.3.1.  Linking to a profile
@@ -837,9 +837,9 @@ Content-Type: application/phtal+json;profile="http://hl7.org/fhir/json-schema/Op
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 15]
+Montoya                 Expires November 6, 2020               [Page 15]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
    the server into the client, thus providing dynamic extensibility;
@@ -893,9 +893,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 16]
+Montoya                 Expires November 6, 2020               [Page 16]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
 2.4.1.2.  Examples
@@ -949,9 +949,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 17]
+Montoya                 Expires November 6, 2020               [Page 17]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
       *profile:* A dereferenceable URI that resolves to a document that
@@ -1005,9 +1005,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 18]
+Montoya                 Expires November 6, 2020               [Page 18]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
       *Name:* Jose Montoya
@@ -1061,9 +1061,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 19]
+Montoya                 Expires November 6, 2020               [Page 19]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
    *Published specification:* This Document
@@ -1117,9 +1117,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 20]
+Montoya                 Expires November 6, 2020               [Page 20]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
    [RFC6570]  Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
@@ -1173,9 +1173,9 @@ Internet-Draft                    phtal                    November 2019
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 21]
+Montoya                 Expires November 6, 2020               [Page 21]
 
-Internet-Draft                    phtal                    November 2019
+Internet-Draft                    phtal                         May 2020
 
 
    [W3C.hydra]
@@ -1229,4 +1229,4 @@ Author's Address
 
 
 
-Montoya                    Expires May 4, 2020                 [Page 22]
+Montoya                 Expires November 6, 2020               [Page 22]
